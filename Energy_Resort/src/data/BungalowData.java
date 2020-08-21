@@ -1,27 +1,32 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @SuppressWarnings("serial")
 public class BungalowData {
-	
 	//private int idBungalow;
 	private int budget;
-	private int en_req; //sarebbe bisogni
-	//private ora_del_giorno: è char o int?;
-	//private giorno_set: è char o int?;
+	private int enReq; //sarebbe bisogni
+	private int dayHour;
+	private String weekDay;
 	
 	
-//	public DerData(int idDer, Calendar datetime, double costKwh, double productionMin, double productionMax,
-//			double productionRequested, double desiredChoice) 
-//	{
-//		this.idDer = idDer;
-//		this.datetime = (Calendar)datetime.clone();
-//		this.costKwh = costKwh;
-//		this.productionMin = productionMin;
-//		this.productionMax = productionMax;
-//		this.productionRequested = productionRequested;
-//		this.desiredChoice = desiredChoice;
-//	}
+public BungalowData(int budget, int enReq, int dayHour, String weekDay) {
+	this.budget = budget;
+	this.enReq = enReq;
+	this.dayHour = dayHour;
+	this.weekDay = weekDay;
+}
+
+public BungalowData(int budget, int enReq) {
+	this.budget = budget;
+	this.enReq = enReq;
+}
+public BungalowData() {
+	
+}
 
 	public int getBudget() {
 		return budget;
@@ -29,11 +34,23 @@ public class BungalowData {
 	public void setBudget(int budget) {
 		this.budget = budget;
 	}
-	public int getEn_req() {
-		return en_req;
+	public int getEnReq() {
+		return enReq;
 	}
-	public void setEn_req(int en_req) {
-		this.en_req = en_req;
+	public void setEnReq(int enReq) {
+		this.enReq = enReq;
+	}
+	public int getDayHour() {
+		return dayHour;
+	}
+	public void setDayHour(int dayHour) {
+		this.dayHour = dayHour;
+	}
+	public String getWeekDay() {
+		return weekDay;
+	}
+	public void setWeekDay(String weekDay) {
+		this.weekDay = weekDay;
 	}
 
 }
