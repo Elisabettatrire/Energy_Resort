@@ -36,10 +36,11 @@ public class PlatformCreator {
 		
 		try {
 			AgentController dso = cc.createNewAgent("Dso", "agents.DsoAgent", null);
+			AgentController bungalow = cc.createNewAgent("Bungalow", "agents.BungalowAgent", null);
 			
-			/*dso.start();
-			control.start();
-			*/
+			dso.start();
+			bungalow.start();
+			
 		} catch (StaleProxyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

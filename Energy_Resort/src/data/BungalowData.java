@@ -9,11 +9,12 @@ public class BungalowData {
 	//private int idBungalow;
 	private int budget;
 	private int enReq; //sarebbe bisogni
-	private int dayHour;
-	private String weekDay;
+	private int dayHour=10;
+	//private String weekDay="lunedì";
+	private int weekDay=1;
 	
 	
-public BungalowData(int budget, int enReq, int dayHour, String weekDay) {
+public BungalowData(int budget, int enReq, int dayHour, int weekDay) {
 	this.budget = budget;
 	this.enReq = enReq;
 	this.dayHour = dayHour;
@@ -46,10 +47,10 @@ public BungalowData() {
 	public void setDayHour(int dayHour) {
 		this.dayHour = dayHour;
 	}
-	public String getWeekDay() {
+	public int getWeekDay() {
 		return weekDay;
 	}
-	public void setWeekDay(String weekDay) {
+	public void setWeekDay(int weekDay) {
 		this.weekDay = weekDay;
 	}
 

@@ -8,21 +8,22 @@ import utils.EnergyData;
 
 public class DbBungalowData extends DbConnection {
 	// dayHour e weekDay devono essere settati da un altro metodo
-	public BungalowData getBungalowData (String nameBudget, String nameNeeds, int dayHour, int weekDay)
+	
+	public BungalowData getBungalowData ()
 	{
 		BungalowData data = new BungalowData();
 		//System.out.println("In query: datetime:"+datetime.getTime());
-		String query = "SELECT " +nameBudget +nameNeeds
+		String query = "SELECT *" 
 				+ " FROM Bisogni_energetici"
-				+ " WHERE Ora_giorno = "+dayHour
-				+ " AND Giorno_set = "+weekDay;
-		//System.out.println(query);
+				+ " WHERE Ora_giorno = "+data.getDayHour()
+				+ " AND Giorno_set = "+data.getWeekDay();
+		System.out.println(query);
 		try {
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next())
 			{			
-				data = new BungalowData(rs.getInt("budget"), 
-						rs.getInt("enReq"));
+				data = new BungalowData(rs.getInt("Budget_b1"), 
+						rs.getInt("Bisogni_b1"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
