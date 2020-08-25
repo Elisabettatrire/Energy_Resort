@@ -13,8 +13,8 @@ import jade.lang.acl.UnreadableException;
 @SuppressWarnings("serial")
 public class BungalowBehaviour extends OneShotBehaviour{
 	
-	String nameBudget="Budget_b1";
-	String nameNeeds="Bisogni_b1";
+	//String nameBudget="Budget_b1";
+	//String nameNeeds="Bisogni_b1";
 	//int dayHour=1;
 	//int weekDay=1;
 	
@@ -23,7 +23,9 @@ public class BungalowBehaviour extends OneShotBehaviour{
 	} 
 	
 	public void action() {
+		
 		BungalowData bungalowData = new DbBungalowData().getBungalowData();
+		
 		System.out.println("il budget è: "+bungalowData.getBudget()+", i bisogni sono:  "+ bungalowData.getEnReq()+
 				", l'ora è: "+ bungalowData.getDayHour()+ ", il giorno è: "+ bungalowData.getWeekDay());
 		

@@ -7,7 +7,10 @@ import utils.EnergyData;
 
 
 public class DbBungalowData extends DbConnection {
+	
+	
 	// dayHour e weekDay devono essere settati da un altro metodo
+	
 	
 	public BungalowData getBungalowData ()
 	{
