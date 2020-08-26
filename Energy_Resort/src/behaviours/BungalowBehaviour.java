@@ -24,10 +24,10 @@ public class BungalowBehaviour extends OneShotBehaviour{
 	
 	public void action() {
 		
-		BungalowData bungalowData = new DbBungalowData().getBungalowData();
+		//BungalowData bungalowData = new DbBungalowData().getBungalowData();
 		
-		System.out.println("il budget è: "+bungalowData.getBudget()+", i bisogni sono:  "+ bungalowData.getEnReq()+
-				", l'ora è: "+ bungalowData.getDayHour()+ ", il giorno è: "+ bungalowData.getWeekDay());
+		//System.out.println("il budget è: "+bungalowData.getBudget()+", i bisogni sono:  "+ bungalowData.getEnReq()+
+			//	", l'ora è: "+ bungalowData.getDayHour()+ ", il giorno è: "+ bungalowData.getWeekDay());
 		
 	}
 

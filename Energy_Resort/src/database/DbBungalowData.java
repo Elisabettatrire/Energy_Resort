@@ -20,7 +20,7 @@ public class DbBungalowData extends DbConnection {
 				+ " FROM Bisogni_energetici"
 				+ " WHERE Ora_giorno = "+data.getDayHour()
 				+ " AND Giorno_set = "+data.getWeekDay();
-		System.out.println(query);
+		//System.out.println(query);
 		try {
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next())

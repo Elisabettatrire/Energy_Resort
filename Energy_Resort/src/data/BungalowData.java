@@ -1,8 +1,6 @@
 package data;
 
 
-
-
 @SuppressWarnings("serial")
 public class BungalowData {
 	//private int idBungalow;
