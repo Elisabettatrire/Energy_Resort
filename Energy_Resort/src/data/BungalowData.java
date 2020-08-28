@@ -1,5 +1,6 @@
 package data;
 
+import java.util.Hashtable;
 
 @SuppressWarnings("serial")
 public class BungalowData {
@@ -9,13 +10,15 @@ public class BungalowData {
 	private int dayHour=10;
 	//private String weekDay="lunedì";
 	private int weekDay=1;
+	private Hashtable<String,Integer> energyPrices;
 	
-	
-public BungalowData(int budget, int enReq, int dayHour, int weekDay) {
+
+public BungalowData(int budget, int enReq, int dayHour, int weekDay, Hashtable<String, Integer> energyPrices) {
 	this.budget = budget;
 	this.enReq = enReq;
 	this.dayHour = dayHour;
 	this.weekDay = weekDay;
+	this.energyPrices = energyPrices;
 }
 
 public BungalowData(int budget, int enReq) {
@@ -49,6 +52,13 @@ public BungalowData() {
 	}
 	public void setWeekDay(int weekDay) {
 		this.weekDay = weekDay;
+	}
+	public Hashtable<String, Integer> getEnergyPrices() {
+		return energyPrices;
+	}
+
+	public void setEnergyPrices(Hashtable<String, Integer> energyPrices) {
+		this.energyPrices = energyPrices;
 	}
 
 }

@@ -52,14 +52,19 @@ public class AeolianBehaviour extends TickerBehaviour{
 		if(aeolian.getWindForecast()==1) {
 			
 			aeolian.setWindPrice(0.3);
+			aeolian.setWindKw(10);
 		}
 		else if(aeolian.getWindForecast()==2){
 			aeolian.setWindPrice(0.6);
+			aeolian.setWindKw(5);
 			}
 		else {
 		aeolian.setWindPrice(1.2);
+		aeolian.setWindKw(2);
 		}
 		
 		System.out.println("il prezzo dell'energia eolica è: "+aeolian.getWindPrice());
+		System.out.println("i kw prodotti sono: "+aeolian.getWindKw());
+
 }
 }

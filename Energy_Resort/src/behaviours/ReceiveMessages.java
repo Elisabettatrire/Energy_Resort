@@ -6,18 +6,33 @@ import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import jade.core.behaviours.CyclicBehaviour;
+import agents.BungalowAgent;
+
 
 @SuppressWarnings("serial")
-public class ReceiveMessages extends TickerBehaviour{
+public class ReceiveMessages extends CyclicBehaviour{
 	
 	public ReceiveMessages(Agent a){
-		super(a, 1000);
+		super(a);
 	}
 	
-	@Override
-	protected void onTick() {
-		// TODO Auto-generated method stub
+	public void action()
+	{
+		ACLMessage msg = this.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
 		
+		if (msg != null)
+		{
+			System.out.println(this.myAgent.getLocalName() + ": ho ricevuto un msg da " + 
+					msg.getSender().getLocalName()
+				);
+			System.out.println(this.myAgent.getLocalName() + ": il contenuto e'");
+			System.out.println(this.myAgent.getLocalName() + ": " + msg.getContent());
+		}
+		else
+		{
+			this.block();
+		}
 	}
 	
 	
