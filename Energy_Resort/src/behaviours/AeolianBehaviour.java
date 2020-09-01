@@ -2,19 +2,19 @@ package behaviours;
 
 
 import agents.BaseAgent;
-
+import jade.core.AID;
 import agents.AeolianAgent;
 import data.AeolianData;
 import database.DbAeolianData;
 import java.util.Calendar;
 import java.time.*;
 import jade.core.Agent;
-import jade.core.behaviours.TickerBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 
-public class AeolianBehaviour extends TickerBehaviour{
+public class AeolianBehaviour extends OneShotBehaviour{
 	
 //	LoadInfo loadInfo = new DbLoadInfo().getLoadInfoByIdAgent(this.myAgent.getName(), msgData.getDatetime());
 //	//System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" prima: "+msgData.getDatetime().getTime());
@@ -32,14 +32,15 @@ public class AeolianBehaviour extends TickerBehaviour{
 	
 	DbAeolianData windDb=new DbAeolianData();
 	
+	ACLMessage msgData = new ACLMessage(ACLMessage.INFORM);
 	
-	public AeolianBehaviour(Agent a, long period)
+	public AeolianBehaviour(Agent a)
 	{
-		super(a, period);
+		super(a);
 		
 	}
 	
-	protected void onTick() {
+	public void action() {
 		
 		aeolian.setDayHour(hour);
 		aeolian.setWeekDay(day);
@@ -63,8 +64,15 @@ public class AeolianBehaviour extends TickerBehaviour{
 		aeolian.setWindKw(2);
 		}
 		
-		System.out.println("il prezzo dell'energia eolica è: "+aeolian.getWindPrice());
-		System.out.println("i kw prodotti sono: "+aeolian.getWindKw());
+//		System.out.println("il prezzo dell'energia eolica è: "+aeolian.getWindPrice());
+//		System.out.println("i kw prodotti sono: "+aeolian.getWindKw());
+		
+		
+		msgData.setContent("Ho prodotto"+aeolian.getWindKw()+" kW e il prezzo �: "+aeolian.getWindPrice()+" euro al kW.");
+
+		AID aid=new AID("Bungalow", AID.ISLOCALNAME);
+		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent,
+		aid, "request", msgData);
 
 }
 }

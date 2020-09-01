@@ -29,7 +29,8 @@ public class BungalowBehaviour extends OneShotBehaviour{
 //		}
 //	}
 	
-	String msgData = "Ciao eolico, quanta energia hai e a che prezzo?";
+	ACLMessage msgData = new ACLMessage(ACLMessage.INFORM);
+	
 	
 	public void action() {
 		
@@ -44,6 +45,7 @@ public class BungalowBehaviour extends OneShotBehaviour{
 //	        msg.addReceiver( new AID( "Aeolian" + i, AID.ISLOCALNAME) );
 //	     send(msg);
 //	     
+		msgData.setContent("Ciao eolico, quanta energia mi puoi vendere? E a che prezzo?");
 	    AID aid=new AID("Aeolian", AID.ISLOCALNAME);
 		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, 
 				aid, "request", msgData);
