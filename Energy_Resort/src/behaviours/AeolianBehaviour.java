@@ -32,7 +32,7 @@ public class AeolianBehaviour extends OneShotBehaviour{
 	
 	DbAeolianData windDb=new DbAeolianData();
 	
-	ACLMessage msgData = new ACLMessage(ACLMessage.INFORM);
+	String msgData;
 	
 	public AeolianBehaviour(Agent a)
 	{
@@ -68,7 +68,7 @@ public class AeolianBehaviour extends OneShotBehaviour{
 //		System.out.println("i kw prodotti sono: "+aeolian.getWindKw());
 		
 		
-		msgData.setContent("Ho prodotto"+aeolian.getWindKw()+" kW e il prezzo è: "+aeolian.getWindPrice()+" euro al kW.");
+		msgData = "Ho prodotto "+aeolian.getWindKw()+" kW e il prezzo è: "+aeolian.getWindPrice()+" euro al kW.";
 
 		AID aid=new AID("Bungalow", AID.ISLOCALNAME);
 		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent,
