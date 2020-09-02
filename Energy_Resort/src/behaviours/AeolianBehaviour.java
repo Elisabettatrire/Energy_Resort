@@ -21,10 +21,10 @@ public class AeolianBehaviour extends TickerBehaviour{
 //	LoadData loadData = new DbLoadData().getLastLoadData(loadInfo.getIdLoad(), msgData.getDatetime());
 //	//System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" dopo: "+msgData.getDatetime().getTime());
 	
-	Calendar calendar = Calendar.getInstance() ;
-    int day=calendar.get(Calendar.DAY_OF_WEEK);//domenica è 1...
+	
+    int day;//domenica è 1...
   
-    int hour = calendar.get(Calendar.HOUR_OF_DAY)+1;
+    int hour; 
     
   
 
@@ -40,14 +40,16 @@ public class AeolianBehaviour extends TickerBehaviour{
 	}
 	
 	protected void onTick() {
-		
+		Calendar calendar = Calendar.getInstance();
+		day=calendar.get(Calendar.DAY_OF_WEEK);
+		hour= calendar.get(Calendar.HOUR_OF_DAY)+1;
 		aeolian.setDayHour(hour);
 		aeolian.setWeekDay(day);
 		aeolian.setWindForecast( windDb.getWind(aeolian.getDayHour(), aeolian.getWeekDay()));
 		
-		System.out.println("il vento è: "+aeolian.getWindForecast()); 
-		  System.out.println("il giorno è: "+day);
-		  System.out.println("l'ora è: " + hour);
+		System.out.println("il vento e': "+aeolian.getWindForecast()); 
+		  System.out.println("il giorno e': "+day);
+		  System.out.println("l'ora e': " + hour);
 		
 		if(aeolian.getWindForecast()==1) {
 			
@@ -67,7 +69,7 @@ public class AeolianBehaviour extends TickerBehaviour{
 //		System.out.println("i kw prodotti sono: "+aeolian.getWindKw());
 		
 		
-		msgData = "Ho prodotto "+aeolian.getWindKw()+" kW e il prezzo �: "+aeolian.getWindPrice()+" euro al kW.";
+		msgData = "Ho prodotto "+aeolian.getWindKw()+" kW e il prezzo e': "+aeolian.getWindPrice()+" euro al kW.";
 
 		AID aid=new AID("Bungalow", AID.ISLOCALNAME);
 		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent,

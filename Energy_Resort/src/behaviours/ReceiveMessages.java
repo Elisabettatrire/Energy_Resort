@@ -23,7 +23,7 @@ public class ReceiveMessages extends CyclicBehaviour{
 		
 		if (msg != null)
 		{
-			System.out.println(this.myAgent.getLocalName() + ": ho ricevuto un msg da " + 
+			System.out.println(this.myAgent.getLocalName() + ": ho ricevuto un messaggio da " + 
 					msg.getSender().getLocalName()
 				);
 			System.out.println(this.myAgent.getLocalName() + ": il contenuto e'");
