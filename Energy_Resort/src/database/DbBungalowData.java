@@ -12,9 +12,8 @@ public class DbBungalowData extends DbConnection {
 	// dayHour e weekDay devono essere settati da un altro metodo
 	
 	
-	public BungalowData getBungalowData ()
+	public BungalowData getBungalowData (BungalowData data)
 	{
-		BungalowData data = new BungalowData();
 		//System.out.println("In query: datetime:"+datetime.getTime());
 		String query = "SELECT *" 
 				+ " FROM Bisogni_energetici"
@@ -25,13 +24,13 @@ public class DbBungalowData extends DbConnection {
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next())
 			{			
-				data = new BungalowData(rs.getInt("Budget_b1"), 
-						rs.getInt("Bisogni_b1"));
+				data.setEnReq(rs.getInt("Bisogni_b1"));
+				data.setBudget(rs.getInt("Budget_b1"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			connClose();
+			//connClose();
 		}
 		return data;
 	}

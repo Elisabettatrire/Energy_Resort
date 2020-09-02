@@ -40,8 +40,9 @@ public class PlatformCreator {
 			AgentController aeolian = cc.createNewAgent("Aeolian", "agents.AeolianAgent", null);
 			
 			dso.start();
-			aeolian.start();
 			bungalow.start();
+			aeolian.start();
+			
 			
 			
 		} catch (StaleProxyException e) {
