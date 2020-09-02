@@ -6,18 +6,18 @@ import agents.BungalowAgent;
 import data.BungalowData;
 import database.DbBungalowData;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.lang.acl.MessageTemplate;
 import jade.core.AID;
 
 @SuppressWarnings("serial")
-public class BungalowBehaviour extends OneShotBehaviour{
+public class BungalowBehaviour extends TickerBehaviour{
 	
 
-	public BungalowBehaviour(Agent a) {
-		super(a);
+	public BungalowBehaviour(Agent a, long period) {
+		super(a, period);
 	} 
 //	ResultPowerPrice msgData;
 //	
@@ -32,7 +32,7 @@ public class BungalowBehaviour extends OneShotBehaviour{
 	String msgData;
 	
 	
-	public void action() {
+	protected void onTick() {
 		
 		//BungalowData bungalowData = new DbBungalowData().getBungalowData();
 		

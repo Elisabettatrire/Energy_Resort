@@ -9,12 +9,12 @@ import database.DbAeolianData;
 import java.util.Calendar;
 import java.time.*;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.TickerBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 
-public class AeolianBehaviour extends OneShotBehaviour{
+public class AeolianBehaviour extends TickerBehaviour{
 	
 //	LoadInfo loadInfo = new DbLoadInfo().getLoadInfoByIdAgent(this.myAgent.getName(), msgData.getDatetime());
 //	//System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" prima: "+msgData.getDatetime().getTime());
@@ -34,13 +34,12 @@ public class AeolianBehaviour extends OneShotBehaviour{
 	
 	String msgData;
 	
-	public AeolianBehaviour(Agent a)
+	public AeolianBehaviour(Agent a, long period)
 	{
-		super(a);
-		
+		super(a, period);
 	}
 	
-	public void action() {
+	protected void onTick() {
 		
 		aeolian.setDayHour(hour);
 		aeolian.setWeekDay(day);
