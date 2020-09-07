@@ -11,9 +11,9 @@ import agents.BungalowAgent;
 
 
 @SuppressWarnings("serial")
-public class ReceiveMessages extends CyclicBehaviour{
+public class ReceiveMessagesBungalow extends CyclicBehaviour{
 	
-	public ReceiveMessages(Agent a){
+	public ReceiveMessagesBungalow(Agent a){
 		super(a);
 	}
 	

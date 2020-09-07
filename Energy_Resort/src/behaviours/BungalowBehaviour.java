@@ -55,12 +55,13 @@ public class BungalowBehaviour extends TickerBehaviour{
 		bungalow.setDayHour(hour);
 		bungalow.setWeekDay(day);
 		enDb.getBungalowData(bungalow);
-		System.out.println("il budget e': "+bungalow.getBudget()+", i bisogni sono: "+ bungalow.getEnReq()+
-		", l'ora e'¨: "+ bungalow.getDayHour()+ ", il giorno e'¨: "+ bungalow.getWeekDay());
-		msgData = "Ciao eolico, quanta energia mi puoi vendere? E a che prezzo?";
-	    AID aid=new AID("Aeolian", AID.ISLOCALNAME);
-		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, 
-				aid, "request", msgData);
+		
+//		msgData = "Ciao eolico, quanta energia mi puoi vendere? E a che prezzo?";
+//	    AID aid=new AID("Aeolian", AID.ISLOCALNAME);
+//		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, 
+//				aid, "request", msgData);
+//		System.out.println("il budget e': "+bungalow.getBudget()+", i bisogni sono: "+ bungalow.getEnReq()+
+//				", l'ora e': "+ bungalow.getDayHour()+ ", il giorno e': "+ bungalow.getWeekDay());
 	}
 
 }

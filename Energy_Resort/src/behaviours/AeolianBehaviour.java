@@ -10,8 +10,10 @@ import java.util.Calendar;
 import java.time.*;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
+import jade.core.behaviours.WakerBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 public class AeolianBehaviour extends TickerBehaviour{
@@ -68,12 +70,32 @@ public class AeolianBehaviour extends TickerBehaviour{
 //		System.out.println("il prezzo dell'energia eolica è: "+aeolian.getWindPrice());
 //		System.out.println("i kw prodotti sono: "+aeolian.getWindKw());
 		
+ACLMessage msg = this.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
 		
-		msgData = "Ho prodotto "+aeolian.getWindKw()+" kW e il prezzo e': "+aeolian.getWindPrice()+" euro al kW.";
-
-		AID aid=new AID("Bungalow", AID.ISLOCALNAME);
-		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent,
-		aid, "request", msgData);
+		if (msg != null)
+		{
+			ACLMessage reply = msg.createReply();
+			AID receiver = new AID();
+			receiver.setLocalName("Bungalow");
+			reply.setContent("Ho prodotto "+aeolian.getWindKw()+
+					" kW e il prezzo e': "+aeolian.getWindPrice()+" euro al kW.");
+			reply.setPerformative(ACLMessage.INFORM);
+			reply.addReceiver(receiver);
+			reply.setConversationId("richiesta");
+			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 5000) {
+				protected void onWake()
+				{
+					this.myAgent.send(reply);
+				}
+			});
+			
+		}
+		else
+		{
+			this.block();
+		}
+	}
 
 }
-}
+
+

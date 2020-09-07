@@ -7,9 +7,9 @@ public class BungalowData {
 	//private int idBungalow;
 	private int budget;
 	private int enReq; //sarebbe bisogni
-	private int dayHour=10;
+	private int dayHour;
 	//private String weekDay="lunedì";
-	private int weekDay=1;
+	private int weekDay;
 	private Hashtable<String,Integer> energyPrices;
 	
 

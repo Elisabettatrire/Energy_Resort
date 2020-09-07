@@ -1,6 +1,6 @@
 package agents;
 
-import behaviours.ReceiveMessages;
+import behaviours.ReceiveMessagesBungalow;
 import behaviours.DsoBehaviour;
 
 @SuppressWarnings("serial")
