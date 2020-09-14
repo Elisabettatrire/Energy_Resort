@@ -1,6 +1,6 @@
 package agents;
 import behaviours.AeolianBehaviour;
-import behaviours.ReceiveMessagesAeolian;
+//import behaviours.ReceiveMessagesAeolian;
 
 
 public class AeolianAgent extends BaseAgent{
@@ -9,7 +9,7 @@ public class AeolianAgent extends BaseAgent{
 		
 		registerDfAgent(this.getHap(), "AeolianAgent");
 		this.addBehaviour(new AeolianBehaviour(this, 5000));
-		this.addBehaviour(new ReceiveMessagesAeolian(this));
+		//this.addBehaviour(new ReceiveMessagesAeolian(this));
 	}
 
 
