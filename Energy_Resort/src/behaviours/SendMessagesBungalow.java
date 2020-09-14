@@ -53,9 +53,8 @@ public class SendMessagesBungalow extends TickerBehaviour
 		AID receiver = new AID();
 		receiver.setLocalName("Aeolian");
 		msg.setContent("Ciao eolico, quanta energia mi puoi vendere? E a che prezzo?");
-		msg.addReceiver(receiver);
 		msg.setConversationId("richiesta");
-		
+		msg.addReceiver(receiver);
 		this.myAgent.send(msg); }
 		}
 		);

@@ -9,6 +9,7 @@ import database.DbAeolianData;
 import java.util.Calendar;
 import java.time.*;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.core.behaviours.WakerBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -16,7 +17,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
-public class AeolianBehaviour extends TickerBehaviour{
+public class AeolianBehaviour extends CyclicBehaviour{
 	
 //	LoadInfo loadInfo = new DbLoadInfo().getLoadInfoByIdAgent(this.myAgent.getName(), msgData.getDatetime());
 //	//System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" prima: "+msgData.getDatetime().getTime());
@@ -36,12 +37,12 @@ public class AeolianBehaviour extends TickerBehaviour{
 	
 	String msgData;
 	
-	public AeolianBehaviour(Agent a, long period)
+	public AeolianBehaviour(Agent a)
 	{
-		super(a, period);
+		super(a);
 	}
 	
-	protected void onTick() {
+	public void action() {
 		Calendar calendar = Calendar.getInstance();
 		day=calendar.get(Calendar.DAY_OF_WEEK);
 		hour= calendar.get(Calendar.HOUR_OF_DAY)+1;
@@ -83,15 +84,12 @@ ACLMessage msg = this.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessa
 			receiver.setLocalName("Bungalow");
 			reply.setContent("Ho prodotto "+aeolian.getWindKw()+
 					" kW e il prezzo e': "+aeolian.getWindPrice()+" euro al kW.");
-			reply.setPerformative(ACLMessage.INFORM);
-			reply.addReceiver(receiver);
+			//reply.setPerformative(ACLMessage.INFORM);
 			reply.setConversationId("richiesta");
-			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 5000) {
-				protected void onWake()
-				{
-					this.myAgent.send(reply);
-				}
-			});
+			//System.out.println(reply);
+		    this.myAgent.send(reply);
+				
+			
 			
 		}
 		else

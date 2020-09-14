@@ -12,6 +12,6 @@ public class BungalowAgent extends BaseAgent{
 		registerDfAgent(this.getHap(), "BungalowAgent");
 		this.addBehaviour(new ReceiveMessagesBungalow(this));
 		this.addBehaviour(new BungalowBehaviour(this, 10000));
-		this.addBehaviour(new SendMessagesBungalow(this, 1000));
+		this.addBehaviour(new SendMessagesBungalow(this, 15000));
 	}
 }
