@@ -4,6 +4,7 @@ package behaviours;
 import agents.BaseAgent;
 import jade.core.AID;
 import agents.AeolianAgent;
+import agents.BungalowAgent;
 import data.AeolianData;
 import database.DbAeolianData;
 import java.util.Calendar;
@@ -50,9 +51,9 @@ public class AeolianBehaviour extends CyclicBehaviour{
 		aeolian.setWeekDay(day);
 		aeolian.setWindForecast( windDb.getWind(aeolian.getDayHour(), aeolian.getWeekDay()));
 		
-		System.out.println("il vento e': "+aeolian.getWindForecast()); 
-		  System.out.println("il giorno e': "+day);
-		  System.out.println("l'ora e': " + hour);
+//		System.out.println("il vento e': "+aeolian.getWindForecast()); 
+//		  System.out.println("il giorno e': "+day);
+//		  System.out.println("l'ora e': " + hour);
 		
 		if(aeolian.getWindForecast()==1) {
 			
@@ -76,9 +77,7 @@ ACLMessage msg = this.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessa
 		if (msg != null)
 		{
 			System.out.println(this.myAgent.getLocalName() +
-					 ": ho ricevuto un messaggio da " + msg.getSender().getLocalName() );
-					  System.out.println(this.myAgent.getLocalName() + ": il contenuto e'");
-					 System.out.println(this.myAgent.getLocalName() + ": " + msg.getContent());
+					 ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
 			ACLMessage reply = msg.createReply();
 			AID receiver = new AID();
 			receiver.setLocalName("Bungalow");

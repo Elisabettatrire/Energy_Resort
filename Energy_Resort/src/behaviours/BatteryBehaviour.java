@@ -2,11 +2,15 @@ package behaviours;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.WakerBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import agents.BaseAgent;
+import agents.SolarAgent;
+import agents.AeolianAgent;
 import agents.BatteryAgent;
 import data.BatteryData;
 
@@ -19,10 +23,42 @@ public class BatteryBehaviour extends TickerBehaviour{
 	BatteryData battery = new BatteryData();
 	
 	protected void onTick() {
-//		if(battery.getCapacity() <= 20) {
-//			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-//			AID receiver = new AID();
-//			receiver.setLocalName("Aeolian");
+	// if(battery.getCapacity() <= 20) {
+		this.myAgent.addBehaviour(new OneShotBehaviour(this.myAgent)
+		{
+			public void action()
+			{				
+				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+				AID receiver1 = new AID();
+				receiver1.setLocalName("Aeolian");
+				msg.addReceiver(receiver1);
+				AID receiver2 = new AID();
+				receiver2.setLocalName("Solar");
+				msg.addReceiver(receiver2);
+				//msg.setContent("Ciao, il mio livello di carica è basso. Mi potresti vendere dell'energia? E a che prezzo?");
+				msg.setContent("Oggi ammare!");
+				msg.setConversationId("Covid");
+				this.myAgent.send(msg);
+			}
+		});
+			
+	// }
+	try {
+		// MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+		ACLMessage msg1 = this.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM)); 
+		if (msg1!=null){
+			//if(this.myAgent.getLocalName()=="Solar")
+			//{
+					System.out.println(this.myAgent.getLocalName() +
+							 ": " + msg1.getSender().getLocalName() + " dice: " + msg1.getContent());
+			//}
+	}
+	} 
+	catch (Exception e){
+		e.printStackTrace();
+	}
+	}
+}
 //			try{
 //				MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 //				ACLMessage msg = this.myAgent.receive(template); 
@@ -164,6 +200,5 @@ public class BatteryBehaviour extends TickerBehaviour{
 //			} catch (UnreadableException e) {
 //				e.printStackTrace();
 //			}	
-		}
-	}
+
 

@@ -3,7 +3,7 @@ import java.util.Hashtable;
 
 public class BatteryData {
 	
-    private int capacity;
+    private int capacity = 100;
 	private int budget;
     private int batteryPrice;
     private Hashtable<String,Integer> bEnergyPrices;
