@@ -1,6 +1,9 @@
 package data;
 
-public class AeolianData {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class AeolianData implements Serializable{
 	
 	private double windPrice;
 	private double windKw;

@@ -1,6 +1,6 @@
 package agents;
 import behaviours.SolarBehaviour;
-import behaviours.ReceiveMessagesBungalow;
+
 
 public class SolarAgent extends BaseAgent{
 	

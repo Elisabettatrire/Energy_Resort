@@ -5,18 +5,19 @@ import agents.BaseAgent;
 import jade.core.AID;
 import agents.AeolianAgent;
 import agents.BungalowAgent;
+
 import data.AeolianData;
 import database.DbAeolianData;
 import java.util.Calendar;
 import java.time.*;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
-public class AeolianBehaviour extends CyclicBehaviour{
+public class AeolianBehaviour extends OneShotBehaviour{
 	
 //	LoadInfo loadInfo = new DbLoadInfo().getLoadInfoByIdAgent(this.myAgent.getName(), msgData.getDatetime());
 //	//System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" prima: "+msgData.getDatetime().getTime());
@@ -82,15 +83,25 @@ public class AeolianBehaviour extends CyclicBehaviour{
 		
 			System.out.println(this.myAgent.getLocalName() +
 					 ": " + msg.getSender().getLocalName() + " dice: " + msgData);
-			ACLMessage reply = msg.createReply();
-			AID receiver = new AID();
-			receiver.setLocalName("Bungalow");
-			reply.setContent("Ho prodotto "+aeolian.getWindKw()+
-					" kW e il prezzo e': "+aeolian.getWindPrice()+" euro al kW.");
+			//ACLMessage reply = msg.createReply();
+			//AID receiver = new AID();
+			//receiver.setLocalName("Bungalow");
+			//reply.setContent("Ho prodotto "+aeolian.getWindKw()+
+			//		" kW e il prezzo e': "+aeolian.getWindPrice()+" euro al kW.");
 			//reply.setPerformative(ACLMessage.INFORM);
-			reply.setConversationId("richiesta");
+			//reply.setConversationId("richiesta");
 			//System.out.println(reply);
-		    this.myAgent.send(reply);
+		   // this.myAgent.send(reply);
+		    
+		    
+		    
+		    
+		    
+		    
+		   // AeolianData ae = new OkData(msgData.getDatetime(), "load", 0);
+			new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent",
+					"energyrequest", aeolian);
+			
 
 	}
 
