@@ -11,8 +11,6 @@ import java.util.Calendar;
 import java.time.*;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.TickerBehaviour;
-import jade.core.behaviours.WakerBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -30,7 +28,7 @@ public class AeolianBehaviour extends CyclicBehaviour{
   
     int hour; 
     
-  
+    ACLMessage msg;
 
 	AeolianData aeolian=new AeolianData();
 	
@@ -41,6 +39,15 @@ public class AeolianBehaviour extends CyclicBehaviour{
 	public AeolianBehaviour(Agent a)
 	{
 		super(a);
+	}
+	
+	public AeolianBehaviour(ACLMessage msg){
+		try {
+			this.msg = msg;
+			this.msgData = msg.getContent();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void action() {
@@ -72,12 +79,9 @@ public class AeolianBehaviour extends CyclicBehaviour{
 //		System.out.println("il prezzo dell'energia eolica è: "+aeolian.getWindPrice());
 //		System.out.println("i kw prodotti sono: "+aeolian.getWindKw());
 		
-ACLMessage msg = this.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
 		
-		if (msg != null)
-		{
 			System.out.println(this.myAgent.getLocalName() +
-					 ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+					 ": " + msg.getSender().getLocalName() + " dice: " + msgData);
 			ACLMessage reply = msg.createReply();
 			AID receiver = new AID();
 			receiver.setLocalName("Bungalow");
@@ -87,14 +91,7 @@ ACLMessage msg = this.myAgent.receive(MessageTemplate.MatchPerformative(ACLMessa
 			reply.setConversationId("richiesta");
 			//System.out.println(reply);
 		    this.myAgent.send(reply);
-				
-			
-			
-		}
-		else
-		{
-			this.block();
-		}
+
 	}
 
 }

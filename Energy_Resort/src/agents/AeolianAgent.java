@@ -11,6 +11,4 @@ public class AeolianAgent extends BaseAgent{
 		this.addBehaviour(new AeolianBehaviour(this));
 		//this.addBehaviour(new ReceiveMessagesAeolian(this));
 	}
-
-
 }
