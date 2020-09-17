@@ -86,6 +86,24 @@ public class BaseAgent extends Agent {
 		return false;
 	}
 	
+	public Boolean sendMessageToAgentsByServiceType (Agent myAgent, AID receiver, 
+			String conversationId)
+	{
+		try {
+			ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+			String messageData = "Ciao "+receiver.getLocalName()+", quanta energia mi puoi vendere?"
+					+ " E a che prezzo?";
+			message.setContent(messageData);
+			message.addReceiver(receiver); 
+			message.setConversationId(conversationId);
+			myAgent.send(message);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public DFAgentDescription[] getAgentsbyServiceType (Agent myAgent, String serviceType)
 	{
 		DFAgentDescription ad = new DFAgentDescription();

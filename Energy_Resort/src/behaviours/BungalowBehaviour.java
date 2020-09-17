@@ -4,12 +4,17 @@ package behaviours;
 import java.util.Calendar;
 
 import agents.BaseAgent;
+import agents.BatteryAgent;
 import agents.BungalowAgent;
+import agents.DsoAgent;
+import agents.SolarAgent;
+import agents.AeolianAgent;
 import data.AeolianData;
 import data.BungalowData;
 import database.DbBungalowData;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.lang.acl.MessageTemplate;
@@ -53,10 +58,25 @@ public class BungalowBehaviour extends OneShotBehaviour{
 //		bungalow.setDayHour(hour);
 //		bungalow.setWeekDay(day);
 //		enDb.getBungalowData(bungalow);
+		AeolianAgent aeolian;
+		BatteryAgent battery;
+		SolarAgent solar;
+		DsoAgent dso;
 		
-		String aeolianMessage= "Ciao eolico, quanta energia mi puoi vendere e a che prezzo?";
-		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "AeolianAgent",
-				"energyrequest", aeolianMessage);
+		[] agents =
+		
+		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, aeolian.getAID(),
+				"energyrequest");
+		
+		DFAgentDescription[] agents = getAgentsbyServiceType(myAgent, serviceType);
+		for(int i=0; i<agents.length; i++)
+		{
+			ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+			message.setContentObject(messageData);
+			message.addReceiver(agents[i].getName()); 
+			message.setConversationId(conversationId);
+			myAgent.send(message);
+		}
 		
 		
 
