@@ -1,0 +1,50 @@
+
+package behaviours;
+import jade.core.Agent;
+import agents.*;
+import jade.core.Agent;
+import jade.core.behaviours.TickerBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
+import jade.core.behaviours.OneShotBehaviour;
+import agents.BungalowAgent;
+import data.AeolianData;
+
+
+
+@SuppressWarnings("serial")
+public class ReceiveAeolianBungalow extends OneShotBehaviour{
+    
+    AeolianData msgAeolianData;
+    ACLMessage msg;
+    
+    
+    public ReceiveAeolianBungalow(Agent a){
+        super(a);
+    }
+    
+    public ReceiveAeolianBungalow(ACLMessage msg) {
+        try {
+            this.msg=msg;
+            msgAeolianData = (AeolianData)msg.getContentObject();
+            }  catch (UnreadableException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void action()
+    {
+        // System.out.print(msgAeolianData);
+            System.out.println(this.myAgent.getLocalName() + ": " + 
+                    msg.getSender().getLocalName() + " dice che ha prodotto " + msgAeolianData.getWindKw()+
+                    " Kw al prezzo di "+msgAeolianData.getWindPrice()+" euro al Kw.");        
+//        else
+//        {
+//            this.block();
+//        }
+    }
+}
+
+
+
