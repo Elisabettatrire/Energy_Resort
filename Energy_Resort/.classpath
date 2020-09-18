@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/elisabettatrire/git/MAS/jade.jar"/>
-	<classpathentry kind="lib" path="/Users/elisabettatrire/git/MAS/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="/Users/elisabettatrire/git/Energy_Resort/Energy_Resort/mysql-connector-java-8.0.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rux91/JADE/jade src/jade/lib/commons-codec/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rux91/Downloads/mysql-connector-java-8.0.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rux91/JADE/jade bin/jade/lib/jade.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

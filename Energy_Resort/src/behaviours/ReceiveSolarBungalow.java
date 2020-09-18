@@ -10,13 +10,14 @@ import jade.lang.acl.UnreadableException;
 import jade.core.behaviours.OneShotBehaviour;
 import agents.BungalowAgent;
 import data.AeolianData;
+import data.SolarData;
 
 
 
 @SuppressWarnings("serial")
 public class ReceiveSolarBungalow extends OneShotBehaviour{
     
-    String msgData;
+	SolarData msgSolarData;
     ACLMessage msg;
     
     
@@ -27,7 +28,7 @@ public class ReceiveSolarBungalow extends OneShotBehaviour{
     public ReceiveSolarBungalow(ACLMessage msg) {
         try {
             this.msg=msg;
-            msgData = msg.getContent();
+            msgSolarData = (SolarData)msg.getContentObject();
             }  catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,7 +38,8 @@ public class ReceiveSolarBungalow extends OneShotBehaviour{
     {
         // System.out.print(msgAeolianData);
             System.out.println(this.myAgent.getLocalName() + ": " + 
-                    msg.getSender().getLocalName() + " dice: " +msgData);    
+                    msg.getSender().getLocalName() + " dice che ha prodotto " + msgSolarData.getSolarKw()+
+                    " Kw al prezzo di "+msgSolarData.getSolarPrice()+" euro al Kw.");        
 //        else
 //        {
 //            this.block();

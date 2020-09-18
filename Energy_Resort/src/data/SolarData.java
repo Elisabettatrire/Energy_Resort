@@ -1,6 +1,8 @@
 package data;
 
-public class SolarData {
+import java.io.Serializable;
+
+public class SolarData implements Serializable{
 	
 	private double solarPrice;
 	private double solarKw;
