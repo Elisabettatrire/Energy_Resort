@@ -9,6 +9,7 @@ import agents.DsoAgent;
 import agents.SolarAgent;
 import agents.BungalowAgent;
 import behaviours.AeolianBehaviour;
+import behaviours.DsoBehaviour;
 import behaviours.SolarBehaviour;
 import behaviours.ReceiveAeolianBungalow;
 import behaviours.ReceiveSolarBungalow;
@@ -50,6 +51,18 @@ public class ReceiveMessages extends TickerBehaviour{
                     {
                         this.myAgent.addBehaviour(new ReceiveSolarBungalow(msg));
                     }
+                    else if(msg.getConversationId().equals("pricedso")) 
+                    {
+                        this.myAgent.addBehaviour(new ReceiveDsoBungalow(msg));
+                    }
+                    else if(msg.getConversationId().equals("pricebattery")) 
+                    {
+                        this.myAgent.addBehaviour(new ReceiveBatteryBungalow(msg));
+                    }
+                    else if(msg.getConversationId().equals("stopselling")) 
+                    {
+                        this.myAgent.addBehaviour(new ReceiveBatteryBungalow(msg));
+                    }
                 }
                 if(this.myAgent instanceof SolarAgent)
                 {
@@ -58,6 +71,21 @@ public class ReceiveMessages extends TickerBehaviour{
                         this.myAgent.addBehaviour(new SolarBehaviour(msg));
                     }
                 }
+                if(this.myAgent instanceof DsoAgent)
+                {
+                    if(msg.getConversationId().equals("energyrequest"))
+                    {
+                        this.myAgent.addBehaviour(new DsoBehaviour(msg));
+                    }
+                }
+                if(this.myAgent instanceof BatteryAgent)
+                {
+                    if(msg.getConversationId().equals("energyrequest"))
+                    {
+                        this.myAgent.addBehaviour(new BatteryBehaviour(msg));
+                    }
+                }
+                
             }
             
             /*else

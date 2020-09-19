@@ -1,14 +1,16 @@
 package data;
 import java.util.Hashtable;
 
-public class BatteryData {
+import jade.util.leap.Serializable;
+
+public class BatteryData implements Serializable{
 	
-    private int capacity = 100;
+    private int capacity = 50;
 	private int budget;
-    private int batteryPrice;
+    private double batteryPrice=0.8;
     private Hashtable<String,Integer> bEnergyPrices;
     
-    public BatteryData(int capacity, int budget, int batteryPrice, Hashtable<String, Integer> bEnergyPrices) {
+    public BatteryData(int capacity, int budget, double batteryPrice, Hashtable<String, Integer> bEnergyPrices) {
     	this.budget = budget;
     	this.capacity = capacity;
     	this.batteryPrice = batteryPrice;
@@ -35,11 +37,11 @@ public class BatteryData {
 		this.budget = budget;
 	}
 
-	public int getBatteryPrice() {
+	public double getBatteryPrice() {
 		return batteryPrice;
 	}
 
-	public void setBatteryPrice(int batteryPrice) {
+	public void setBatteryPrice(double batteryPrice) {
 		this.batteryPrice = batteryPrice;
 	}
 

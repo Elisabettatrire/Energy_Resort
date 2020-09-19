@@ -1,7 +1,6 @@
 package agents;
 
-
-import behaviours.DsoBehaviour;
+import behaviours.ReceiveMessages;
 
 @SuppressWarnings("serial")
 public class DsoAgent extends BaseAgent{
@@ -9,8 +8,7 @@ public class DsoAgent extends BaseAgent{
 		
 		registerDfAgent(this.getHap(), "DsoAgent");
 		
-		//this.addBehaviour(new DsoBehaviour(data));
-		//this.addBehaviour(new ReceiveMessages(this));
+		this.addBehaviour(new ReceiveMessages(this, 10000));
 	}
 	
 

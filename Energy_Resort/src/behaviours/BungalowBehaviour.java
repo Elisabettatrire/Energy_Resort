@@ -36,44 +36,21 @@ public class BungalowBehaviour extends OneShotBehaviour{
         super(a);
     } 
     
-    
-    
-    
-//    public BungalowBehaviour(ACLMessage msg){
-//        try {
-//            this.msg = msg;
-//            this.msgData = msg.getContent();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
     BungalowData bungalow=new BungalowData();
     DbBungalowData enDb=new DbBungalowData();
     ACLMessage msg;
     
     
-    int day;//domenica Ã¨ 1...
+    int day;//domenica è 1...
       
     int hour; 
     
     DFAgentDescription[] dfagents;
     
     public void action() {
-        
-    
-//        Calendar calendar = Calendar.getInstance();
-//        day=calendar.get(Calendar.DAY_OF_WEEK);
-//        hour= calendar.get(Calendar.HOUR_OF_DAY)+1;
-//        bungalow.setDayHour(hour);
-//        bungalow.setWeekDay(day);
-//        enDb.getBungalowData(bungalow);
-        
-        
-        String[] agents = {"AeolianAgent", "DsoAgent", "SolarAgent"};
-        
-        // System.out.println(dfagents);
 
- 
+        
+        String[] agents = {"AeolianAgent", "DsoAgent", "SolarAgent","BatteryAgent"};
 
         for(int i=0; i<agents.length; i++) {
             dfagents = new BaseAgent().getAgentsbyServiceType(this.myAgent, agents[i]);

@@ -35,14 +35,11 @@ public class ReceiveAeolianBungalow extends OneShotBehaviour{
     
     public void action()
     {
-        // System.out.print(msgAeolianData);
+      
             System.out.println(this.myAgent.getLocalName() + ": " + 
                     msg.getSender().getLocalName() + " dice che ha prodotto " + msgAeolianData.getWindKw()+
                     " Kw al prezzo di "+msgAeolianData.getWindPrice()+" euro al Kw.");        
-//        else
-//        {
-//            this.block();
-//        }
+
     }
 }
 

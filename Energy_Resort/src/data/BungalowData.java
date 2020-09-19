@@ -10,10 +10,10 @@ public class BungalowData {
 	private int dayHour;
 	//private String weekDay="lunedì";
 	private int weekDay;
-	private Hashtable<String,Integer> energyPrices;
+	private Hashtable<String, Double> energyPrices;
 	
 
-public BungalowData(int budget, int enReq, int dayHour, int weekDay, Hashtable<String, Integer> energyPrices) {
+public BungalowData(int budget, int enReq, int dayHour, int weekDay, Hashtable<String, Double> energyPrices) {
 	this.budget = budget;
 	this.enReq = enReq;
 	this.dayHour = dayHour;
@@ -53,11 +53,11 @@ public BungalowData() {
 	public void setWeekDay(int weekDay) {
 		this.weekDay = weekDay;
 	}
-	public Hashtable<String, Integer> getEnergyPrices() {
+	public Hashtable<String, Double> getEnergyPrices() {
 		return energyPrices;
 	}
 
-	public void setEnergyPrices(Hashtable<String, Integer> energyPrices) {
+	public void setEnergyPrices(Hashtable<String, Double> energyPrices) {
 		this.energyPrices = energyPrices;
 	}
 

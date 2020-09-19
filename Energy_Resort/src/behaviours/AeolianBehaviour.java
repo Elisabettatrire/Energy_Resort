@@ -36,14 +36,12 @@ public class AeolianBehaviour extends OneShotBehaviour{
     int hour; 
     
     ACLMessage msg;
-
- 
-
+    String msgData;
+    
     AeolianData aeolian=new AeolianData();
     
     DbAeolianData windDb=new DbAeolianData();
     
-    String msgData;
     
     public AeolianBehaviour(Agent a)
     {
@@ -60,17 +58,15 @@ public class AeolianBehaviour extends OneShotBehaviour{
     }
     
     public void action() {
+    	
         Calendar calendar = Calendar.getInstance();
         day=calendar.get(Calendar.DAY_OF_WEEK);
         hour= calendar.get(Calendar.HOUR_OF_DAY)+1;
+        
         aeolian.setDayHour(hour);
         aeolian.setWeekDay(day);
         aeolian.setWindForecast( windDb.getWind(aeolian.getDayHour(), aeolian.getWeekDay()));
-        
-//        System.out.println("il vento e': "+aeolian.getWindForecast()); 
-//          System.out.println("il giorno e': "+day);
-//          System.out.println("l'ora e': " + hour);
-        
+              
         if(aeolian.getWindForecast()==1) {
             
             aeolian.setWindPrice(0.3);
@@ -84,37 +80,13 @@ public class AeolianBehaviour extends OneShotBehaviour{
         aeolian.setWindPrice(1.2);
         aeolian.setWindKw(2);
         }
-        
-//        System.out.println("il prezzo dell'energia eolica Ã¨: "+aeolian.getWindPrice());
-//        System.out.println("i kw prodotti sono: "+aeolian.getWindKw());
-        
-        
+ 
             System.out.println(this.myAgent.getLocalName() +
                      ": " + msg.getSender().getLocalName() + " dice: " + msgData);
-            //ACLMessage reply = msg.createReply();
-            //AID receiver = new AID();
-            //receiver.setLocalName("Bungalow");
-            //reply.setContent("Ho prodotto "+aeolian.getWindKw()+
-            //        " kW e il prezzo e': "+aeolian.getWindPrice()+" euro al kW.");
-            //reply.setPerformative(ACLMessage.INFORM);
-            //reply.setConversationId("richiesta");
-            //System.out.println(reply);
-           // this.myAgent.send(reply);
-            
-            
-            
-            
-            
-            
-           // AeolianData ae = new OkData(msgData.getDatetime(), "load", 0);
+       
             new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent",
                     "priceaeolian", aeolian);
-            
-
- 
-
-    }
-
- 
+  
+    } 
 
 }
