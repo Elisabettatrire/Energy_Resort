@@ -1,5 +1,6 @@
 package database;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import data.BungalowData;
@@ -10,22 +11,39 @@ import jade.core.Agent;
 public class DbBungalowData extends DbConnection {
 	int id;
 	public int getBungalowID(String name) {	
-		String query = "SELECT id" 
-				+ " FROM bungalow"
-				+ " WHERE nome = "+name;
+		final String query = "SELECT id FROM bungalow WHERE nome = ? ";
+		PreparedStatement ps = null;
+		
 		try {
-			ResultSet rs = stmt.executeQuery(query);
-			while(rs.next())
-			{			
+			ps = conn.prepareStatement(query);
+			ps.setString(1, name);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){			
 				id = rs.getInt("id");
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			//connClose();
 		}
+		catch (Exception e) {
+	    e.printStackTrace();
+		}
+		finally {
+//			  if (ps != null) {
+//			    try {
+//			      ps.close();
+//			    } catch (Exception ignored) {
+//			    }
+////			ResultSet rs = stmt.executeQuery(query);
+////			while(rs.next())
+			
+////		} catch (SQLException e) {
+////			e.printStackTrace();
+////		} finally {
+////			//connClose();
+////		}
+//		
+//	}
+}
 		return id;
-	}
+}
 	
 	public BungalowData getBungalowData(BungalowData data)
 	{
