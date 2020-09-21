@@ -4,15 +4,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import data.BungalowData;
 import utils.EnergyData;
+import jade.core.Agent;
 
 
 public class DbBungalowData extends DbConnection {
+	int id;
+	public int getBungalowID(String name) {	
+		String query = "SELECT id" 
+				+ " FROM bungalow"
+				+ " WHERE nome = "+name;
+		try {
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next())
+			{			
+				id = rs.getInt("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return id;
+	}
 	
-	
-	// dayHour e weekDay devono essere settati da un altro metodo
-	
-	
-	public BungalowData getBungalowData (BungalowData data)
+	public BungalowData getBungalowData(BungalowData data)
 	{
 		//System.out.println("In query: datetime:"+datetime.getTime());
 		String query = "SELECT *" 
@@ -24,8 +39,8 @@ public class DbBungalowData extends DbConnection {
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next())
 			{			
-				data.setEnReq(rs.getInt("Bisogni_b1"));
-				data.setBudget(rs.getInt("Budget_b1"));
+				data.setEnReq(rs.getInt("Bisogni_b"+data.getId()));
+				data.setBudget(rs.getInt("Budget_b"+data.getId()));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -36,14 +36,16 @@ public class PlatformCreator {
 		
 		try {
 			AgentController dso = cc.createNewAgent("Dso", "agents.DsoAgent", null);
-			AgentController bungalow = cc.createNewAgent("Bungalow", "agents.BungalowAgent", null);
+			AgentController bungalow1 = cc.createNewAgent("Bungalow1", "agents.BungalowAgent", null);
+			AgentController bungalow2 = cc.createNewAgent("Bungalow2", "agents.BungalowAgent", null);
 			AgentController aeolian = cc.createNewAgent("Aeolian", "agents.AeolianAgent", null);
 			AgentController solar = cc.createNewAgent("Solar", "agents.SolarAgent", null);
 			AgentController battery = cc.createNewAgent("Battery", "agents.BatteryAgent", null);
 			
 			dso.start();
 			aeolian.start();
-			bungalow.start();
+			bungalow1.start();
+			bungalow2.start();
 			solar.start();
 			battery.start();
 			

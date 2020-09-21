@@ -25,24 +25,17 @@ import jade.lang.acl.UnreadableException;
 
 public class AeolianBehaviour extends OneShotBehaviour{
     
-//    LoadInfo loadInfo = new DbLoadInfo().getLoadInfoByIdAgent(this.myAgent.getName(), msgData.getDatetime());
-//    //System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" prima: "+msgData.getDatetime().getTime());
-//    LoadData loadData = new DbLoadData().getLastLoadData(loadInfo.getIdLoad(), msgData.getDatetime());
-//    //System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" dopo: "+msgData.getDatetime().getTime());
-    
-    
-    int day;//domenica Ã¨ 1...
-  
+    int day;
     int hour; 
     
     ACLMessage msg;
+    
     String msgData;
     
     AeolianData aeolian=new AeolianData();
     
     DbAeolianData windDb=new DbAeolianData();
-    
-    
+       
     public AeolianBehaviour(Agent a)
     {
         super(a);
@@ -61,7 +54,7 @@ public class AeolianBehaviour extends OneShotBehaviour{
     	
         Calendar calendar = Calendar.getInstance();
         day=calendar.get(Calendar.DAY_OF_WEEK);
-        hour= calendar.get(Calendar.HOUR_OF_DAY)+1;
+        hour= calendar.get(Calendar.HOUR_OF_DAY)+2;
         
         aeolian.setDayHour(hour);
         aeolian.setWeekDay(day);

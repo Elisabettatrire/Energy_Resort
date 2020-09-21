@@ -44,20 +44,21 @@ public class BatteryBehaviour extends OneShotBehaviour{
 		 new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent",
                  "pricebattery", battery);
 		 
-		this.myAgent.addBehaviour(new TickerBehaviour(this.myAgent, 3000)
+		this.myAgent.addBehaviour(new TickerBehaviour(this.myAgent, 1000)
 		{
 			protected void onTick()
 			{				
 				if(battery.getCapacity()<=10 && msg.getConversationId().equals("energyrequest")) {
-					
-				new BaseAgent().sendMessageToAgentsByServiceType (this.myAgent, "BungalowAgent", 
-							"stopselling", "Non posso più vendere energia! Ho la capacità al 10%.");
+					new BaseAgent().sendMessageToAgentsByServiceType (this.myAgent, "BungalowAgent", 
+							"stopselling", "Non posso piu' vendere energia! Ho la capacita' al 10%.");
+					MessageTemplate template = MessageTemplate.MatchConversationId("recharge");
+				    ACLMessage msg = this.myAgent.receive(template);
 				}
 				else if(battery.getCapacity()<=10 ) {
 					String[] agents = {"AeolianAgent", "DsoAgent", "SolarAgent"};
 					for(int i=0; i<agents.length; i++) {
 			            DFAgentDescription[] dfagents = new BaseAgent().getAgentsbyServiceType(this.myAgent, agents[i]);
-			            new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, dfagents[0].getName(), "energyrequest");
+			            new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, dfagents[0].getName(), "recharge");
 			        }
 
 				}

@@ -15,7 +15,7 @@ public class DsoData implements Serializable{
 	}
 	
 	
-	private double dsoPrice=1;
+	private double dsoPrice;
 
 	public double getDsoPrice() {
 		return dsoPrice;

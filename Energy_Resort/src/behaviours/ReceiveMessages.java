@@ -36,7 +36,7 @@ public class ReceiveMessages extends TickerBehaviour{
             {
                 if(this.myAgent instanceof AeolianAgent)
                 {
-                    if(msg.getConversationId().equals("energyrequest"))
+                    if(msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge"))
                     {
                         this.myAgent.addBehaviour(new AeolianBehaviour(msg));
                     }
@@ -66,14 +66,14 @@ public class ReceiveMessages extends TickerBehaviour{
                 }
                 if(this.myAgent instanceof SolarAgent)
                 {
-                    if(msg.getConversationId().equals("energyrequest"))
+                    if(msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge"))
                     {
                         this.myAgent.addBehaviour(new SolarBehaviour(msg));
                     }
                 }
                 if(this.myAgent instanceof DsoAgent)
                 {
-                    if(msg.getConversationId().equals("energyrequest"))
+                    if(msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge"))
                     {
                         this.myAgent.addBehaviour(new DsoBehaviour(msg));
                     }

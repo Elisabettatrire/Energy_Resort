@@ -27,28 +27,32 @@ import jade.core.AID;
  
 
 @SuppressWarnings("serial")
-public class BungalowBehaviour extends OneShotBehaviour{
+public class BungalowBehaviour extends OneShotBehaviour {
     
-
+	BungalowData bungalow=new BungalowData();
+    DbBungalowData bungalowDb=new DbBungalowData();
+    ACLMessage msg;
+    int day;
+    int hour;
  
 
     public BungalowBehaviour(Agent a) {
         super(a);
     } 
     
-    BungalowData bungalow=new BungalowData();
-    DbBungalowData enDb=new DbBungalowData();
-    ACLMessage msg;
-    
-    
-    int day;//domenica è 1...
-      
-    int hour; 
-    
     DFAgentDescription[] dfagents;
     
     public void action() {
-
+    	Calendar calendar = Calendar.getInstance();
+        day=calendar.get(Calendar.DAY_OF_WEEK);
+        hour= calendar.get(Calendar.HOUR_OF_DAY)+2;
+        bungalow.setDayHour(hour);
+        bungalow.setWeekDay(day);
+        bungalow.setId(bungalowDb.getBungalowID(this.myAgent.getLocalName()));
+        bungalow.setBudget(bungalowDb.getBungalowData(bungalow).getBudget());
+        bungalow.setEnReq(bungalowDb.getBungalowData(bungalow).getEnReq());
+        
+        System.out.println("Sono l'agente "+this.myAgent.getLocalName()+" e il mio ID e' "+bungalow.getId());
         
         String[] agents = {"AeolianAgent", "DsoAgent", "SolarAgent","BatteryAgent"};
 
@@ -56,11 +60,5 @@ public class BungalowBehaviour extends OneShotBehaviour{
             dfagents = new BaseAgent().getAgentsbyServiceType(this.myAgent, agents[i]);
             new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, dfagents[0].getName(), "energyrequest");
         }
-
- 
-
     }
-
- 
-
 }

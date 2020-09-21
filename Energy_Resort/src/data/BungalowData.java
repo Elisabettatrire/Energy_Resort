@@ -4,16 +4,16 @@ import java.util.Hashtable;
 
 @SuppressWarnings("serial")
 public class BungalowData {
-	//private int idBungalow;
+	private int id;
 	private int budget;
 	private int enReq; //sarebbe bisogni
 	private int dayHour;
-	//private String weekDay="lunedì";
 	private int weekDay;
 	private Hashtable<String, Double> energyPrices;
 	
 
-public BungalowData(int budget, int enReq, int dayHour, int weekDay, Hashtable<String, Double> energyPrices) {
+public BungalowData(int id, int budget, int enReq, int dayHour, int weekDay, Hashtable<String, Double> energyPrices) {
+	this.id = id;
 	this.budget = budget;
 	this.enReq = enReq;
 	this.dayHour = dayHour;
@@ -29,6 +29,12 @@ public BungalowData() {
 	
 }
 
+    public int getId() {
+	return id;
+    }
+    public void setId(int id) {
+	this.id = id;
+    }
 	public int getBudget() {
 		return budget;
 	}
@@ -56,7 +62,6 @@ public BungalowData() {
 	public Hashtable<String, Double> getEnergyPrices() {
 		return energyPrices;
 	}
-
 	public void setEnergyPrices(Hashtable<String, Double> energyPrices) {
 		this.energyPrices = energyPrices;
 	}

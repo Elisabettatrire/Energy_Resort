@@ -62,7 +62,7 @@ public class SolarBehaviour extends OneShotBehaviour{
     public void action() {
         Calendar calendar = Calendar.getInstance();
         day=calendar.get(Calendar.DAY_OF_WEEK);
-        hour= calendar.get(Calendar.HOUR_OF_DAY)+1;
+        hour= calendar.get(Calendar.HOUR_OF_DAY)+2;
         solar.setDayHour(hour);
         solar.setWeekDay(day);
         solar.setSolarForecast(solarDb.getWeather(solar.getDayHour(), solar.getWeekDay()));
