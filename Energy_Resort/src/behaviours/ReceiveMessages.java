@@ -75,8 +75,11 @@ public class ReceiveMessages extends TickerBehaviour{
                 {
                     if(msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge"))
                     {
-                        this.myAgent.addBehaviour(new DsoBehaviour(msg));
-                    }
+                    	//this.myAgent.addBehaviour(new DsoPriceBehaviour(msg));
+                        //this.myAgent.addBehaviour(new DsoBehaviour(msg));
+//                    } else if(msg.getConversationId().equals("dsoprice")) {
+//                    	this.myAgent.addBehaviour(new DsoPriceBehaviour(msg));
+//                    }
                 }
                 if(this.myAgent instanceof BatteryAgent)
                 {
@@ -92,6 +95,7 @@ public class ReceiveMessages extends TickerBehaviour{
             {
                 this.block();
             }*/
+        }
         } catch (Exception e) {
             e.printStackTrace();
         }    

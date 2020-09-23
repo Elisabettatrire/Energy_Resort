@@ -2,8 +2,10 @@ package data;
 
 import java.util.Hashtable;
 
+import jade.util.leap.Serializable;
+
 @SuppressWarnings("serial")
-public class BungalowData {
+public class BungalowData implements Serializable{
 	private int id;
 	private int budget;
 	private int enReq; //sarebbe bisogni

@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import data.BungalowData;
-import utils.EnergyData;
 import jade.core.Agent;
 
 
@@ -26,21 +25,7 @@ public class DbBungalowData extends DbConnection {
 	    e.printStackTrace();
 		}
 		finally {
-//			  if (ps != null) {
-//			    try {
-//			      ps.close();
-//			    } catch (Exception ignored) {
-//			    }
-////			ResultSet rs = stmt.executeQuery(query);
-////			while(rs.next())
-			
-////		} catch (SQLException e) {
-////			e.printStackTrace();
-////		} finally {
-////			//connClose();
-////		}
-//		
-//	}
+		//connClose();
 }
 		return id;
 }

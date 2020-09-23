@@ -2,6 +2,7 @@ package agents;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -145,5 +146,13 @@ public class BaseAgent extends Agent {
 			}
 		}
 	}
+	
+	 public int[] addElement(int i, int[] myarray, int ele) 
+	    { 
+		    System.out.println(Arrays.toString(myarray));
+	        myarray[i] = ele; 
+	        System.out.println(Arrays.toString(myarray));
+	        return myarray; 
+	    }
 
 }

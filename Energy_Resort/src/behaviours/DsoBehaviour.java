@@ -10,7 +10,8 @@ public class DsoBehaviour extends OneShotBehaviour{
 	
 	  ACLMessage msg;
 	  String msgData;
-	  DsoData dso=new DsoData();
+	  DsoData dso;
+	  
 	  
 	public DsoBehaviour(ACLMessage msg){
 		
