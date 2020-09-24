@@ -10,12 +10,13 @@ public class DsoBehaviour extends OneShotBehaviour{
 	
 	  ACLMessage msg;
 	  String msgData;
-	  DsoData dso;
+	  double dsoPrice;
 	  
 	  
-	public DsoBehaviour(ACLMessage msg){
-		
+	public DsoBehaviour(ACLMessage msg, double dsoPrice)
+	{
 		try {
+			this.dsoPrice = dsoPrice;
             this.msg = msg;
             this.msgData = msg.getContent();
         } catch (Exception e) {
@@ -24,12 +25,8 @@ public class DsoBehaviour extends OneShotBehaviour{
 	}
 	
 	public void action() {
-		
-		System.out.println(this.myAgent.getLocalName() +
-                ": " + msg.getSender().getLocalName() + " dice: " + msgData);
-		
 		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent",
-                "pricedso", dso);
+                "pricedso", dsoPrice);
 		
 	}
 

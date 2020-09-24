@@ -149,9 +149,9 @@ public class BaseAgent extends Agent {
 	
 	 public int[] addElement(int i, int[] myarray, int ele) 
 	    { 
-		    System.out.println(Arrays.toString(myarray));
+		    //System.out.println(Arrays.toString(myarray));
 	        myarray[i] = ele; 
-	        System.out.println(Arrays.toString(myarray));
+	        //System.out.println(Arrays.toString(myarray));
 	        return myarray; 
 	    }
 

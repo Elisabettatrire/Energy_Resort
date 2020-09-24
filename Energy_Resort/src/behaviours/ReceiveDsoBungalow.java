@@ -7,7 +7,7 @@ import jade.lang.acl.ACLMessage;
 
 public class ReceiveDsoBungalow extends OneShotBehaviour{
 	
-	DsoData msgDsoData;
+	double dsoPrice;
     ACLMessage msg;
     
     
@@ -18,7 +18,7 @@ public class ReceiveDsoBungalow extends OneShotBehaviour{
     public ReceiveDsoBungalow(ACLMessage msg) {
         try {
             this.msg=msg;
-            msgDsoData = (DsoData)msg.getContentObject();
+            dsoPrice = (double)msg.getContentObject();
             }  catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,7 +29,7 @@ public class ReceiveDsoBungalow extends OneShotBehaviour{
       
             System.out.println(this.myAgent.getLocalName() + ": " + 
                     msg.getSender().getLocalName() + " dice che vende i suoi "+
-                    " Kw al prezzo di "+msgDsoData.getDsoPrice()+" euro al Kw.");        
+                    " Kw al prezzo di "+dsoPrice+" euro al Kw.");        
 
     }
 

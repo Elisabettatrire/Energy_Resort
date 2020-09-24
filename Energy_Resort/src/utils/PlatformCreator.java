@@ -38,6 +38,7 @@ public class PlatformCreator {
 			AgentController dso = cc.createNewAgent("Dso", "agents.DsoAgent", null);
 			AgentController bungalow1 = cc.createNewAgent("Bungalow1", "agents.BungalowAgent", null);
 			AgentController bungalow2 = cc.createNewAgent("Bungalow2", "agents.BungalowAgent", null);
+			AgentController bungalow3 = cc.createNewAgent("Bungalow3", "agents.BungalowAgent", null);
 			AgentController aeolian = cc.createNewAgent("Aeolian", "agents.AeolianAgent", null);
 			AgentController solar = cc.createNewAgent("Solar", "agents.SolarAgent", null);
 			AgentController battery = cc.createNewAgent("Battery", "agents.BatteryAgent", null);
@@ -46,6 +47,7 @@ public class PlatformCreator {
 			aeolian.start();
 			bungalow1.start();
 			bungalow2.start();
+			bungalow3.start();
 			solar.start();
 			battery.start();
 			

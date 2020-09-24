@@ -55,7 +55,7 @@ public class BungalowBehaviour extends OneShotBehaviour {
         System.out.println("Sono l'agente "+this.myAgent.getLocalName()+", il mio ID e' "+bungalow.getId() +", ho bisogno di "+bungalow.getEnReq()
         + " kW e ho un budget di "+bungalow.getBudget()+" €.");
         
-        new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "DsoAgent", "dsoprice", bungalow);
+        new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "DsoAgent", "calculateprice", bungalow);
         
         String[] agents = {"AeolianAgent", "DsoAgent", "SolarAgent","BatteryAgent"};
 

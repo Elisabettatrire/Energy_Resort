@@ -24,8 +24,15 @@ import jade.lang.acl.UnreadableException;
 
 public class ReceiveMessages extends TickerBehaviour{
        
+	double dsoPrice; 
+	
     public ReceiveMessages(Agent a, long period) {
         super(a, period);
+    }
+    
+    public ReceiveMessages(Agent a, long period, double dsoPrice) {
+    	super(a, period);
+    	this.dsoPrice = dsoPrice;
     }
     
     protected void onTick() {
@@ -76,7 +83,7 @@ public class ReceiveMessages extends TickerBehaviour{
                     if(msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge"))
                     {
                     	//this.myAgent.addBehaviour(new DsoPriceBehaviour(msg));
-                        //this.myAgent.addBehaviour(new DsoBehaviour(msg));
+                        // this.myAgent.addBehaviour(new DsoBehaviour(msg, dsoPrice));
 //                    } else if(msg.getConversationId().equals("dsoprice")) {
 //                    	this.myAgent.addBehaviour(new DsoPriceBehaviour(msg));
 //                    }

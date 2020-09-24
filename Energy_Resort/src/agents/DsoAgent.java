@@ -11,7 +11,7 @@ public class DsoAgent extends BaseAgent{
 		registerDfAgent(this.getHap(), "DsoAgent");
 		DsoData dso = new DsoData();
 		this.addBehaviour(new DsoPriceBehaviour(dso));
-		this.addBehaviour(new ReceiveMessages(this, 10000));
+		// this.addBehaviour(new ReceiveMessages(this, 10000));
 	}
 	
 
