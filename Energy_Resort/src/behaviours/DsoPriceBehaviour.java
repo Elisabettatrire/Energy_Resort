@@ -48,7 +48,6 @@ public class DsoPriceBehaviour extends OneShotBehaviour{
 							e.printStackTrace();
 						}
 						dso.setBungalowNeeds(new BaseAgent().addElement(msgData.getId()-1, dso.getBungalowNeeds(), msgData.getEnReq()));
-						System.out.println(Arrays.toString(dso.getBungalowNeeds()));
 				}
 				else
 				{
@@ -60,7 +59,7 @@ public class DsoPriceBehaviour extends OneShotBehaviour{
 			for(int i=0; i<dso.getBungalowNeeds().length; i++) {
 				 totalNeed = totalNeed + dso.getBungalowNeeds()[i];
 			 }
-			 System.out.println(totalNeed);
+			 // System.out.println(totalNeed);
 			 if(totalNeed > 0 && totalNeed < 8) {
 				 dso.setDsoPrice(1.5);
 			 } else if (totalNeed >=8 && totalNeed < 16) {
@@ -68,7 +67,6 @@ public class DsoPriceBehaviour extends OneShotBehaviour{
 			 } else {
 				 dso.setDsoPrice(1);
 			 }
-			 System.out.println(dso.getDsoPrice());
 			 new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent",
 		                "pricedso", dso.getDsoPrice());
 			 }});				

@@ -1,11 +1,15 @@
 package utils;
 
+import com.sun.tools.javac.util.List;
+
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
 import jade.wrapper.AgentController;
 import jade.wrapper.ContainerController;
 import jade.wrapper.StaleProxyException;
+import jade.tools.sniffer.*;
+import jade.util.leap.ArrayList;
 
 /**
  * Applicazione esterna che gestisce il lancio di una piattaforma ad agenti,

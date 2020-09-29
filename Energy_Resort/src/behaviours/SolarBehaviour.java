@@ -15,6 +15,7 @@ import database.DbSolarData;
 import java.util.Calendar;
 import java.time.*;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
@@ -29,76 +30,31 @@ public class SolarBehaviour extends OneShotBehaviour{
 //    //System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" prima: "+msgData.getDatetime().getTime());
 //    LoadData loadData = new DbLoadData().getLastLoadData(loadInfo.getIdLoad(), msgData.getDatetime());
 //    //System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" dopo: "+msgData.getDatetime().getTime());
+    SolarData solar;
     
-    
-    int day;//domenica Ã¨ 1...
-  
-    int hour; 
-    
-    ACLMessage msg;
-
- 
-
-    SolarData solar = new SolarData();
-    
-    DbSolarData solarDb=new DbSolarData();
-    
-    String msgData;
-    
-    public SolarBehaviour(Agent a)
+    public SolarBehaviour(Agent a, SolarData solar)
     {
         super(a);
+        this.solar = solar;
     }
     
-    public SolarBehaviour(ACLMessage msg){
-        try {
-            this.msg = msg;
-            this.msgData = msg.getContent();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     
     public void action() {
-        Calendar calendar = Calendar.getInstance();
-        day=calendar.get(Calendar.DAY_OF_WEEK);
-        hour= calendar.get(Calendar.HOUR_OF_DAY)+2;
-        solar.setDayHour(hour);
-        solar.setWeekDay(day);
-        solar.setSolarForecast(solarDb.getWeather(solar.getDayHour(), solar.getWeekDay()));
-        
-//        System.out.println("il vento e': "+aeolian.getWindForecast()); 
-//          System.out.println("il giorno e': "+day);
-//          System.out.println("l'ora e': " + hour);
-        
-        if(solar.getSolarForecast()==1) {          
-            solar.setSolarPrice(0.2);
-            solar.setSolarKw(20);
-        }
-        else if(solar.getSolarForecast()==2){
-            solar.setSolarPrice(0.4);
-            solar.setSolarKw(15);
-            }
-        else if(solar.getSolarForecast()==3){
-        	solar.setSolarPrice(0.8);
-            solar.setSolarKw(5);
-        } else if(solar.getSolarForecast()==4){
-        	solar.setSolarPrice(1);
-            solar.setSolarKw(2);
-        } else if(solar.getSolarForecast()==5){
-        	solar.setSolarPrice(0.6);
-            solar.setSolarKw(10);
-        } 
-           
-            System.out.println(this.myAgent.getLocalName() +
-                     ": " + msg.getSender().getLocalName() + " dice: " + msgData);
-
-            new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-                    "pricesolar", solar);
-       
-
-    }
-
- 
-
+    	this.myAgent.addBehaviour(new CyclicBehaviour(this.myAgent) {
+    		public void action() {
+    			MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+    	        ACLMessage msg = this.myAgent.receive(template); 
+    	        if(msg != null && (msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge")))
+                {
+                	System.out.println(this.myAgent.getLocalName() +
+                            ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+                	new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+                            "pricesolar", solar);
+                } else {
+                	this.block();
+                }
+    		}
+    	});
+} 
 }

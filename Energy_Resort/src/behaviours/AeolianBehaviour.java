@@ -15,6 +15,7 @@ import database.DbAeolianData;
 import java.util.Calendar;
 import java.time.*;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
@@ -25,61 +26,38 @@ import jade.lang.acl.UnreadableException;
 
 public class AeolianBehaviour extends OneShotBehaviour{
     
-    int day;
-    int hour; 
+	AeolianData aeolian;
     
-    ACLMessage msg;
-    
-    String msgData;
-    
-    AeolianData aeolian=new AeolianData();
-    
-    DbAeolianData windDb=new DbAeolianData();
-       
-    public AeolianBehaviour(Agent a)
+    public AeolianBehaviour(Agent a, AeolianData aeolian)
     {
-        super(a);
+    	super(a);
+    	this.aeolian = aeolian;       
     }
     
-    public AeolianBehaviour(ACLMessage msg){
-        try {
-            this.msg = msg;
-            this.msgData = msg.getContent();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public AeolianBehaviour(ACLMessage msg) {
+//        try {
+//            this.msg = msg;
+//            this.msgData = msg.getContent();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     
     public void action() {
-    	
-        Calendar calendar = Calendar.getInstance();
-        day=calendar.get(Calendar.DAY_OF_WEEK);
-        hour= calendar.get(Calendar.HOUR_OF_DAY)+2;
-        
-        aeolian.setDayHour(hour);
-        aeolian.setWeekDay(day);
-        aeolian.setWindForecast( windDb.getWind(aeolian.getDayHour(), aeolian.getWeekDay()));
-              
-        if(aeolian.getWindForecast()==1) {
-            
-            aeolian.setWindPrice(0.3);
-            aeolian.setWindKw(10);
-        }
-        else if(aeolian.getWindForecast()==2){
-            aeolian.setWindPrice(0.6);
-            aeolian.setWindKw(5);
-            }
-        else {
-        aeolian.setWindPrice(1.2);
-        aeolian.setWindKw(2);
-        }
- 
-            System.out.println(this.myAgent.getLocalName() +
-                     ": " + msg.getSender().getLocalName() + " dice: " + msgData);
-       
-            new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-                    "priceaeolian", aeolian);
-  
-    } 
-
+    	this.myAgent.addBehaviour(new CyclicBehaviour(this.myAgent) {
+    		public void action() {
+    			MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+    	        ACLMessage msg = this.myAgent.receive(template); 
+    	        if(msg != null && (msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge")))
+                {
+                	System.out.println(this.myAgent.getLocalName() +
+                            ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+                	new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+                            "priceaeolian", aeolian);
+                } else {
+                	this.block();
+                }
+    		}
+    	});
+}   
 }

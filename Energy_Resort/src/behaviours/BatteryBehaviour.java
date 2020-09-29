@@ -50,7 +50,7 @@ public class BatteryBehaviour extends OneShotBehaviour{
 			{				
 				if(battery.getCapacity()<=10 && msg.getConversationId().equals("energyrequest")) {
 					new BaseAgent().sendMessageToAgentsByServiceType (this.myAgent, "BungalowAgent", 
-							"stopselling", "Non posso piu' vendere energia! Ho la capacita' al 10%.");
+							"stopselling", "Non posso piu' vendere energia! Ho la capacita' al 20%.");
 					MessageTemplate template = MessageTemplate.MatchConversationId("recharge");
 				    ACLMessage msg = this.myAgent.receive(template);
 				}

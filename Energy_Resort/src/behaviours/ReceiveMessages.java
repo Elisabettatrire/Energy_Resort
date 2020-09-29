@@ -9,7 +9,7 @@ import agents.DsoAgent;
 import agents.SolarAgent;
 import agents.BungalowAgent;
 import behaviours.AeolianBehaviour;
-import behaviours.DsoBehaviour;
+// import behaviours.DsoBehaviour;
 import behaviours.SolarBehaviour;
 import behaviours.ReceiveAeolianBungalow;
 import behaviours.ReceiveSolarBungalow;
@@ -41,13 +41,7 @@ public class ReceiveMessages extends TickerBehaviour{
             ACLMessage msg = this.myAgent.receive(template); 
             if (msg!=null)
             {
-                if(this.myAgent instanceof AeolianAgent)
-                {
-                    if(msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge"))
-                    {
-                        this.myAgent.addBehaviour(new AeolianBehaviour(msg));
-                    }
-                }
+                
                 if(this.myAgent instanceof BungalowAgent)
                 {
                     if(msg.getConversationId().equals("priceaeolian"))
@@ -71,13 +65,7 @@ public class ReceiveMessages extends TickerBehaviour{
                         this.myAgent.addBehaviour(new ReceiveBatteryBungalow(msg));
                     }
                 }
-                if(this.myAgent instanceof SolarAgent)
-                {
-                    if(msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge"))
-                    {
-                        this.myAgent.addBehaviour(new SolarBehaviour(msg));
-                    }
-                }
+         
                 if(this.myAgent instanceof DsoAgent)
                 {
                     if(msg.getConversationId().equals("energyrequest") || msg.getConversationId().equals("recharge"))
