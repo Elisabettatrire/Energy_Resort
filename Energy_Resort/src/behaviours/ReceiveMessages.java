@@ -62,7 +62,7 @@ public class ReceiveMessages extends TickerBehaviour{
                     }
                     else if(msg.getConversationId().equals("stopselling")) 
                     {
-                        this.myAgent.addBehaviour(new ReceiveBatteryBungalow(msg));
+                        this.myAgent.addBehaviour(new StopBatteryBehaviour(msg));
                     }
                 }
          
@@ -76,13 +76,13 @@ public class ReceiveMessages extends TickerBehaviour{
 //                    	this.myAgent.addBehaviour(new DsoPriceBehaviour(msg));
 //                    }
                 }
-                if(this.myAgent instanceof BatteryAgent)
-                {
-                    if(msg.getConversationId().equals("energyrequest"))
-                    {
-                        this.myAgent.addBehaviour(new BatteryBehaviour(msg));
-                    }
-                }
+//                if(this.myAgent instanceof BatteryAgent)
+//                {
+//                    if(msg.getConversationId().equals("energyrequest"))
+//                    {
+//                        this.myAgent.addBehaviour(new BatteryBehaviour(msg));
+//                    }
+//                }
                 
             }
             

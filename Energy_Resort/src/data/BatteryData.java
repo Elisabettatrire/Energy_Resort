@@ -5,12 +5,12 @@ import jade.util.leap.Serializable;
 
 public class BatteryData implements Serializable{
 	
-    private int capacity = 50;
+    private int capacity;
 	private int budget;
-    private double batteryPrice=0.8;
-    private Hashtable<String,Integer> bEnergyPrices;
+    private double batteryPrice;
+    private Hashtable<String,Double> bEnergyPrices; //prezzi di solare, eolico e dso
     
-    public BatteryData(int capacity, int budget, double batteryPrice, Hashtable<String, Integer> bEnergyPrices) {
+    public BatteryData(int capacity, int budget, double batteryPrice, Hashtable<String, Double> bEnergyPrices) {
     	this.budget = budget;
     	this.capacity = capacity;
     	this.batteryPrice = batteryPrice;
@@ -45,11 +45,11 @@ public class BatteryData implements Serializable{
 		this.batteryPrice = batteryPrice;
 	}
 
-	public Hashtable<String, Integer> getbEnergyPrices() {
+	public Hashtable<String, Double> getbEnergyPrices() {
 		return bEnergyPrices;
 	}
 
-	public void setbEnergyPrices(Hashtable<String, Integer> bEnergyPrices) {
+	public void setbEnergyPrices(Hashtable<String, Double> bEnergyPrices) {
 		this.bEnergyPrices = bEnergyPrices;
 	}
 }

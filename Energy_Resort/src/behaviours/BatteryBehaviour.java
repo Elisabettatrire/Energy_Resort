@@ -2,6 +2,7 @@ package behaviours;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -19,51 +20,54 @@ import data.BatteryData;
 
 public class BatteryBehaviour extends OneShotBehaviour{
 	
-	ACLMessage msg;
-	String msgData;
-	BatteryData battery = new BatteryData();
+	BatteryData battery;
 	
-	public BatteryBehaviour(Agent a) {
+	public BatteryBehaviour(Agent a, BatteryData battery) {
 		super(a);
+		this.battery = battery;  
 	} 
 	
-	public BatteryBehaviour(ACLMessage msg){
-	        try {
-	            this.msg = msg;
-	            this.msgData = msg.getContent();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	}
-	
+//	public BatteryBehaviour(ACLMessage msg){
+//	        try {
+//	            this.msg = msg;
+//	            this.msgData = msg.getContent();
+//	        } catch (Exception e) {
+//	            e.printStackTrace();
+//	        }
+//	}
+//	
 	public void action() {
 		
-		System.out.println(this.myAgent.getLocalName() +
-				 ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+		this.myAgent.addBehaviour(new CyclicBehaviour(this.myAgent) {
+			public void action() {
+				MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+    	        ACLMessage msg = this.myAgent.receive(template); 
+    	        if(msg != null && (msg.getConversationId().equals("energyrequest") ))
+    	        {
+					System.out.println(this.myAgent.getLocalName() +
+					": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
 		
-		 new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent",
-                 "pricebattery", battery);
-		 
-		this.myAgent.addBehaviour(new TickerBehaviour(this.myAgent, 1000)
-		{
-			protected void onTick()
-			{				
-				if(battery.getCapacity()<=10 && msg.getConversationId().equals("energyrequest")) {
-					new BaseAgent().sendMessageToAgentsByServiceType (this.myAgent, "BungalowAgent", 
-							"stopselling", "Non posso piu' vendere energia! Ho la capacita' al 20%.");
-					MessageTemplate template = MessageTemplate.MatchConversationId("recharge");
-				    ACLMessage msg = this.myAgent.receive(template);
-				}
-				else if(battery.getCapacity()<=10 ) {
-					String[] agents = {"AeolianAgent", "DsoAgent", "SolarAgent"};
-					for(int i=0; i<agents.length; i++) {
-			            DFAgentDescription[] dfagents = new BaseAgent().getAgentsbyServiceType(this.myAgent, agents[i]);
-			            new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, dfagents[0].getName(), "recharge");
-			        }
-
-				}
+					if(battery.getCapacity()>10) {
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+						"pricebattery", battery);
+					}else {
+						new BaseAgent().sendMessageToAgentsByServiceType (this.myAgent, msg.getSender(), 
+								"stopselling", "Non posso piu' vendere energia! Ho la capacita' al 20%.");
+						 String[] agents = {"AeolianAgent", "DsoAgent", "SolarAgent"};
+							for(int i=0; i<agents.length; i++) {
+					            DFAgentDescription[] dfagents = new BaseAgent().getAgentsbyServiceType(this.myAgent, agents[i]);
+					           // System.out.println(dfagents);
+					           // new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, dfagents[0].getName(), "recharge");
+					        }
+					}
+    	        } 
+    	        else {
+    	        	this.block();
+    	        }
 			}
-		});
+    	});
+		
+		
 
 
 	}

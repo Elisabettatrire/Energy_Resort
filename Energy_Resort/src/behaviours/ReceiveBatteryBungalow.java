@@ -17,6 +17,7 @@ public class ReceiveBatteryBungalow extends OneShotBehaviour{
         super(a);
     }
     
+    
     public ReceiveBatteryBungalow(ACLMessage msg) {
         try {
             this.msg=msg;
@@ -28,10 +29,11 @@ public class ReceiveBatteryBungalow extends OneShotBehaviour{
     
     public void action()
     {
-      
+  
     	System.out.println(this.myAgent.getLocalName() + ": " + 
                 msg.getSender().getLocalName() + " dice che ha a disposizione " + msgBatteryData.getCapacity()+
-                " Kw al prezzo di "+msgBatteryData.getBatteryPrice()+" euro al Kw.");       
+                " Kw al prezzo di "+msgBatteryData.getBatteryPrice()+" euro al Kw.");    
+    	
 
     }
 
