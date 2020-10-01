@@ -1,5 +1,6 @@
 package behaviours;
 
+import agents.BungalowAgent;
 import data.DsoData;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
@@ -30,7 +31,8 @@ public class ReceiveDsoBungalow extends OneShotBehaviour{
             System.out.println(this.myAgent.getLocalName() + ": " + 
                     msg.getSender().getLocalName() + " dice che vende i suoi "+
                     " Kw al prezzo di "+dsoPrice+" euro al Kw.");        
-
+            ((BungalowAgent) myAgent).getBungalow().getEnergyPrices().put(msg.getSender().getLocalName(), dsoPrice);
+        	//System.out.println(((BungalowAgent) myAgent).getBungalow().getEnergyPrices());
     }
 
 }

@@ -1,6 +1,9 @@
 
 package behaviours;
 import jade.core.Agent;
+
+import java.util.Hashtable;
+
 import agents.*;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
@@ -39,7 +42,9 @@ public class ReceiveSolarBungalow extends OneShotBehaviour{
         // System.out.print(msgAeolianData);
             System.out.println(this.myAgent.getLocalName() + ": " + 
                     msg.getSender().getLocalName() + " dice che ha prodotto " + msgSolarData.getSolarKw()+
-                    " Kw al prezzo di "+msgSolarData.getSolarPrice()+" euro al Kw.");        
+                    " Kw al prezzo di "+msgSolarData.getSolarPrice()+" euro al Kw.");   
+        	((BungalowAgent) myAgent).getBungalow().getEnergyPrices().put(msg.getSender().getLocalName(), msgSolarData.getSolarPrice());
+        	//System.out.println(((BungalowAgent) myAgent).getBungalow().getEnergyPrices());
 //        else
 //        {
 //            this.block();
