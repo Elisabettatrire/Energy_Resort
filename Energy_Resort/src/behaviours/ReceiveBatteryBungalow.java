@@ -19,6 +19,7 @@ public class ReceiveBatteryBungalow extends OneShotBehaviour{
     
     
     
+    
     public ReceiveBatteryBungalow(Agent a){
         super(a);
     }
@@ -39,7 +40,8 @@ public class ReceiveBatteryBungalow extends OneShotBehaviour{
     	System.out.println(this.myAgent.getLocalName() + ": " + 
                 msg.getSender().getLocalName() + " dice che ha a disposizione " + msgBatteryData.getCapacity()+
                 " Kw al prezzo di "+msgBatteryData.getBatteryPrice()+" euro al Kw.");    
-    	((BungalowAgent) myAgent).getBungalow().getEnergyPrices().put(msg.getSender().getLocalName(), msgBatteryData.getBatteryPrice());
+    	((BungalowAgent) myAgent).getBungalowDb().insertProviderData(msgBatteryData.getCapacity(), msgBatteryData.getBatteryPrice(), msg.getSender().getLocalName());
+    	//((BungalowAgent) myAgent).getBungalow().getEnergyPrices().put(msg.getSender().getLocalName(), msgBatteryData.getBatteryPrice());
     	//System.out.println(((BungalowAgent) myAgent).getBungalow().getEnergyPrices());
     	
 

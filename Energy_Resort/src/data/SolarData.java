@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class SolarData implements Serializable{
 	
 	private double solarPrice;
-	private double solarKw;
+	private int solarKw;
 	private int solarForecast; //le previsioni del sole
 	private int dayHour;
 	private int weekDay;
 	
-	public SolarData(double solarPrice, double solarKw, int solarForecast, int dayHour, int weekDay) {
+	public SolarData(double solarPrice, int solarKw, int solarForecast, int dayHour, int weekDay) {
 
 		this.solarPrice = solarPrice;
 		this.solarKw = solarKw;
@@ -31,11 +31,11 @@ public class SolarData implements Serializable{
 		this.solarPrice = solarPrice;
 	}
 
-	public double getSolarKw() {
+	public int getSolarKw() {
 		return solarKw;
 	}
 
-	public void setSolarKw(double solarKw) {
+	public void setSolarKw(int solarKw) {
 		this.solarKw = solarKw;
 	}
 

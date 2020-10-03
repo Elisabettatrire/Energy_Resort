@@ -31,7 +31,8 @@ public class ReceiveDsoBungalow extends OneShotBehaviour{
             System.out.println(this.myAgent.getLocalName() + ": " + 
                     msg.getSender().getLocalName() + " dice che vende i suoi "+
                     " Kw al prezzo di "+dsoPrice+" euro al Kw.");        
-            ((BungalowAgent) myAgent).getBungalow().getEnergyPrices().put(msg.getSender().getLocalName(), dsoPrice);
+            //((BungalowAgent) myAgent).getBungalow().getEnergyPrices().put(msg.getSender().getLocalName(), dsoPrice);
+            ((BungalowAgent) myAgent).getBungalowDb().insertProviderData(200, dsoPrice, msg.getSender().getLocalName());
         	//System.out.println(((BungalowAgent) myAgent).getBungalow().getEnergyPrices());
     }
 

@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Hashtable;
 
 import behaviours.BungalowBehaviour;
+import behaviours.ChoiceProviderBungalow;
 
 
 public class BungalowAgent extends BaseAgent{
@@ -60,7 +61,6 @@ public class BungalowAgent extends BaseAgent{
 		
 		this.addBehaviour(new BungalowBehaviour(this, bungalow));
 		this.addBehaviour(new ReceiveMessages(this, 10000));
-		
-	
+		//this.addBehaviour(new ChoiceProviderBungalow(this));
 	}
 }

@@ -6,12 +6,12 @@ import java.io.Serializable;
 public class AeolianData implements Serializable{
 	
 	private double windPrice;
-	private double windKw;
+	private int windKw;
 	private int windForecast; //le previsioni del vento
 	private int dayHour;
 	private int weekDay;
 	
-	public AeolianData(double windPrice, double windKw, int windForecast, int dayHour, int weekDay) {
+	public AeolianData(double windPrice, int windKw, int windForecast, int dayHour, int weekDay) {
 
 		this.windPrice = windPrice;
 		this.windKw = windKw;
@@ -32,11 +32,11 @@ public class AeolianData implements Serializable{
 		this.windPrice = windPrice;
 	}
 
-	public double getWindKw() {
+	public int getWindKw() {
 		return windKw;
 	}
 
-	public void setWindKw(double windKw) {
+	public void setWindKw(int windKw) {
 		this.windKw = windKw;
 	}
 

@@ -1,5 +1,6 @@
 package behaviours;
 
+import agents.BungalowAgent;
 import data.BatteryData;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
@@ -28,6 +29,7 @@ public class StopBatteryBehaviour extends OneShotBehaviour{
 		
 			System.out.println(this.myAgent.getLocalName() + ": " + 
 		            msg.getSender().getLocalName() + " dice: "+msg.getContent());  	
+			((BungalowAgent) myAgent).getBungalow().getEnergyPrices().put(msg.getSender().getLocalName(), 0.0);
 		}
 		
 }

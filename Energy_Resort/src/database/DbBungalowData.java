@@ -52,4 +52,18 @@ public class DbBungalowData extends DbConnection {
 		}
 		return data;
 	}
+	
+	public Boolean insertProviderData(int Kw, double price, String name) {
+		String query = "UPDATE dati_fornitori"
+				+" SET Kw = "+Kw+", Prezzo = "+price
+				+" WHERE Nome = '"+name+"'";
+		try {
+			return stmt.execute(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return false;
+	}
 }
