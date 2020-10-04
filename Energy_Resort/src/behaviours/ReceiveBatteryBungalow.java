@@ -41,11 +41,5 @@ public class ReceiveBatteryBungalow extends OneShotBehaviour{
                 msg.getSender().getLocalName() + " dice che ha a disposizione " + msgBatteryData.getCapacity()+
                 " Kw al prezzo di "+msgBatteryData.getBatteryPrice()+" euro al Kw.");    
     	((BungalowAgent) myAgent).getBungalowDb().insertProviderData(msgBatteryData.getCapacity(), msgBatteryData.getBatteryPrice(), msg.getSender().getLocalName());
-    	//((BungalowAgent) myAgent).getBungalow().getEnergyPrices().put(msg.getSender().getLocalName(), msgBatteryData.getBatteryPrice());
-    	//System.out.println(((BungalowAgent) myAgent).getBungalow().getEnergyPrices());
-    	
-
     }
-
-
 }

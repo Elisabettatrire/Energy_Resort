@@ -11,16 +11,15 @@ public class BungalowData implements Serializable{
 	private int enReq; //sarebbe bisogni
 	private int dayHour;
 	private int weekDay;
-	private Hashtable<String, Double> energyPrices;
+	
 	
 
-public BungalowData(int id, int budget, int enReq, int dayHour, int weekDay, Hashtable<String, Double> energyPrices) {
+public BungalowData(int id, int budget, int enReq, int dayHour, int weekDay) {
 	this.id = id;
 	this.budget = budget;
 	this.enReq = enReq;
 	this.dayHour = dayHour;
 	this.weekDay = weekDay;
-	this.energyPrices = energyPrices;
 }
 
 public BungalowData(int budget, int enReq) {
@@ -61,11 +60,4 @@ public BungalowData() {
 	public void setWeekDay(int weekDay) {
 		this.weekDay = weekDay;
 	}
-	public Hashtable<String, Double> getEnergyPrices() {
-		return energyPrices;
-	}
-	public void setEnergyPrices(Hashtable<String, Double> energyPrices) {
-		this.energyPrices = energyPrices;
-	}
-
 }

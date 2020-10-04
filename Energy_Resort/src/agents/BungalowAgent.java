@@ -10,14 +10,14 @@ import java.util.Calendar;
 import java.util.Hashtable;
 
 import behaviours.BungalowBehaviour;
-import behaviours.ChoiceProviderBungalow;
+
 
 
 public class BungalowAgent extends BaseAgent{
 	
 	private DbBungalowData bungalowDb;
 	private BungalowData bungalow;
-	Hashtable<String, Double> ePrices = new Hashtable<String, Double>();
+	
 	
 	
 	public DbBungalowData getBungalowDb() {
@@ -49,11 +49,7 @@ public class BungalowAgent extends BaseAgent{
         bungalow.setId(bungalowDb.getBungalowID(this.getLocalName()));
         bungalow.setBudget(bungalowDb.getBungalowData(bungalow).getBudget());
         bungalow.setEnReq(bungalowDb.getBungalowData(bungalow).getEnReq());
-        ePrices.put("Solar", 0.0);
-        ePrices.put("Aeolian", 0.0);
-        ePrices.put("Battery", 0.0);
-        ePrices.put("Dso", 0.0);
-        bungalow.setEnergyPrices(ePrices);
+       
         
         
 		registerDfAgent(this.getHap(), "BungalowAgent");
