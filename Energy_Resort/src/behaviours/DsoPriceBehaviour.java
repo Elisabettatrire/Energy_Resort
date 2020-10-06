@@ -49,6 +49,10 @@ public class DsoPriceBehaviour extends OneShotBehaviour{
 						}
 						dso.setBungalowNeeds(new BaseAgent().addElement(msgData.getId()-1, dso.getBungalowNeeds(), msgData.getEnReq()));
 				}
+				else if(msg != null && msg.getConversationId().equals("BuyFromYou")) {
+					System.out.println(this.myAgent.getLocalName() +
+			                ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+				}
 				else
 				{
 					this.block();

@@ -7,11 +7,11 @@ import java.util.Hashtable;
 import agents.*;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
+import jade.core.behaviours.WakerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import jade.core.behaviours.OneShotBehaviour;
-import agents.BungalowAgent;
 import data.AeolianData;
 import data.SolarData;
 
@@ -43,6 +43,15 @@ public class ReceiveSolarBungalow extends OneShotBehaviour{
                     msg.getSender().getLocalName() + " dice che ha prodotto " + msgSolarData.getSolarKw()+
                     " Kw al prezzo di "+msgSolarData.getSolarPrice()+" euro al Kw.");   
             ((BungalowAgent) myAgent).getBungalowDb().insertProviderData(msgSolarData.getSolarKw(), msgSolarData.getSolarPrice(), msg.getSender().getLocalName());
+            
+            if(((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow())).equals("Solar")) {
+            	this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 40000) {
+            		protected void onWake() {
+                    	new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou", "Ciao "+msg.getSender().getLocalName()
+                            	+", voglio acquistare "+((BungalowAgent) myAgent).getBungalow().getEnReq()+" Kw da te.");
+            		}
+            	});
+            }
     }
 }
 

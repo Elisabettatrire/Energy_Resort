@@ -51,6 +51,9 @@ public class SolarBehaviour extends OneShotBehaviour{
                             ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
                 	new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
                             "pricesolar", solar);
+                } else if(msg != null && msg.getConversationId().equals("BuyFromYou")) {
+                	System.out.println(this.myAgent.getLocalName() +
+                            ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
                 } else {
                 	this.block();
                 }

@@ -40,7 +40,7 @@ public class BungalowAgent extends BaseAgent{
 	
 	protected void setup(){
 		bungalow = new BungalowData();
-		bungalowDb=new DbBungalowData();
+		bungalowDb = new DbBungalowData();
 		Calendar calendar = Calendar.getInstance();
         int day=calendar.get(Calendar.DAY_OF_WEEK);
         int hour= calendar.get(Calendar.HOUR_OF_DAY)+2;

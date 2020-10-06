@@ -8,7 +8,8 @@ import jade.core.Agent;
 
 
 public class DbBungalowData extends DbConnection {
-	int id;
+	private int id;
+	private String provider;
 	public int getBungalowID(String name) {	
 		final String query = "SELECT id FROM bungalow WHERE nome = ? ";
 		PreparedStatement ps = null;
@@ -65,5 +66,40 @@ public class DbBungalowData extends DbConnection {
 			//connClose();
 		}
 		return false;
+	}
+	
+	public double selectMinPrice(BungalowData data) {
+		String query = "SELECT MIN(Prezzo)" 
+				+ " FROM dati_fornitori";
+		try {
+			ResultSet rs= stmt.executeQuery(query);
+			while(rs.next())
+			{			
+                data.setMinPrice(rs.getDouble(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return data.getMinPrice();
+	}
+	
+	public String selectBestProvider(double price) {
+		String query = "SELECT Nome" 
+				+ " FROM dati_fornitori"
+				+ " WHERE Prezzo = "+price;
+		try {
+			ResultSet rs= stmt.executeQuery(query);
+			while(rs.next())
+			{			
+                provider = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return provider;
 	}
 }
