@@ -44,6 +44,7 @@ public class AeolianBehaviour extends OneShotBehaviour {
 					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 40000) {
 
 						protected void onWake() {
+							
 							System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName()
 									+ " dice: " + msg.getContent());
 							new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),

@@ -31,6 +31,9 @@ public class SolarBehaviour extends OneShotBehaviour{
 //    LoadData loadData = new DbLoadData().getLastLoadData(loadInfo.getIdLoad(), msgData.getDatetime());
 //    //System.out.println("\nloadBeh id: "+loadInfo.getIdLoad()+" dopo: "+msgData.getDatetime().getTime());
     SolarData solar;
+    int max = 3;
+	int min = 1;
+	int random_int = (int)(Math.random() * (max - min + 1) + min);
     
     public SolarBehaviour(Agent a, SolarData solar)
     {
@@ -51,10 +54,24 @@ public class SolarBehaviour extends OneShotBehaviour{
                             ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
                 	new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
                             "pricesolar", solar);
-                } else if(msg != null && msg.getConversationId().equals("BuyFromYou")) {
+                } 
+    	        else if(msg != null && msg.getConversationId().equals("BuyFromYou")) {
+                	
                 	System.out.println(this.myAgent.getLocalName() +
                             ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
-                } else {
+                	
+					//System.out.println(random_int);
+					if (msg.getSender().getLocalName().equals("Bungalow"+random_int))
+					{
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+							"AnswerToClient", "Vendo a te i Kw.", ACLMessage.ACCEPT_PROPOSAL);
+						}
+					else
+						{new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
+						}
+                } 
+    	        else {
                 	this.block();
                 }
     		}

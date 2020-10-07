@@ -14,42 +14,44 @@ public class ManageSellingBehaviour extends OneShotBehaviour {
 
 
 
-ACLMessage msg;
+	ACLMessage msg;
 
 
-public ManageSellingBehaviour(Agent a){
-super(a);
-}
+	public ManageSellingBehaviour(Agent a){
+		super(a);
+	}
 
-public ManageSellingBehaviour(ACLMessage msg) {
-try {
-this.msg=msg;
+	public ManageSellingBehaviour(ACLMessage msg) {
+		try {
+			this.msg=msg;
 
-} catch (Exception e) {
-e.printStackTrace();
-}
-}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-public void action()
-{
+	public void action()
+	{
 
-if(msg != null && msg.getPerformative()==0 ) //0=ACCEPT_PROPOSAL
-{
-System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
-//qua si scalano i contatori provvisori
+		if(msg != null && msg.getPerformative()==ACLMessage.ACCEPT_PROPOSAL ) 
+		{
+			System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
+		
+			//qua si scalano i contatori provvisori
 
-} else if(msg != null && msg.getPerformative()==15) //15=REJECT_PROPOSAL
-{
-System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
-//this.block();
-}
+		} else if(msg != null && msg.getPerformative()==ACLMessage.REJECT_PROPOSAL) 
+		{
+			System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
+			this.myAgent.blockingReceive();
+			
+		}
 
-else {
-//this.block();
-}
+		else {
+			//this.block();
+		}
 
 
-}
+	}
 
 
 

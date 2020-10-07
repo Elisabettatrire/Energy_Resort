@@ -62,6 +62,8 @@ public class BatteryBehaviour extends OneShotBehaviour{
 					}
     	        } 
     	        else if(msg != null && (msg.getConversationId().equals("BuyFromYou") )) {
+//    	        	DFAgentDescription agents[]= new BaseAgent().getAgentsbyServiceType(this.myAgent, "BungalowAgent");
+//					System.out.println(agents);
     	        	System.out.println(this.myAgent.getLocalName() +
     						": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
     	        }
