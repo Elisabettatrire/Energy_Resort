@@ -70,7 +70,8 @@ public class DbBungalowData extends DbConnection {
 	
 	public double selectMinPrice(BungalowData data) {
 		String query = "SELECT MIN(Prezzo)" 
-				+ " FROM dati_fornitori";
+				+ " FROM dati_fornitori"
+				+ " WHERE Kw != 0";
 		try {
 			ResultSet rs= stmt.executeQuery(query);
 			while(rs.next())

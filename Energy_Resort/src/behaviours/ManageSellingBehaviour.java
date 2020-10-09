@@ -35,6 +35,7 @@ public class ManageSellingBehaviour extends OneShotBehaviour {
 
 		if(msg != null && msg.getPerformative()==ACLMessage.ACCEPT_PROPOSAL ) 
 		{
+			System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
 			new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
                     "AnswerToClient", ((BungalowAgent) myAgent).getBungalow());
 

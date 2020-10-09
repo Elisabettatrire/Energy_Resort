@@ -80,5 +80,19 @@ public class DbSolarData extends DbConnection{
 		
 		return 0;
 	}
+	
+	public Boolean updateProviderData(int Kw, String name) {
+		String query = "UPDATE dati_fornitori"
+				+" SET Kw = "+Kw
+				+" WHERE Nome = '"+name+"'";
+		try {
+			return stmt.execute(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return false;
+	}
 
 }

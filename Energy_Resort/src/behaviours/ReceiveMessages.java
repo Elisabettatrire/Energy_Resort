@@ -64,6 +64,11 @@ public class ReceiveMessages extends TickerBehaviour{
 					{
 						this.myAgent.addBehaviour(new StopBatteryBehaviour(msg));
 					}
+					else if(msg.getConversationId().equals("Finished"))
+					{
+						System.out.println(this.myAgent.getLocalName() +
+	    	    				": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+					}
 
 				}
 			}

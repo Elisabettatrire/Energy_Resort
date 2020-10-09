@@ -47,24 +47,23 @@ public class AeolianBehaviour extends OneShotBehaviour {
 					System.out.println(this.myAgent.getLocalName() +
                             ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
                 	
-					System.out.println(((BungalowAgent) myAgent).getBungalow().getCounterEnReq());
+					//System.out.println(((BungalowAgent) myAgent).getBungalow().getCounterEnReq());
 					if (msg.getSender().getLocalName().equals("Bungalow"+random_int))
 					{
-						if(((AeolianAgent) myAgent).getAeolian().getCounterWindKw() <= ((BungalowAgent) myAgent).getBungalow().getCounterEnReq())
-						{
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-							"AnswerToClient", "Vendo a te "+((AeolianAgent) myAgent).getAeolian().getCounterWindKw() +" Kw.", ACLMessage.ACCEPT_PROPOSAL);
-						} else {
-							new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-									"AnswerToClient", "Vendo a te "+((BungalowAgent) myAgent).getBungalow().getCounterEnReq() +" Kw.", ACLMessage.ACCEPT_PROPOSAL);
-						}
+    	                        "AnswerToClient", "Va bene. Li vendo a te.", ACLMessage.ACCEPT_PROPOSAL);
 					}
 					else
 						{new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
 						}
 
-				} else {
+				}
+				 else if(msg != null && msg.getConversationId().equals("AnswerToClient"))
+	    	        {
+	                   	this.myAgent.addBehaviour(new KwsProposalBehaviour(msg));  
+	    	        }
+				else {
 					this.block();
 				}
 			}
