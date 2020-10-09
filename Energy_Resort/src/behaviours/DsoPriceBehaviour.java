@@ -19,6 +19,9 @@ public class DsoPriceBehaviour extends OneShotBehaviour{
 	BungalowData msgData;
 	DsoData dso;
 	int totalNeed=0;
+	int max = 3;
+	int min = 1;
+	int random_int = (int)(Math.random() * (max - min + 1) + min);
 //	public DsoPriceBehaviour(ACLMessage msg) {
 //        try {
 //            this.msg=msg;
@@ -51,7 +54,18 @@ public class DsoPriceBehaviour extends OneShotBehaviour{
 				}
 				else if(msg != null && msg.getConversationId().equals("BuyFromYou")) {
 					System.out.println(this.myAgent.getLocalName() +
-			                ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+                            ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+                	
+					//System.out.println(random_int);
+					if (msg.getSender().getLocalName().equals("Bungalow"+random_int))
+					{
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+							"AnswerToClient", "Vendo a te i Kw.", ACLMessage.ACCEPT_PROPOSAL);
+						}
+					else
+						{new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
+						}
 				}
 				else
 				{

@@ -21,6 +21,9 @@ import data.BatteryData;
 public class BatteryBehaviour extends OneShotBehaviour{
 	
 	BatteryData battery;
+	int max = 3;
+	int min = 1;
+	int random_int = (int)(Math.random() * (max - min + 1) + min);
 	
 	public BatteryBehaviour(Agent a, BatteryData battery) {
 		super(a);
@@ -62,10 +65,19 @@ public class BatteryBehaviour extends OneShotBehaviour{
 					}
     	        } 
     	        else if(msg != null && (msg.getConversationId().equals("BuyFromYou") )) {
-//    	        	DFAgentDescription agents[]= new BaseAgent().getAgentsbyServiceType(this.myAgent, "BungalowAgent");
-//					System.out.println(agents);
     	        	System.out.println(this.myAgent.getLocalName() +
-    						": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+                            ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+                	
+					//System.out.println(random_int);
+					if (msg.getSender().getLocalName().equals("Bungalow"+random_int))
+					{
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+							"AnswerToClient", "Vendo a te i Kw.", ACLMessage.ACCEPT_PROPOSAL);
+						}
+					else
+						{new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
+						}
     	        }
     	        else {
     	        	this.block();

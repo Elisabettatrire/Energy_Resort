@@ -21,6 +21,9 @@ import jade.lang.acl.UnreadableException;
 public class AeolianBehaviour extends OneShotBehaviour {
 
 	AeolianData aeolian;
+	int max = 3;
+	int min = 1;
+	int random_int = (int)(Math.random() * (max - min + 1) + min);
 
 	public AeolianBehaviour(Agent a, AeolianData aeolian) {
 		super(a);
@@ -41,16 +44,25 @@ public class AeolianBehaviour extends OneShotBehaviour {
 				}
 
 				else if (msg != null && (msg.getConversationId().equals("BuyFromYou"))) {
-					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 40000) {
-
-						protected void onWake() {
-							
-							System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName()
-									+ " dice: " + msg.getContent());
+					System.out.println(this.myAgent.getLocalName() +
+                            ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+                	
+					System.out.println(((BungalowAgent) myAgent).getBungalow().getCounterEnReq());
+					if (msg.getSender().getLocalName().equals("Bungalow"+random_int))
+					{
+						if(((AeolianAgent) myAgent).getAeolian().getCounterWindKw() <= ((BungalowAgent) myAgent).getBungalow().getCounterEnReq())
+						{
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+							"AnswerToClient", "Vendo a te "+((AeolianAgent) myAgent).getAeolian().getCounterWindKw() +" Kw.", ACLMessage.ACCEPT_PROPOSAL);
+						} else {
 							new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-									"AnswerToClient", "Aspetta in coda", 15);
+									"AnswerToClient", "Vendo a te "+((BungalowAgent) myAgent).getBungalow().getCounterEnReq() +" Kw.", ACLMessage.ACCEPT_PROPOSAL);
 						}
-					});
+					}
+					else
+						{new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
+						}
 
 				} else {
 					this.block();

@@ -49,6 +49,7 @@ public class BungalowAgent extends BaseAgent{
         bungalow.setId(bungalowDb.getBungalowID(this.getLocalName()));
         bungalow.setBudget(bungalowDb.getBungalowData(bungalow).getBudget());
         bungalow.setEnReq(bungalowDb.getBungalowData(bungalow).getEnReq());
+        bungalow.setCounterEnReq(bungalow.getEnReq());
        
         
         

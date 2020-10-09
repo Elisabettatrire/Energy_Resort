@@ -86,6 +86,25 @@ public class BaseAgent extends Agent {
 		}
 		return false;
 	}
+	
+	public Boolean sendMessageToAgentsByServiceType (Agent myAgent, AID receiver,
+			String conversationId, Serializable messageData, String sentence)
+	{
+		try {
+			ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+			message.setContentObject(messageData);
+			message.setContent(sentence);
+			message.addReceiver(receiver);
+			message.setConversationId(conversationId);
+			myAgent.send(message);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
 	public Boolean sendMessageToAgentsByServiceType (Agent myAgent, AID receiver,
 			String conversationId, Serializable messageData, int performative)
 	{

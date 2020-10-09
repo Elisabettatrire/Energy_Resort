@@ -9,14 +9,16 @@ public class SolarData implements Serializable{
 	private int solarForecast; //le previsioni del sole
 	private int dayHour;
 	private int weekDay;
-	
-	public SolarData(double solarPrice, int solarKw, int solarForecast, int dayHour, int weekDay) {
+	private int counterSolarKw;	
+
+	public SolarData(double solarPrice, int solarKw, int solarForecast, int dayHour, int weekDay, int counterSolarKw) {
 
 		this.solarPrice = solarPrice;
 		this.solarKw = solarKw;
 		this.solarForecast = solarForecast;
 		this.dayHour= dayHour;
 		this.weekDay= weekDay;
+		this.counterSolarKw = counterSolarKw;
 	}
 	
 	public SolarData() {
@@ -62,7 +64,11 @@ public class SolarData implements Serializable{
 	public void setWeekDay(int weekDay) {
 		this.weekDay = weekDay;
 	}
-	
-	
+	public int getCounterSolarKw() {
+		return counterSolarKw;
+	}
 
+	public void setCounterSolarKw(int counterSolarKw) {
+		this.counterSolarKw = counterSolarKw;
+	}
 }

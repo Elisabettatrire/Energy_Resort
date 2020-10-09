@@ -44,7 +44,7 @@ public class DbBungalowData extends DbConnection {
 			while(rs.next())
 			{			
 				data.setEnReq(rs.getInt("Bisogni_b"+data.getId()));
-				data.setBudget(rs.getInt("Budget_b"+data.getId()));
+				data.setBudget(rs.getDouble("Budget_b"+data.getId()));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

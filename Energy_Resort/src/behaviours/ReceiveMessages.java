@@ -24,72 +24,72 @@ import jade.lang.acl.UnreadableException;
 
 public class ReceiveMessages extends TickerBehaviour{
 
-double dsoPrice;
+	double dsoPrice;
 
-public ReceiveMessages(Agent a, long period) {
-super(a, period);
-}
+	public ReceiveMessages(Agent a, long period) {
+		super(a, period);
+	}
 
-public ReceiveMessages(Agent a, long period, double dsoPrice) {
-super(a, period);
-this.dsoPrice = dsoPrice;
-}
+	public ReceiveMessages(Agent a, long period, double dsoPrice) {
+		super(a, period);
+		this.dsoPrice = dsoPrice;
+	}
 
-protected void onTick() {
-try{
-MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
-ACLMessage msg = this.myAgent.receive(template);
-if (msg!=null)
-{
+	protected void onTick() {
+		try{
+			MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+			ACLMessage msg = this.myAgent.receive(template);
+			if (msg!=null)
+			{
 
-if(this.myAgent instanceof BungalowAgent)
-{
-if(msg.getConversationId().equals("priceaeolian"))
-{
-this.myAgent.addBehaviour(new ReceiveAeolianBungalow(msg));
-}
-else if(msg.getConversationId().equals("pricesolar"))
-{
-this.myAgent.addBehaviour(new ReceiveSolarBungalow(msg));
-}
-else if(msg.getConversationId().equals("pricedso"))
-{
-this.myAgent.addBehaviour(new ReceiveDsoBungalow(msg));
-}
-else if(msg.getConversationId().equals("pricebattery"))
-{
-this.myAgent.addBehaviour(new ReceiveBatteryBungalow(msg));
-}
-else if(msg.getConversationId().equals("stopselling"))
-{
-this.myAgent.addBehaviour(new StopBatteryBehaviour(msg));
-}
+				if(this.myAgent instanceof BungalowAgent)
+				{
+					if(msg.getConversationId().equals("priceaeolian"))
+					{
+						this.myAgent.addBehaviour(new ReceiveAeolianBungalow(msg));
+					}
+					else if(msg.getConversationId().equals("pricesolar"))
+					{
+						this.myAgent.addBehaviour(new ReceiveSolarBungalow(msg));
+					}
+					else if(msg.getConversationId().equals("pricedso"))
+					{
+						this.myAgent.addBehaviour(new ReceiveDsoBungalow(msg));
+					}
+					else if(msg.getConversationId().equals("pricebattery"))
+					{
+						this.myAgent.addBehaviour(new ReceiveBatteryBungalow(msg));
+					}
+					else if(msg.getConversationId().equals("stopselling"))
+					{
+						this.myAgent.addBehaviour(new StopBatteryBehaviour(msg));
+					}
 
-}
-}
-ACLMessage msg1 = this.myAgent.receive(MessageTemplate.or(
-MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL),
-(MessageTemplate.MatchPerformative(ACLMessage.REJECT_PROPOSAL))
-));
-if (msg1!=null)
-{
+				}
+			}
+			ACLMessage msg1 = this.myAgent.receive(MessageTemplate.or(
+					MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL),
+					(MessageTemplate.MatchPerformative(ACLMessage.REJECT_PROPOSAL))
+					));
+			if (msg1!=null)
+			{
 
-if(this.myAgent instanceof BungalowAgent)
-{
+				if(this.myAgent instanceof BungalowAgent)
+				{
 
-if(msg1.getConversationId().equals("AnswerToClient"))
-{
-this.myAgent.addBehaviour(new ManageSellingBehaviour(msg1));
-}
-}
-}
-/*else
+					if(msg1.getConversationId().equals("AnswerToClient"))
+					{
+						this.myAgent.addBehaviour(new ManageSellingBehaviour(msg1));
+					}
+				}
+			}
+			/*else
 {
 this.block();
 }*/
 
-} catch (Exception e) {
-e.printStackTrace();
-}
-}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -53,6 +53,7 @@ public class AeolianAgent extends BaseAgent{
             aeolian.setWindKw(2);
         }
         
+        aeolian.setCounterWindKw(aeolian.getWindKw());
 		registerDfAgent(this.getHap(), "AeolianAgent");
 		
 		this.addBehaviour(new AeolianBehaviour(this, aeolian));

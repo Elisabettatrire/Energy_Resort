@@ -10,14 +10,17 @@ public class AeolianData implements Serializable{
 	private int windForecast; //le previsioni del vento
 	private int dayHour;
 	private int weekDay;
+	private int counterWindKw;
 	
-	public AeolianData(double windPrice, int windKw, int windForecast, int dayHour, int weekDay) {
+	
+	public AeolianData(double windPrice, int windKw, int windForecast, int dayHour, int weekDay, int counterWindKw) {
 
 		this.windPrice = windPrice;
 		this.windKw = windKw;
 		this.windForecast = windForecast;
 		this.dayHour= dayHour;
 		this.weekDay= weekDay;
+		this.counterWindKw = counterWindKw;
 	}
 	
 	public AeolianData() {
@@ -64,8 +67,11 @@ public class AeolianData implements Serializable{
 		this.weekDay = weekDay;
 	}
 
+	public int getCounterWindKw() {
+		return counterWindKw;
+	}
 
-	
-	
-
+	public void setCounterWindKw(int counterWindKw) {
+		this.counterWindKw = counterWindKw;
+	}
 }
