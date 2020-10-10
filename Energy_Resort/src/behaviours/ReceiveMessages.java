@@ -66,8 +66,14 @@ public class ReceiveMessages extends TickerBehaviour{
 					}
 					else if(msg.getConversationId().equals("Finished"))
 					{
-						System.out.println(this.myAgent.getLocalName() +
-	    	    				": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
+						System.out.println(this.myAgent.getLocalName()+": "+msg.getContent());
+						
+					}
+					else if(msg.getConversationId().equals("WakeUp"))
+					{
+						//System.out.println(this.myAgent.getLocalName()+" dice: "+msg.getSender().getLocalName()+" mi ha svegliato.");
+						this.myAgent.addBehaviour(new ResearchProviderBehaviour(msg));
+						
 					}
 
 				}

@@ -2,6 +2,7 @@ package behaviours;
 
 import agents.AeolianAgent;
 import agents.BaseAgent;
+import agents.BatteryAgent;
 import agents.SolarAgent;
 import data.BungalowData;
 import jade.core.Agent;
@@ -33,6 +34,8 @@ public class KwsProposalBehaviour extends OneShotBehaviour{
 			try {
 				if(((SolarAgent) myAgent).getSolar().getCounterSolarKw() <= msgBungalowData.getCounterEnReq())
 				{
+					System.out.println(((SolarAgent) myAgent).getSolar().getCounterSolarKw());
+					System.out.println(((SolarAgent) myAgent).getSolar().getCounterSolarKw());
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 							"Finished", "Vendo a te "+((SolarAgent) myAgent).getSolar().getCounterSolarKw() +" Kw.");
 					msgBungalowData.setCounterEnReq(msgBungalowData.getCounterEnReq() - ((SolarAgent) myAgent).getSolar().getCounterSolarKw());
@@ -46,6 +49,7 @@ public class KwsProposalBehaviour extends OneShotBehaviour{
 					((SolarAgent) myAgent).getDbSolar().updateProviderData(((SolarAgent) myAgent).getSolar().getCounterSolarKw(), "Solar");
 					
 				}
+				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
 			} catch(Exception e) {
 				e.printStackTrace();
 			}						
@@ -69,6 +73,32 @@ public class KwsProposalBehaviour extends OneShotBehaviour{
 					((AeolianAgent) myAgent).getDbAeolian().updateProviderData(((AeolianAgent) myAgent).getAeolian().getCounterWindKw(), "Aeolian");
 					
 				}
+				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
+			} catch(Exception e) {
+				e.printStackTrace();
+			}						
+    }
+      
+      if(this.myAgent instanceof BatteryAgent)
+      {
+			try {
+				if(((BatteryAgent) myAgent).getBattery().getCounterCapacity() <= msgBungalowData.getCounterEnReq())
+				{					
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+							"Finished", "Vendo a te "+((BatteryAgent) myAgent).getBattery().getCounterCapacity() +" Kw.");
+					msgBungalowData.setCounterEnReq(msgBungalowData.getCounterEnReq() - ((BatteryAgent) myAgent).getBattery().getCounterCapacity());
+					((BatteryAgent) myAgent).getBattery().setCounterCapacity(0);
+					((BatteryAgent) myAgent).getDbBattery().updateProviderData(((BatteryAgent) myAgent).getBattery().getCounterCapacity(), "Battery");
+					
+				} else {
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+							"Finished", "Vendo a te "+msgBungalowData.getCounterEnReq() +" Kw.");
+					((BatteryAgent) myAgent).getBattery().setCounterCapacity(((BatteryAgent) myAgent).getBattery().getCounterCapacity() - msgBungalowData.getCounterEnReq());
+					msgBungalowData.setCounterEnReq(0);
+					((BatteryAgent) myAgent).getDbBattery().updateProviderData(((BatteryAgent) myAgent).getBattery().getCounterCapacity(), "Battery");
+					
+				}
+				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
 			} catch(Exception e) {
 				e.printStackTrace();
 			}						

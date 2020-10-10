@@ -55,6 +55,7 @@ public class SolarAgent extends BaseAgent{
         	solar.setSolarPrice(0.6);
             solar.setSolarKw(10);
         } 
+        solar.setCounterSolarKw(solar.getSolarKw());
 		registerDfAgent(this.getHap(), "SolarAgent");
 		this.addBehaviour(new SolarBehaviour(this, solar));
 	}

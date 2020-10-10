@@ -42,7 +42,7 @@ public class ManageSellingBehaviour extends OneShotBehaviour {
 		} else if(msg != null && msg.getPerformative()==ACLMessage.REJECT_PROPOSAL) 
 		{
 			System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
-			this.myAgent.blockingReceive();
+			this.myAgent.doWait();
 			
 		}
 
