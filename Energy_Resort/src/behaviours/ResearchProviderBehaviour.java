@@ -34,19 +34,55 @@ public class ResearchProviderBehaviour extends OneShotBehaviour{
 		
 		if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
 				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
-				.equals("Solar") && ((BungalowAgent) myAgent).getBungalow().getCounterEnReq()>0) {
+				.equals("Solar") && ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName())>0) {
 			
-			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 40000) {
+			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
 				protected void onWake() {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
 							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
-									+ ((BungalowAgent) myAgent).getBungalow().getCounterEnReq() + " Kw da te.");
+									+ ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) + " Kw da te.");
 				}
 			});
 		} 
+		else if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
+				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
+				.equals("Aeolian") && ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName())>0) {
+			
+			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
+				protected void onWake() {
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
+							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
+									+ ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) + " Kw da te.");
+				}
+			});
+		}
+		else if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
+				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
+				.equals("Battery") && ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName())>0) {
+			
+			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
+				protected void onWake() {
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
+							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
+									+ ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) + " Kw da te.");
+				}
+			});
+		}
+		else if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
+				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
+				.equals("Dso") && ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName())>0) {
+			
+			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
+				protected void onWake() {
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
+							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
+									+ ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) + " Kw da te.");
+				}
+			});
+		}
 		else {
 			System.out.println(this.myAgent.getLocalName()+": SHTAPPOSHT!!!!!!!!");
-			this.myAgent.blockingReceive();
+			this.myAgent.doDelete();
 		}
 	}
 

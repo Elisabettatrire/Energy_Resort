@@ -49,15 +49,13 @@ public class BungalowAgent extends BaseAgent{
         bungalow.setId(bungalowDb.getBungalowID(this.getLocalName()));
         bungalow.setBudget(bungalowDb.getBungalowData(bungalow).getBudget());
         bungalow.setEnReq(bungalowDb.getBungalowData(bungalow).getEnReq());
-        bungalow.setCounterEnReq(bungalow.getEnReq());
-       
         
+        bungalowDb.updateConsumerData(bungalow.getEnReq(), bungalow.getBudget(), "Bungalow"+bungalow.getId());
         
 		registerDfAgent(this.getHap(), "BungalowAgent");
 		
-		
 		this.addBehaviour(new BungalowBehaviour(this, bungalow));
 		this.addBehaviour(new ReceiveMessages(this, 10000));
-		//this.addBehaviour(new ChoiceProviderBungalow(this));
+		
 	}
 }

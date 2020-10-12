@@ -47,7 +47,8 @@ public class SolarBehaviour extends OneShotBehaviour {
 				else if (msg != null && msg.getConversationId().equals("BuyFromYou")) {
 					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
 							+ msg.getContent());
-					if (msg.getSender().getLocalName().equals("Bungalow" + random_int)) {
+					if (msg.getSender().getLocalName().equals(((SolarAgent) myAgent).getDbSolar()
+							.selectBestConsumer(((SolarAgent) myAgent).getDbSolar().getMaxEnReq()))) {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 								"AnswerToClient", "Va bene. Li vendo a te.", ACLMessage.ACCEPT_PROPOSAL);
 					} else {

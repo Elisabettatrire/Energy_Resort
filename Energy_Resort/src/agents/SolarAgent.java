@@ -9,8 +9,10 @@ import database.DbSolarData;
 
 
 public class SolarAgent extends BaseAgent{
+	
 	private SolarData solar;
 	private DbSolarData dbSolar;
+	
 	public SolarData getSolar() {
 		return solar;
 	}
@@ -55,7 +57,9 @@ public class SolarAgent extends BaseAgent{
         	solar.setSolarPrice(0.6);
             solar.setSolarKw(10);
         } 
-        solar.setCounterSolarKw(solar.getSolarKw());
+       
+        dbSolar.updateProviderData(solar.getSolarKw(), "Solar");
+        
 		registerDfAgent(this.getHap(), "SolarAgent");
 		this.addBehaviour(new SolarBehaviour(this, solar));
 	}

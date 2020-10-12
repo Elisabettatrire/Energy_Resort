@@ -41,8 +41,8 @@ public class ReceiveSolarBungalow extends OneShotBehaviour {
 				+ " dice che ha prodotto " + msgSolarData.getSolarKw() + " Kw al prezzo di "
 				+ msgSolarData.getSolarPrice() + " euro al Kw.");
 		
-		((BungalowAgent) myAgent).getBungalowDb().insertProviderData(msgSolarData.getSolarKw(),
-				msgSolarData.getSolarPrice(), msg.getSender().getLocalName());
+//		((BungalowAgent) myAgent).getBungalowDb().updateProviderData(msgSolarData.getSolarKw(),
+//				msgSolarData.getSolarPrice(), msg.getSender().getLocalName());
 
 		if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
 				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))

@@ -12,44 +12,42 @@ import java.util.Hashtable;
 import agents.BaseAgent;
 import agents.BungalowAgent;
 
-public class ReceiveBatteryBungalow extends OneShotBehaviour{
-	
-	BatteryData msgBatteryData;
-    ACLMessage msg;
+public class ReceiveBatteryBungalow extends OneShotBehaviour {
 
-    
-    
-    
-    
-    public ReceiveBatteryBungalow(Agent a){
-        super(a);
-    }
-    
-    
-    public ReceiveBatteryBungalow(ACLMessage msg) {
-        try {
-            this.msg=msg;
-            msgBatteryData = (BatteryData)msg.getContentObject();
-            }  catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void action()
-    {
-  
-    	System.out.println(this.myAgent.getLocalName() + ": " + 
-                msg.getSender().getLocalName() + " dice che ha a disposizione " + msgBatteryData.getCapacity()+
-                " Kw al prezzo di "+msgBatteryData.getBatteryPrice()+" euro al Kw.");    
-    	((BungalowAgent) myAgent).getBungalowDb().insertProviderData(msgBatteryData.getCapacity(), msgBatteryData.getBatteryPrice(), msg.getSender().getLocalName());
-    
-        if(((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow())).equals("Battery")) {
-        	this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 40000) {
-        		protected void onWake() {
-                	new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou", "Ciao "+msg.getSender().getLocalName()
-                        	+", voglio acquistare "+((BungalowAgent) myAgent).getBungalow().getEnReq()+" Kw da te.");
-        		}
-        	});
-        }
-    }
+	BatteryData msgBatteryData;
+	ACLMessage msg;
+
+	public ReceiveBatteryBungalow(Agent a) {
+		super(a);
+	}
+
+	public ReceiveBatteryBungalow(ACLMessage msg) {
+		try {
+			this.msg = msg;
+			msgBatteryData = (BatteryData) msg.getContentObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void action() {
+
+		System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName()
+				+ " dice che ha a disposizione " + msgBatteryData.getCapacity() + " Kw al prezzo di "
+				+ msgBatteryData.getBatteryPrice() + " euro al Kw.");
+//		((BungalowAgent) myAgent).getBungalowDb().updateProviderData(msgBatteryData.getCapacity(),
+//				msgBatteryData.getBatteryPrice(), msg.getSender().getLocalName());
+
+		if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
+				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
+				.equals("Battery")) {
+			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 40000) {
+				protected void onWake() {
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
+							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
+									+ ((BungalowAgent) myAgent).getBungalow().getEnReq() + " Kw da te.");
+				}
+			});
+		}
+	}
 }

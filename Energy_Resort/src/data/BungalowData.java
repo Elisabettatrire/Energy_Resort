@@ -12,19 +12,19 @@ public class BungalowData implements Serializable{
 	private int dayHour;
 	private int weekDay;
 	private double minPrice;
-	private int counterEnReq;
-	
+	private int maxEnReq;
 
-	
 
-public BungalowData(int id, double budget, int enReq, int dayHour, int weekDay, double minPrice, int counterEnReq) {
+
+public BungalowData(int id, double budget, int enReq, int dayHour, int weekDay, double minPrice,int maxEnReq) {
 	this.id = id;
 	this.budget = budget;
 	this.enReq = enReq;
 	this.dayHour = dayHour;
 	this.weekDay = weekDay;
 	this.minPrice = minPrice;
-	this.counterEnReq = counterEnReq;
+	this.maxEnReq = maxEnReq;
+
 }
 
 public BungalowData(double budget, int enReq) {
@@ -70,10 +70,12 @@ public BungalowData() {
 	public void setMinPrice(double minPrice) {
 		this.minPrice = minPrice;
 	}
-	public int getCounterEnReq() {
-		return counterEnReq;
+	public int getMaxEnReq() {
+		return maxEnReq;
 	}
-	public void setCounterEnReq(int counterEnReq) {
-		this.counterEnReq = counterEnReq;
+
+	public void setMaxEnReq(int maxEnReq) {
+		this.maxEnReq = maxEnReq;
 	}
+	
 }

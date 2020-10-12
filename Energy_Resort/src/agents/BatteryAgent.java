@@ -34,9 +34,10 @@ public class BatteryAgent extends BaseAgent{
 		battery.setBatteryPrice(0.8);
 		battery.setBudget(60);
 		battery.setCapacity(50);
+		dbBattery.updateProviderData(battery.getCapacity(), "Battery");
 		
-		battery.setCounterCapacity(battery.getCapacity());
 		registerDfAgent(this.getHap(), "BatteryAgent");
+		
 		this.addBehaviour(new BatteryBehaviour(this, battery));
 		//this.addBehaviour(new ReceiveMessages(this, 10000));
 		

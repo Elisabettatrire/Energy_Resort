@@ -10,6 +10,8 @@ import jade.core.Agent;
 public class DbBungalowData extends DbConnection {
 	private int id;
 	private String provider;
+	private int enReq;
+	
 	public int getBungalowID(String name) {	
 		final String query = "SELECT id FROM bungalow WHERE nome = ? ";
 		PreparedStatement ps = null;
@@ -54,9 +56,22 @@ public class DbBungalowData extends DbConnection {
 		return data;
 	}
 	
-	public Boolean insertProviderData(int Kw, double price, String name) {
+	public Boolean updateProviderData(int Kw, double price, String name) {
 		String query = "UPDATE dati_fornitori"
 				+" SET Kw = "+Kw+", Prezzo = "+price
+				+" WHERE Nome = '"+name+"'";
+		try {
+			return stmt.execute(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return false;
+	}
+	public Boolean updateConsumerData(int Kw, double budget, String name) {
+		String query = "UPDATE dati_consumatori"
+				+" SET CounterKw = "+Kw+", Budget = "+budget
 				+" WHERE Nome = '"+name+"'";
 		try {
 			return stmt.execute(query);
@@ -103,4 +118,22 @@ public class DbBungalowData extends DbConnection {
 		}
 		return provider;
 	}
+	public int getMyEnReq(String name) {
+		String query = "SELECT CounterKw" 
+				+ " FROM dati_consumatori"
+				+" WHERE Nome = '"+name+"'";
+		try {
+			ResultSet rs= stmt.executeQuery(query);
+			while(rs.next())
+			{			
+                enReq = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return enReq;
+	}
+	
 }

@@ -1,15 +1,11 @@
 package database;
 
-import data.AeolianData;
-import data.BungalowData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 
+import data.SolarData;
 
-
-
-public class DbAeolianData extends DbConnection{
+public class DbDsoData extends DbConnection {
 	
 	private String consumer;
 	private int data;
@@ -17,28 +13,6 @@ public class DbAeolianData extends DbConnection{
 	private int enReq;
 	private double budget;
 	
-	
-	public int getWind(int dayHour, int weekDay) {
-		
-		String query = "SELECT idVento" 
-				+ " FROM Meteo"
-				+ " WHERE idOrario = "+dayHour
-				+ " AND idGiorno = "+weekDay;
-	
-		try {
-			ResultSet rs = stmt.executeQuery(query);
-			while(rs.next())
-			{			
-				return rs.getInt("idVento");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			//connClose(); la connessione non può essere chiusa altrimenti 
-			//onTick di AeolianBehaviour non riesce ad accedere periodicamente al db!!
-		}
-		return 0;
-	}
 	
 	public int getMaxEnReq() {
 		String query = "SELECT MAX(CounterKw)" 
@@ -100,7 +74,6 @@ public class DbAeolianData extends DbConnection{
 		}
 		return false;
 	}
-	
 	public int getMyKw(String name) {
 		String query = "SELECT Kw" 
 				+ " FROM dati_fornitori"
@@ -152,4 +125,6 @@ public class DbAeolianData extends DbConnection{
 		}
 		return budget;
 	}
+
+
 }

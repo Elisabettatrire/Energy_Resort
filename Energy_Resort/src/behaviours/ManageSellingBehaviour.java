@@ -42,17 +42,11 @@ public class ManageSellingBehaviour extends OneShotBehaviour {
 		} else if(msg != null && msg.getPerformative()==ACLMessage.REJECT_PROPOSAL) 
 		{
 			System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
-			this.myAgent.doWait();
+			//l agente deve attendere in coda che il prescelto abbia finito col fornitore e poi deve ritornare a chiedere i kw
 			
 		}
-
 		else {
 			//this.block();
 		}
-
-
 	}
-
-
-
 }

@@ -9,14 +9,14 @@ public class BatteryData implements Serializable{
 	private double budget;
     private double batteryPrice;
     private double minPrice;
-	private int counterCapacity;
+
     
-	public BatteryData(int capacity, double budget, double batteryPrice, double minPrice, int counterCapacity) {
+	public BatteryData(int capacity, double budget, double batteryPrice, double minPrice) {
     	this.budget = budget;
     	this.capacity = capacity;
     	this.batteryPrice = batteryPrice;
     	this.minPrice = minPrice;
-    	this.counterCapacity = counterCapacity;
+    	
     }
     
     public BatteryData() {
@@ -53,12 +53,6 @@ public class BatteryData implements Serializable{
 	public void setMinPrice(double minPrice) {
 		this.minPrice = minPrice;
 	}
-	public int getCounterCapacity() {
-		return counterCapacity;
-	}
-
-	public void setCounterCapacity(int counterCapacity) {
-		this.counterCapacity = counterCapacity;
-	}
+	
 }
 
