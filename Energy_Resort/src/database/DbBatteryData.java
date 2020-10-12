@@ -84,9 +84,9 @@ public class DbBatteryData extends DbConnection {
 		}
 		return consumer;
 	}
-	public Boolean updateProviderData(int Kw, String name) {
+	public Boolean updateProviderData(int Kw, double price, String name) {
 		String query = "UPDATE dati_fornitori"
-				+" SET Kw = "+Kw
+				+" SET Kw = "+Kw +", Prezzo = "+price
 				+" WHERE Nome = '"+name+"'";
 		try {
 			return stmt.execute(query);

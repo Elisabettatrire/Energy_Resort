@@ -70,7 +70,7 @@ public class DsoPriceBehaviour extends OneShotBehaviour {
 					dso.setDsoPrice(1);
 				}
 				
-				((DsoAgent) myAgent).getDbDso().updateProviderData(200, "Dso");
+				((DsoAgent) myAgent).getDbDso().updateProviderData(200, dso.getDsoPrice(), "Dso");
 				
 				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "pricedso",
 						dso.getDsoPrice());

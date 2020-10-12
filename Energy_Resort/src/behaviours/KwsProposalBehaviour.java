@@ -56,13 +56,14 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 							* solarDb.getMyKw(localSolar),
 							senderName);
 
-					solarDb.updateProviderData(0, "Solar");
+					solarDb.updateProviderData(0, ((SolarAgent) myAgent).getSolar().getSolarPrice(), "Solar");
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + solarDb.getConsumerEnReq(senderName) + " Kw.");
 
-					solarDb.updateProviderData(solarDb.getMyKw(localSolar)-solarDb.getConsumerEnReq(senderName), "Solar");
+					
+					solarDb.updateProviderData(solarDb.getMyKw(localSolar)-solarDb.getConsumerEnReq(senderName), ((SolarAgent) myAgent).getSolar().getSolarPrice(), "Solar");
 
 					solarDb.updateConsumerData(0, solarDb.getConsumerBudget(senderName)
 							- ((SolarAgent) myAgent).getSolar().getSolarPrice() * solarDb.getConsumerEnReq(senderName),
@@ -96,14 +97,14 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 								* aeolianDb.getMyKw(localAeolian),
 								senderName);
 
-						aeolianDb.updateProviderData(0, "Aeolian");
+		                aeolianDb.updateProviderData(0, ((AeolianAgent) myAgent).getAeolian().getWindPrice(), "Aeolian");
 
 					} else {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 								"Vendo a te " + aeolianDb.getConsumerEnReq(senderName) + " Kw.");
 
-						aeolianDb.updateProviderData(aeolianDb.getMyKw(localAeolian)-aeolianDb.getConsumerEnReq(senderName), "Aeolian");
-
+						aeolianDb.updateProviderData(aeolianDb.getMyKw(localAeolian)-aeolianDb.getConsumerEnReq(senderName), ((AeolianAgent) myAgent).getAeolian().getWindPrice(), "Aeolian");
+						
 						aeolianDb.updateConsumerData(0, aeolianDb.getConsumerBudget(senderName)
 								- ((AeolianAgent) myAgent).getAeolian().getWindPrice() * aeolianDb.getConsumerEnReq(senderName),
 								senderName);
@@ -137,13 +138,14 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 							* batteryDb.getMyKw(localBattery),
 							senderName);
 
-					batteryDb.updateProviderData(0, "Battery");
+					batteryDb.updateProviderData(0, ((BatteryAgent) myAgent).getBattery().getBatteryPrice(), "Battery");
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + batteryDb.getConsumerEnReq(senderName) + " Kw.");
 
-					batteryDb.updateProviderData(batteryDb.getMyKw(localBattery)-batteryDb.getConsumerEnReq(senderName), "Battery");
+					
+					batteryDb.updateProviderData(batteryDb.getMyKw(localBattery)-batteryDb.getConsumerEnReq(senderName), ((BatteryAgent) myAgent).getBattery().getBatteryPrice(), "Battery");
 
 					batteryDb.updateConsumerData(0, batteryDb.getConsumerBudget(senderName)
 							- ((BatteryAgent) myAgent).getBattery().getBatteryPrice() * batteryDb.getConsumerEnReq(senderName),

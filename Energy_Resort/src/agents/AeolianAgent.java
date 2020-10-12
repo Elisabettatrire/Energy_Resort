@@ -53,7 +53,7 @@ public class AeolianAgent extends BaseAgent{
             aeolian.setWindKw(2);
         }
        
-        dbAeolian.updateProviderData(aeolian.getWindKw(), "Aeolian");
+        dbAeolian.updateProviderData(aeolian.getWindKw(), aeolian.getWindPrice(), "Aeolian");
        
 		registerDfAgent(this.getHap(), "AeolianAgent");
 		
