@@ -18,64 +18,54 @@ import agents.AeolianAgent;
 import agents.BatteryAgent;
 import data.BatteryData;
 
-public class BatteryBehaviour extends OneShotBehaviour{
-	
+public class BatteryBehaviour extends OneShotBehaviour {
+
 	BatteryData battery;
-	
+
 	public BatteryBehaviour(Agent a, BatteryData battery) {
 		super(a);
-		this.battery = battery;  
-	} 
-	
+		this.battery = battery;
+	}
+
 	public void action() {
-		
+
 		this.myAgent.addBehaviour(new CyclicBehaviour(this.myAgent) {
 			public void action() {
 				MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
-    	        ACLMessage msg = this.myAgent.receive(template); 
-    	        if(msg != null && (msg.getConversationId().equals("energyrequest") ))
-    	        {
-					System.out.println(this.myAgent.getLocalName() +
-					": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
-		
-					if(battery.getCapacity()>10) {
-						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-						"pricebattery", battery);
-					}else {
-						new BaseAgent().sendMessageToAgentsByServiceType (this.myAgent, msg.getSender(), 
-								"stopselling", "Non posso piu' vendere energia! Ho la capacita' al 20%.");
-						 String[] agents = {"AeolianAgent", "DsoAgent", "SolarAgent"};
-							for(int i=0; i<agents.length; i++) {
-					            DFAgentDescription[] dfagents = new BaseAgent().getAgentsbyServiceType(this.myAgent, agents[i]);
-					           // System.out.println(dfagents);
-					           // new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, dfagents[0].getName(), "recharge");
-					        }
-					}
-    	        } 
-    	        else if(msg != null && (msg.getConversationId().equals("BuyFromYou") )) {
-    	        	
-    	        	System.out.println(this.myAgent.getLocalName() +
-                            ": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
-                	
-					if (msg.getSender().getLocalName().equals(((BatteryAgent) myAgent).getDbBattery()
-							.selectBestConsumer(((BatteryAgent) myAgent).getDbBattery().getMaxEnReq())))
-					{
-						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-							"AnswerToClient", "Vendo a te i Kw.", ACLMessage.ACCEPT_PROPOSAL);
-						}
-					else
-						{new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
-						}
-    	        }
-    	        else {
-    	        	this.block();
-    	        }
-			}
-    	});
-		
-		
+				ACLMessage msg = this.myAgent.receive(template);
+				if (msg != null && (msg.getConversationId().equals("energyrequest"))) {
+					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
+							+ msg.getContent());
 
+					if (((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery") > 10) {
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "pricebattery",
+								battery);
+					} else {
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "stopselling",
+								"Non posso piu' vendere energia! Ho la capacita' al 20%.");
+					}
+				} else if (msg != null && (msg.getConversationId().equals("BuyFromYou"))) {
+
+					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
+							+ msg.getContent());
+					if (((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery") > 10) {
+						if (msg.getSender().getLocalName().equals(((BatteryAgent) myAgent).getDbBattery()
+								.selectBestConsumer(((BatteryAgent) myAgent).getDbBattery().getMaxEnReq()))) {
+							new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+									"AnswerToClient", "Vendo a te i Kw.", ACLMessage.ACCEPT_PROPOSAL);
+						} else {
+							new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
+									"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
+						}
+					} else {
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "stopselling",
+								"Non posso piu' vendere energia! Ho la capacita' al 20%.");
+					}
+				} else {
+					this.block();
+				}
+			}
+		});
 
 	}
 }

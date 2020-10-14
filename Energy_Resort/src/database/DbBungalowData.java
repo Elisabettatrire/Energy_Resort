@@ -83,10 +83,24 @@ public class DbBungalowData extends DbConnection {
 		return false;
 	}
 	
+	public Boolean setNullBPrice(String name) {
+		String query = "UPDATE dati_fornitori"
+				+" SET Prezzo = "+null
+				+" WHERE Nome = '"+name+"'";
+		try {
+			return stmt.execute(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return false;
+	}
+	
 	public double selectMinPrice(BungalowData data) {
 		String query = "SELECT MIN(Prezzo)" 
 				+ " FROM dati_fornitori"
-				+ " WHERE Kw != 0";
+				+ " WHERE Kw > 0";
 		try {
 			ResultSet rs= stmt.executeQuery(query);
 			while(rs.next())

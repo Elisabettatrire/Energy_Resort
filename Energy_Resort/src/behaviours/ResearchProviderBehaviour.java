@@ -35,10 +35,9 @@ public class ResearchProviderBehaviour extends OneShotBehaviour{
 		if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
 				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
 				.equals("Solar") && ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName())>0) {
-			
 			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
 				protected void onWake() {
-					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "SolarAgent", "BuyFromYou",
 							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
 									+ ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) + " Kw da te.");
 				}
@@ -47,10 +46,9 @@ public class ResearchProviderBehaviour extends OneShotBehaviour{
 		else if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
 				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
 				.equals("Aeolian") && ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName())>0) {
-			
 			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
 				protected void onWake() {
-					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "AeolianAgent", "BuyFromYou",
 							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
 									+ ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) + " Kw da te.");
 				}
@@ -62,7 +60,7 @@ public class ResearchProviderBehaviour extends OneShotBehaviour{
 			
 			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
 				protected void onWake() {
-					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BatteryAgent", "BuyFromYou",
 							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
 									+ ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) + " Kw da te.");
 				}
@@ -74,7 +72,7 @@ public class ResearchProviderBehaviour extends OneShotBehaviour{
 			
 			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
 				protected void onWake() {
-					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "DsoAgent", "BuyFromYou",
 							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
 									+ ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) + " Kw da te.");
 				}

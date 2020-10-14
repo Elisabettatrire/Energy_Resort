@@ -37,12 +37,9 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 				DbSolarData solarDb = ((SolarAgent) myAgent).getDbSolar();
 				String senderName = msg.getSender().getLocalName();
 				String localSolar = this.myAgent.getLocalName();
-				System.out.println(solarDb.getMaxEnReq());
 				
 				
 				if (solarDb.getMyKw(localSolar) <= solarDb.getConsumerEnReq(senderName)) {
-
-					// System.out.println(((SolarAgent) myAgent).getSolar().getCounterSolarKw());
 
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + (solarDb.getMyKw(localSolar)
@@ -124,8 +121,6 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 				
 				if (batteryDb.getMyKw(localBattery) <= batteryDb.getConsumerEnReq(senderName)) {
 
-					// System.out.println(((SolarAgent) myAgent).getSolar().getCounterSolarKw());
-
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + (batteryDb.getMyKw(localBattery)
 							+ " Kw."));
@@ -138,14 +133,14 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 							* batteryDb.getMyKw(localBattery),
 							senderName);
 
-					batteryDb.updateProviderData(0, ((BatteryAgent) myAgent).getBattery().getBatteryPrice(), "Battery");
+					batteryDb.updateProviderData(0, ((BatteryAgent) myAgent).getBattery().getBatteryPrice(), ((BatteryAgent) myAgent).getBattery().getBudget(), "Battery");
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + batteryDb.getConsumerEnReq(senderName) + " Kw.");
 
 					
-					batteryDb.updateProviderData(batteryDb.getMyKw(localBattery)-batteryDb.getConsumerEnReq(senderName), ((BatteryAgent) myAgent).getBattery().getBatteryPrice(), "Battery");
+					batteryDb.updateProviderData(batteryDb.getMyKw(localBattery)-batteryDb.getConsumerEnReq(senderName), ((BatteryAgent) myAgent).getBattery().getBatteryPrice(), ((BatteryAgent) myAgent).getBattery().getBudget(), "Battery");
 
 					batteryDb.updateConsumerData(0, batteryDb.getConsumerBudget(senderName)
 							- ((BatteryAgent) myAgent).getBattery().getBatteryPrice() * batteryDb.getConsumerEnReq(senderName),
@@ -153,6 +148,7 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 					
 				}
 				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
+				//inserire tale meccanismo anche nel Dso
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

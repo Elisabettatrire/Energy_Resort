@@ -13,6 +13,7 @@ public class DbBatteryData extends DbConnection {
 	private String consumer;
 	private int data;
 	private int kw;
+	private int capacity;
 	private int enReq;
 	private double budget;
 	
@@ -84,9 +85,9 @@ public class DbBatteryData extends DbConnection {
 		}
 		return consumer;
 	}
-	public Boolean updateProviderData(int Kw, double price, String name) {
+	public Boolean updateProviderData(int Kw, double price, double budget, String name) {
 		String query = "UPDATE dati_fornitori"
-				+" SET Kw = "+Kw +", Prezzo = "+price
+				+" SET Kw = "+Kw +", Prezzo = "+price+", Budget = "+budget
 				+" WHERE Nome = '"+name+"'";
 		try {
 			return stmt.execute(query);
@@ -110,6 +111,21 @@ public class DbBatteryData extends DbConnection {
 		}
 		return false;
 	}
+	
+	public Boolean setNullBPrice(String name) {
+		String query = "UPDATE dati_fornitori"
+				+" SET Prezzo = "+null
+				+" WHERE Nome = '"+name+"'";
+		try {
+			return stmt.execute(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return false;
+	}
+	
 	public int getMyKw(String name) {
 		String query = "SELECT Kw" 
 				+ " FROM dati_fornitori"
@@ -127,6 +143,25 @@ public class DbBatteryData extends DbConnection {
 		}
 		return kw;
 	}
+	
+	public int getMyCapacity(String name) {
+		String query = "SELECT Kw" 
+				+ " FROM dati_fornitori"
+				+" WHERE Nome = '"+name+"'";
+		try {
+			ResultSet rs= stmt.executeQuery(query);
+			while(rs.next())
+			{			
+                capacity = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//connClose();
+		}
+		return capacity;
+	}
+	
 	public int getConsumerEnReq(String name) {
 		String query = "SELECT CounterKw" 
 				+ " FROM dati_consumatori"
