@@ -29,7 +29,6 @@ public class StopBatteryBehaviour extends OneShotBehaviour{
 		
 			System.out.println(this.myAgent.getLocalName() + ": " + 
 		            msg.getSender().getLocalName() + " dice: "+msg.getContent());  	
-			((BungalowAgent) myAgent).getBungalowDb().setNullBPrice("Battery");
 		}
 		
 }

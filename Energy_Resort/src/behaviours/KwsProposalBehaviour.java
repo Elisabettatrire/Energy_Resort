@@ -15,7 +15,6 @@ import jade.lang.acl.UnreadableException;
 
 public class KwsProposalBehaviour extends OneShotBehaviour {
 
-	BungalowData msgBungalowData;
 	ACLMessage msg;
 
 	public KwsProposalBehaviour(Agent a) {
@@ -25,8 +24,7 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 	public KwsProposalBehaviour(ACLMessage msg) {
 		try {
 			this.msg = msg;
-			msgBungalowData = (BungalowData) msg.getContentObject();
-		} catch (UnreadableException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -67,7 +65,12 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 							senderName);
 					
 				}
+				if(senderName.equals("Battery")) {
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BatteryAgent", "WakeUp", "Sveglia!");
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
+				} else {
 				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -107,7 +110,12 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 								senderName);
 						
 					}
-				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
+					if(senderName.equals("Battery")) {
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BatteryAgent", "WakeUp", "Sveglia!");
+						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
+					} else {
+					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
+					}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
