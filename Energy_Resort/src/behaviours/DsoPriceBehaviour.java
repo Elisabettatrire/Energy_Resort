@@ -2,6 +2,7 @@ package behaviours;
 
 import java.util.Arrays;
 
+import agents.AeolianAgent;
 import agents.BaseAgent;
 import agents.DsoAgent;
 import data.AeolianData;
@@ -31,7 +32,8 @@ public class DsoPriceBehaviour extends OneShotBehaviour {
 				if (msg != null && msg.getConversationId().equals("energyrequest")) {
 					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
 							+ msg.getContent());
-				} else if (msg != null && msg.getConversationId().equals("calculateprice")) {
+				}
+				else if (msg != null && msg.getConversationId().equals("calculateprice")) {
 					try {
 						msgData = (BungalowData) msg.getContentObject();
 					} catch (UnreadableException e) {
@@ -39,19 +41,26 @@ public class DsoPriceBehaviour extends OneShotBehaviour {
 					}
 					dso.setBungalowNeeds(new BaseAgent().addElement(msgData.getId() - 1, dso.getBungalowNeeds(),
 							msgData.getEnReq()));
-				} else if (msg != null && msg.getConversationId().equals("BuyFromYou")) {
+				} 
+				else if (msg != null && msg.getConversationId().equals("BuyFromYou")) {
 					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
 							+ msg.getContent());
-
-					// System.out.println(random_int);
-					if (msg.getSender().getLocalName().equals("Bungalow" + 1)) {
+					
+					if (msg.getSender().getLocalName().equals(((DsoAgent) myAgent).getDbDso()
+							.selectBestConsumer(((DsoAgent) myAgent).getDbDso().getMaxEnReq()))) 
+					{
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
-								"AnswerToClient", "Vendo a te i Kw.", ACLMessage.ACCEPT_PROPOSAL);
-					} else {
+								"AnswerToClient", "Va bene. Li vendo a te.", ACLMessage.ACCEPT_PROPOSAL);
+					} 
+					else {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
 					}
-				} else {
+				} 
+				else if (msg != null && msg.getConversationId().equals("AnswerToClient")) {
+					this.myAgent.addBehaviour(new KwsProposalBehaviour(msg));
+				} 
+				else {
 					this.block();
 				}
 			}

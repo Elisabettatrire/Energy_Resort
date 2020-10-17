@@ -46,14 +46,19 @@ public class BatteryBehaviour extends OneShotBehaviour {
 					} else {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "stopselling",
 								"Non posso piu' vendere energia! Ho la capacita' al 20%.");
-						((BatteryAgent) myAgent).getDbBattery().updateConsumerData(50-
-								((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"), battery.getBudget(), "Battery");
-						((BatteryAgent) myAgent).getDbBattery().updateProviderData(0, battery.getBatteryPrice(), battery.getBudget(), "Battery");
-						this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 5000) {
-							protected void onWake() {
-								this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));
-							}
-						});
+//						((BatteryAgent) myAgent).getDbBattery().updateConsumerData(
+//								50 - ((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"),
+//								battery.getBudget(), "Battery");
+						
+						System.out.println("i kw di battery sono: "+((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Battery"));
+						
+//						((BatteryAgent) myAgent).getDbBattery().updateProviderData(0, battery.getBatteryPrice(),
+//								battery.getBudget(), "Battery");
+//						this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 5000) {
+//							protected void onWake() {
+//								this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));
+//							}
+//						});
 					}
 				} else if (msg != null && (msg.getConversationId().equals("BuyFromYou"))) {
 
@@ -71,37 +76,44 @@ public class BatteryBehaviour extends OneShotBehaviour {
 					} else {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "stopselling",
 								"Non posso piu' vendere energia! Ho la capacita' al 20%.");
-						((BatteryAgent) myAgent).getDbBattery().updateConsumerData(50-
-								((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"), battery.getBudget(), "Battery");
-						((BatteryAgent) myAgent).getDbBattery().updateProviderData(0, battery.getBatteryPrice(), battery.getBudget(), "Battery");
-						this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 5000) {
-							protected void onWake() {
-								this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));
-							}
-						});
+//						((BatteryAgent) myAgent).getDbBattery().updateConsumerData(
+//								50 - ((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"),
+//								battery.getBudget(), "Battery");
+//						((BatteryAgent) myAgent).getDbBattery().updateProviderData(0, battery.getBatteryPrice(),
+//								battery.getBudget(), "Battery");
+						/*
+						 * this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 5000) { protected
+						 * void onWake() { this.myAgent.addBehaviour(new
+						 * ResearchProviderBattery(this.myAgent)); } });
+						 */
 					}
-				} else if(msg != null && (msg.getConversationId().equals("AnswerToClient")))  {
+				} else if (msg != null && (msg.getConversationId().equals("AnswerToClient"))) {
 					this.myAgent.addBehaviour(new KwsProposalBehaviour(msg));
-				} else if(msg != null && (msg.getConversationId().equals("WakeUp"))) {
-					this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));
+				} else if (msg != null && (msg.getConversationId().equals("WakeUp"))) {
+					this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));			
+				} else if (msg != null && (msg.getConversationId().equals("Finished"))) {
+					System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
 				}
 				else {
 					this.block();
 				}
-				MessageTemplate template1 = MessageTemplate.or(MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL), MessageTemplate.MatchPerformative(ACLMessage.REJECT_PROPOSAL));
+				MessageTemplate template1 = MessageTemplate.or(
+						MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL),
+						MessageTemplate.MatchPerformative(ACLMessage.REJECT_PROPOSAL));
 				ACLMessage msg1 = this.myAgent.receive(template1);
 				if (msg1 != null && (msg1.getConversationId().equals("AnswerToClient"))) {
-					if(msg1 != null && msg1.getPerformative()==ACLMessage.ACCEPT_PROPOSAL ) 
-					{
-						System.out.println(this.myAgent.getLocalName()+": "+msg1.getSender().getLocalName()+" dice: "+msg1.getContent());
+					if (msg1 != null && msg1.getPerformative() == ACLMessage.ACCEPT_PROPOSAL) {
+						System.out.println(this.myAgent.getLocalName() + ": " + msg1.getSender().getLocalName()
+								+ " dice: " + msg1.getContent());
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg1.getSender(),
-			                    "AnswerToClient", "Grazie!");
+								"AnswerToClient", "Grazie!");
 
-					} else if(msg1 != null && msg1.getPerformative()==ACLMessage.REJECT_PROPOSAL) 
-					{
-						System.out.println(this.myAgent.getLocalName()+": "+msg1.getSender().getLocalName()+" dice: "+msg1.getContent());
-						//l agente deve attendere in coda che il prescelto abbia finito col fornitore e poi deve ritornare a chiedere i kw
-						
+					} else if (msg1 != null && msg1.getPerformative() == ACLMessage.REJECT_PROPOSAL) {
+						System.out.println(this.myAgent.getLocalName() + ": " + msg1.getSender().getLocalName()
+								+ " dice: " + msg1.getContent());
+						// l agente deve attendere in coda che il prescelto abbia finito col fornitore e
+						// poi deve ritornare a chiedere i kw
+
 					}
 				} else {
 					this.block();

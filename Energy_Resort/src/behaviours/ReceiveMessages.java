@@ -66,7 +66,7 @@ public class ReceiveMessages extends TickerBehaviour{
 					}
 					else if(msg.getConversationId().equals("Finished"))
 					{
-						System.out.println(this.myAgent.getLocalName()+": "+msg.getContent());
+						System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
 						
 					}
 					else if(msg.getConversationId().equals("WakeUp"))
