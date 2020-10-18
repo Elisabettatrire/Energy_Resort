@@ -45,7 +45,7 @@ public class AeolianAgent extends BaseAgent{
             aeolian.setWindKw(10);
         }
         else if(aeolian.getWindForecast()==2) {
-            aeolian.setWindPrice(0.6);
+            aeolian.setWindPrice(0.7);
             aeolian.setWindKw(5);
         }
         else {

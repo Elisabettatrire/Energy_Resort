@@ -31,7 +31,7 @@ public class BatteryAgent extends BaseAgent{
 		
 		battery = new BatteryData();
 		dbBattery = new DbBatteryData();
-		battery.setBatteryPrice(0.1);
+		battery.setBatteryPrice(0.9);
 		battery.setBudget(75);
 		battery.setCapacity(dbBattery.getMyCapacity("Battery"));
 		dbBattery.updateProviderData(battery.getCapacity(), battery.getBatteryPrice(), battery.getBudget(), "Battery");

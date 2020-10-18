@@ -1,7 +1,8 @@
 package utils;
 
 
-
+import java.util.Timer; 
+import java.util.TimerTask;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -10,14 +11,17 @@ import jade.wrapper.ContainerController;
 import jade.wrapper.StaleProxyException;
 import jade.tools.sniffer.*;
 import jade.util.leap.ArrayList;
+import utils.CountDown;
 
 /**
  * Applicazione esterna che gestisce il lancio di una piattaforma ad agenti,
  * attraverso la creazione di un main container e la creazione di un'istanza di Agent0
  *
  */
-public class PlatformCreator {
 
+public class PlatformCreator {
+	
+	
 	/**
 	 * @param args
 	 */
@@ -46,7 +50,12 @@ public class PlatformCreator {
 			AgentController aeolian = cc.createNewAgent("Aeolian", "agents.AeolianAgent", null);
 			AgentController solar = cc.createNewAgent("Solar", "agents.SolarAgent", null);
 			AgentController battery = cc.createNewAgent("Battery", "agents.BatteryAgent", null);
+			AgentController control = cc.createNewAgent("Control", "agents.ControlAgent", null);
 			
+			System.out.println("Benvenuti sulla piattaforma Energy Resort!"+"\n"+"Avete 5 minuti per le contrattazioni.");
+			new CountDown();
+			
+			control.start();
 			dso.start();
 			aeolian.start();
 			bungalow1.start();

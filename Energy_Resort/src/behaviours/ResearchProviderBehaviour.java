@@ -77,6 +77,8 @@ public class ResearchProviderBehaviour extends OneShotBehaviour {
 						.selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
 				.equals("Dso")
 				&& ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) > 0) {
+			
+			System.out.println(((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()));
 
 			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
 				protected void onWake() {

@@ -74,9 +74,9 @@ public class DsoPriceBehaviour extends OneShotBehaviour {
 				if (totalNeed > 0 && totalNeed < 8) {
 					dso.setDsoPrice(1.5);
 				} else if (totalNeed >= 8 && totalNeed < 16) {
-					dso.setDsoPrice(1.2);
+					dso.setDsoPrice(1.3);
 				} else {
-					dso.setDsoPrice(1);
+					dso.setDsoPrice(1.1);
 				}
 				
 				((DsoAgent) myAgent).getDbDso().updateProviderData(200, dso.getDsoPrice(), "Dso");

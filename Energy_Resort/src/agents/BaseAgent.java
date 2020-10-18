@@ -161,26 +161,6 @@ public class BaseAgent extends Agent {
 	}
 
 
-	protected void takeDown()
-	{
-		if (this.getDefaultDF() == null)
-		{
-			try {
-				DFService.deregister(this);
-			} catch (FIPAException e) {
-				e.printStackTrace();
-			}
-		}
-		else
-		{
-			try {
-				DFService.deregister(this, this.getDefaultDF());
-			} catch (FIPAException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public int[] addElement(int i, int[] myarray, int ele)
 	{
 		//System.out.println(Arrays.toString(myarray));
@@ -188,5 +168,26 @@ public class BaseAgent extends Agent {
 		//System.out.println(Arrays.toString(myarray));
 		return myarray;
 	}
+
+//	public void takeDown()
+//	{
+//		if (this.getDefaultDF() == null)
+//		{
+//			try {
+//				DFService.deregister(this);
+//			} catch (FIPAException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		else
+//		{
+//			try {
+//				DFService.deregister(this, this.getDefaultDF());
+//			} catch (FIPAException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+
 
 }
