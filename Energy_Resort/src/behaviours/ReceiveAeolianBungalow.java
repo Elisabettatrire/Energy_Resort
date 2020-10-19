@@ -12,6 +12,16 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import data.AeolianData;
 
+/**
+ * Behaviour degli agenti Bungalow che si attiva subito dopo la presentazione
+ * dei kw e del relativo prezzo unitario da parte degli agenti fornitori
+ * 
+ * Il bungalow riceve i dati dei kw prodotti e del relativo prezzo dal fornitore
+ * scritto nel nome della classe. Esegue un controllo per verificare se tale
+ * fornitore è quello che propone il prezzo più basso e in caso positivo lo
+ * contatta per chiedergli di vendergli i kw di cui ha bisogno.
+ */
+
 @SuppressWarnings("serial")
 public class ReceiveAeolianBungalow extends OneShotBehaviour {
 
@@ -36,8 +46,6 @@ public class ReceiveAeolianBungalow extends OneShotBehaviour {
 		System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName()
 				+ " dice che ha prodotto " + msgAeolianData.getWindKw() + " Kw al prezzo di "
 				+ msgAeolianData.getWindPrice() + " euro al Kw.");
-//		((BungalowAgent) myAgent).getBungalowDb().updateProviderData(msgAeolianData.getWindKw(),
-//				msgAeolianData.getWindPrice(), msg.getSender().getLocalName());
 
 		if (((BungalowAgent) myAgent).getBungalowDb().selectBestProvider(
 				((BungalowAgent) myAgent).getBungalowDb().selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
@@ -46,8 +54,7 @@ public class ReceiveAeolianBungalow extends OneShotBehaviour {
 				protected void onWake() {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "BuyFromYou",
 							"Ciao " + msg.getSender().getLocalName() + ", voglio acquistare "
-									+ ((BungalowAgent) myAgent).getBungalow().getEnReq()
-									+ " Kw da te.");
+									+ ((BungalowAgent) myAgent).getBungalow().getEnReq() + " Kw da te.");
 				}
 			});
 		}

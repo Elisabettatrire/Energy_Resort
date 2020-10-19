@@ -19,6 +19,14 @@ import jade.lang.acl.UnreadableException;
 import jade.lang.acl.MessageTemplate;
 import jade.core.AID;
 
+/**
+ * Questo behaviour degli agenti Bungalow viene eseguito per primo in modo da
+ * iniziare le contrattazioni. I Bungalow inviano i propri dati all'agente Dso,
+ * in modo che esso possa calcolare il prezzo unitario di un Kw in base al
+ * fabbisogno generale dei Bungalow. Infine i Bungalow richiedono i prezzi
+ * unitari e i Kw prodotti ai vari agenti fornitori.
+ */
+
 @SuppressWarnings("serial")
 public class BungalowBehaviour extends OneShotBehaviour {
 
@@ -34,8 +42,8 @@ public class BungalowBehaviour extends OneShotBehaviour {
 	public void action() {
 
 		System.out.println("Sono l'agente " + this.myAgent.getLocalName() + ", il mio ID e' " + bungalow.getId()
-				+ ", ho bisogno di " + bungalow.getEnReq() + " kW e ho un budget di " + bungalow.getBudget()
-				+ " euro.");
+		+ ", ho bisogno di " + bungalow.getEnReq() + " kW e ho un budget di " + bungalow.getBudget()
+		+ " euro.");
 
 		new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "DsoAgent", "calculateprice", bungalow);
 

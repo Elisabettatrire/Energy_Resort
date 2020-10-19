@@ -6,6 +6,13 @@ import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 
+/**
+ * Questo agente serve per fermare l'esecuzione della piattaforma una volta che
+ * tutti gli agenti Bungalow hanno soddisfatto il proprio fabbisogno energetico
+ * e quando la batteria, in caso si comporti da consumatore, è riuscita a
+ * ricaricarsi al massimo.
+ */
+
 public class ControlAgent extends BaseAgent {
 
 	DbBungalowData dbBunData;
@@ -21,11 +28,11 @@ public class ControlAgent extends BaseAgent {
 			protected void onTick() {
 
 				if (dbBunData.getMyEnReq("Bungalow1") == 0 && dbBunData.getMyEnReq("Bungalow2") == 0
-						&& dbBunData.getMyEnReq("Bungalow3") == 0 && dbBatteryData.getMyCapacity("Battery")!=0) {
+						&& dbBunData.getMyEnReq("Bungalow3") == 0 && dbBatteryData.getMyCapacity("Battery") != 0) {
 
 					System.out.println("Fine delle contrattazioni.");
-				
-				        System.exit(0);
+
+					System.exit(0);
 
 				}
 			}

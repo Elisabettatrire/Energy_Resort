@@ -7,6 +7,18 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.WakerBehaviour;
 
+/**
+ * Behaviour dell'agente batteria sulla scelta del fornitore dal quale
+ * ricaricarsi.
+ * 
+ * La batteria controlla quale tra Aeolian, Solar e Dso sia il fornitore che
+ * propone il prezzo più basso e, se ha ancora dei kw da acquistare, allora
+ * contatta il fornitore scelto per acquistare i kw di cui ha bisogno. Quando la
+ * batteria si è ricaricata al massimo, aspetta che tutti gli agenti Bungalow
+ * abbiano soddisfatto il proprio fabbisogno energetico e setta i suoi kw da
+ * venditore a 50.
+ */
+
 public class ResearchProviderBattery extends OneShotBehaviour {
 
 	public ResearchProviderBattery(Agent a) {

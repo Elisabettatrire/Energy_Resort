@@ -8,6 +8,17 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.WakerBehaviour;
 import jade.lang.acl.ACLMessage;
 
+/**
+ * Behaviour degli agenti Bungalow sulla scelta del fornitore dal quale
+ * acquistare i kw.
+ * 
+ * Il Bungalow controlla quale tra Aeolian, Solar, Dso e Battery sia il
+ * fornitore che propone il prezzo più basso e, se ha ancora dei kw da
+ * acquistare, contatta il fornitore scelto per comprare tali kw. Quando il
+ * Bungalow ha soddisfatto il proprio fabbisogno energetico si cancella dalla
+ * piattaforma.
+ */
+
 public class ResearchProviderBehaviour extends OneShotBehaviour {
 
 	ACLMessage msg;
@@ -72,8 +83,6 @@ public class ResearchProviderBehaviour extends OneShotBehaviour {
 						.selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
 				.equals("Dso")
 				&& ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) > 0) {
-			
-			//System.out.println(((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()));
 
 			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
 				protected void onWake() {

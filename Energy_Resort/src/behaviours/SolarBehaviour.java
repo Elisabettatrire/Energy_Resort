@@ -21,7 +21,6 @@ import jade.lang.acl.UnreadableException;
 public class SolarBehaviour extends OneShotBehaviour {
 
 	SolarData solar;
-	
 
 	public SolarBehaviour(Agent a, SolarData solar) {
 		super(a);
@@ -33,15 +32,15 @@ public class SolarBehaviour extends OneShotBehaviour {
 			public void action() {
 				MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 				ACLMessage msg = this.myAgent.receive(template);
-				
+
 				if (msg != null && (msg.getConversationId().equals("energyrequest")
 						|| msg.getConversationId().equals("recharge"))) {
 					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
 							+ msg.getContent());
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "pricesolar",
 							solar);
-				} 
-				
+				}
+
 				else if (msg != null && msg.getConversationId().equals("BuyFromYou")) {
 					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
 							+ msg.getContent());
@@ -53,12 +52,12 @@ public class SolarBehaviour extends OneShotBehaviour {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
 					}
-				} 
-				
+				}
+
 				else if (msg != null && msg.getConversationId().equals("AnswerToClient")) {
 					this.myAgent.addBehaviour(new KwsProposalBehaviour(msg));
-				} 
-				
+				}
+
 				else {
 					this.block();
 				}

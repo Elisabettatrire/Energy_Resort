@@ -20,6 +20,12 @@ import agents.BatteryAgent;
 import agents.BungalowAgent;
 import data.BatteryData;
 
+/**
+ * Questo Behaviour gestisce la ricezione e la risposta ai messaggi dei vari
+ * agenti Bungalow da parte dell'agente batteria, sia che si comporti da
+ * fornitore che da consumatore.
+ */
+
 public class BatteryBehaviour extends OneShotBehaviour {
 
 	BatteryData battery;
@@ -33,7 +39,7 @@ public class BatteryBehaviour extends OneShotBehaviour {
 
 		this.myAgent.addBehaviour(new CyclicBehaviour(this.myAgent) {
 			public void action() {
-				// continuare da qui
+
 				MessageTemplate template = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 				ACLMessage msg = this.myAgent.receive(template);
 				if (msg != null && (msg.getConversationId().equals("energyrequest"))) {
@@ -46,19 +52,6 @@ public class BatteryBehaviour extends OneShotBehaviour {
 					} else {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "stopselling",
 								"Non posso piu' vendere energia! Ho la capacita' al 20%.");
-//						((BatteryAgent) myAgent).getDbBattery().updateConsumerData(
-//								50 - ((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"),
-//								battery.getBudget(), "Battery");
-						
-						//System.out.println("i kw di battery sono: "+((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Battery"));
-						
-//						((BatteryAgent) myAgent).getDbBattery().updateProviderData(0, battery.getBatteryPrice(),
-//								battery.getBudget(), "Battery");
-//						this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 5000) {
-//							protected void onWake() {
-//								this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));
-//							}
-//						});
 					}
 				} else if (msg != null && (msg.getConversationId().equals("BuyFromYou"))) {
 
@@ -76,25 +69,15 @@ public class BatteryBehaviour extends OneShotBehaviour {
 					} else {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "stopselling",
 								"Non posso piu' vendere energia! Ho la capacita' al 20%.");
-//						((BatteryAgent) myAgent).getDbBattery().updateConsumerData(
-//								50 - ((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"),
-//								battery.getBudget(), "Battery");
-//						((BatteryAgent) myAgent).getDbBattery().updateProviderData(0, battery.getBatteryPrice(),
-//								battery.getBudget(), "Battery");
-						/*
-						 * this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 5000) { protected
-						 * void onWake() { this.myAgent.addBehaviour(new
-						 * ResearchProviderBattery(this.myAgent)); } });
-						 */
 					}
 				} else if (msg != null && (msg.getConversationId().equals("AnswerToClient"))) {
 					this.myAgent.addBehaviour(new KwsProposalBehaviour(msg));
 				} else if (msg != null && (msg.getConversationId().equals("WakeUp"))) {
-					this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));			
+					this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));
 				} else if (msg != null && (msg.getConversationId().equals("Finished"))) {
-					System.out.println(this.myAgent.getLocalName()+": "+msg.getSender().getLocalName()+" dice: "+msg.getContent());
-				}
-				else {
+					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
+							+ msg.getContent());
+				} else {
 					this.block();
 				}
 				MessageTemplate template1 = MessageTemplate.or(

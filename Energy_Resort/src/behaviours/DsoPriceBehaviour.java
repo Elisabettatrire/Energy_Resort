@@ -15,6 +15,12 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
+/**
+ * Questo behaviour serve per gestire i messaggi ricevuti dai consumatori
+ * (Bungalow e eventualmente la batteria) e per calcolare il prezzo di vendita
+ * al Kw del Dso.
+ */
+
 public class DsoPriceBehaviour extends OneShotBehaviour {
 
 	BungalowData msgData;
@@ -32,8 +38,7 @@ public class DsoPriceBehaviour extends OneShotBehaviour {
 				if (msg != null && msg.getConversationId().equals("energyrequest")) {
 					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
 							+ msg.getContent());
-				}
-				else if (msg != null && msg.getConversationId().equals("calculateprice")) {
+				} else if (msg != null && msg.getConversationId().equals("calculateprice")) {
 					try {
 						msgData = (BungalowData) msg.getContentObject();
 					} catch (UnreadableException e) {
@@ -41,26 +46,21 @@ public class DsoPriceBehaviour extends OneShotBehaviour {
 					}
 					dso.setBungalowNeeds(new BaseAgent().addElement(msgData.getId() - 1, dso.getBungalowNeeds(),
 							msgData.getEnReq()));
-				} 
-				else if (msg != null && msg.getConversationId().equals("BuyFromYou")) {
+				} else if (msg != null && msg.getConversationId().equals("BuyFromYou")) {
 					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
 							+ msg.getContent());
-					
+
 					if (msg.getSender().getLocalName().equals(((DsoAgent) myAgent).getDbDso()
-							.selectBestConsumer(((DsoAgent) myAgent).getDbDso().getMaxEnReq()))) 
-					{
+							.selectBestConsumer(((DsoAgent) myAgent).getDbDso().getMaxEnReq()))) {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 								"AnswerToClient", "Va bene. Li vendo a te.", ACLMessage.ACCEPT_PROPOSAL);
-					} 
-					else {
+					} else {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
 					}
-				} 
-				else if (msg != null && msg.getConversationId().equals("AnswerToClient")) {
+				} else if (msg != null && msg.getConversationId().equals("AnswerToClient")) {
 					this.myAgent.addBehaviour(new KwsProposalBehaviour(msg));
-				} 
-				else {
+				} else {
 					this.block();
 				}
 			}
@@ -70,7 +70,6 @@ public class DsoPriceBehaviour extends OneShotBehaviour {
 				for (int i = 0; i < dso.getBungalowNeeds().length; i++) {
 					totalNeed = totalNeed + dso.getBungalowNeeds()[i];
 				}
-				// System.out.println(totalNeed);
 				if (totalNeed > 0 && totalNeed < 8) {
 					dso.setDsoPrice(1.5);
 				} else if (totalNeed >= 8 && totalNeed < 16) {
@@ -78,9 +77,9 @@ public class DsoPriceBehaviour extends OneShotBehaviour {
 				} else {
 					dso.setDsoPrice(1.1);
 				}
-				
+
 				((DsoAgent) myAgent).getDbDso().updateProviderData(200, dso.getDsoPrice(), "Dso");
-				
+
 				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "pricedso",
 						dso.getDsoPrice());
 			}

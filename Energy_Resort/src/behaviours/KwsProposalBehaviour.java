@@ -16,6 +16,25 @@ import jade.core.behaviours.WakerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 
+/**
+ * Behaviour di vendita degli agenti fornitori.
+ * 
+ * Se l'agente che ha richiamato il behaviour è di tipo Solar, Aeolian o Dso
+ * allora il comportamento è analogo: contratta con il consumatore selezionato
+ * in precedenza nel behaviour apposito, se i kw che il fornitore ha a
+ * disposizione sono minori o uguali ai kw richiesti dal consumatore, allora il
+ * fornitore sottrae al numero di kw richiesti dal consumatore il numero di kw
+ * venduti e setta poi i suoi kw a zero; altrimenti sottrae ai suoi kw quelli
+ * richiesti dal consumatore e setta i kw del consumatore a zero. Infine
+ * risveglia con un messaggio gli altri consumatori che erano stati messi in
+ * attesa precedentemente.
+ * 
+ * La batteria ha un comportamento analogo ma in più quando la sua carica scende
+ * al 20 per cento o meno, setta i suoi kw da consumatore a 50 meno i suoi kw
+ * rimasti invenduti e inizia la ricerca di un agente fornitore dal quale
+ * comprare i kw.
+ */
+
 public class KwsProposalBehaviour extends OneShotBehaviour {
 
 	ACLMessage msg;
@@ -46,13 +65,16 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 
 					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
 						protected void onWake() {
-					solarDb.updateConsumerData(solarDb.getConsumerEnReq(senderName) - solarDb.getMyKw(localSolar),
-							solarDb.getConsumerBudget(senderName)
-									- ((SolarAgent) myAgent).getSolar().getSolarPrice() * solarDb.getMyKw(localSolar),
-							senderName);
+							solarDb.updateConsumerData(
+									solarDb.getConsumerEnReq(senderName) - solarDb.getMyKw(localSolar),
+									solarDb.getConsumerBudget(senderName)
+									- ((SolarAgent) myAgent).getSolar().getSolarPrice()
+									* solarDb.getMyKw(localSolar),
+									senderName);
 
-					solarDb.updateProviderData(0, ((SolarAgent) myAgent).getSolar().getSolarPrice(), "Solar");
-						}});
+							solarDb.updateProviderData(0, ((SolarAgent) myAgent).getSolar().getSolarPrice(), "Solar");
+						}
+					});
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
@@ -60,13 +82,17 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 
 					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
 						protected void onWake() {
-					solarDb.updateProviderData(solarDb.getMyKw(localSolar) - solarDb.getConsumerEnReq(senderName),
-							((SolarAgent) myAgent).getSolar().getSolarPrice(), "Solar");
+							solarDb.updateProviderData(
+									solarDb.getMyKw(localSolar) - solarDb.getConsumerEnReq(senderName),
+									((SolarAgent) myAgent).getSolar().getSolarPrice(), "Solar");
 
-					solarDb.updateConsumerData(0, solarDb.getConsumerBudget(senderName)
-							- ((SolarAgent) myAgent).getSolar().getSolarPrice() * solarDb.getConsumerEnReq(senderName),
-							senderName);
-						}});
+							solarDb.updateConsumerData(0,
+									solarDb.getConsumerBudget(senderName)
+									- ((SolarAgent) myAgent).getSolar().getSolarPrice()
+									* solarDb.getConsumerEnReq(senderName),
+									senderName);
+						}
+					});
 
 				}
 				if (senderName.equals("Battery")) {
@@ -90,22 +116,22 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 
 				if (aeolianDb.getMyKw(localAeolian) <= aeolianDb.getConsumerEnReq(senderName)) {
 
-					// System.out.println(((SolarAgent) myAgent).getSolar().getCounterSolarKw());
-
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + (aeolianDb.getMyKw(localAeolian) + " Kw."));
 
 					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
 						protected void onWake() {
-					aeolianDb.updateConsumerData(
-							aeolianDb.getConsumerEnReq(senderName) - aeolianDb.getMyKw(localAeolian),
-							aeolianDb.getConsumerBudget(senderName)
+							aeolianDb.updateConsumerData(
+									aeolianDb.getConsumerEnReq(senderName) - aeolianDb.getMyKw(localAeolian),
+									aeolianDb.getConsumerBudget(senderName)
 									- ((AeolianAgent) myAgent).getAeolian().getWindPrice()
-											* aeolianDb.getMyKw(localAeolian),
-							senderName);
+									* aeolianDb.getMyKw(localAeolian),
+									senderName);
 
-					aeolianDb.updateProviderData(0, ((AeolianAgent) myAgent).getAeolian().getWindPrice(), "Aeolian");
-						}});
+							aeolianDb.updateProviderData(0, ((AeolianAgent) myAgent).getAeolian().getWindPrice(),
+									"Aeolian");
+						}
+					});
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
@@ -113,16 +139,17 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 
 					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
 						protected void onWake() {
-					aeolianDb.updateProviderData(
-							aeolianDb.getMyKw(localAeolian) - aeolianDb.getConsumerEnReq(senderName),
-							((AeolianAgent) myAgent).getAeolian().getWindPrice(), "Aeolian");
+							aeolianDb.updateProviderData(
+									aeolianDb.getMyKw(localAeolian) - aeolianDb.getConsumerEnReq(senderName),
+									((AeolianAgent) myAgent).getAeolian().getWindPrice(), "Aeolian");
 
-					aeolianDb.updateConsumerData(0,
-							aeolianDb.getConsumerBudget(senderName)
+							aeolianDb.updateConsumerData(0,
+									aeolianDb.getConsumerBudget(senderName)
 									- ((AeolianAgent) myAgent).getAeolian().getWindPrice()
-											* aeolianDb.getConsumerEnReq(senderName),
-							senderName);
-						}});
+									* aeolianDb.getConsumerEnReq(senderName),
+									senderName);
+						}
+					});
 
 				}
 				if (senderName.equals("Battery")) {
@@ -151,13 +178,14 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 
 					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
 						protected void onWake() {
-					dsoDb.updateConsumerData(dsoDb.getConsumerEnReq(senderName) - dsoDb.getMyKw(localDso),
-							dsoDb.getConsumerBudget(senderName)
+							dsoDb.updateConsumerData(dsoDb.getConsumerEnReq(senderName) - dsoDb.getMyKw(localDso),
+									dsoDb.getConsumerBudget(senderName)
 									- ((DsoAgent) myAgent).getDso().getDsoPrice() * dsoDb.getMyKw(localDso),
-							senderName);
+									senderName);
 
-					dsoDb.updateProviderData(0, ((DsoAgent) myAgent).getDso().getDsoPrice(), "Dso");
-						}});
+							dsoDb.updateProviderData(0, ((DsoAgent) myAgent).getDso().getDsoPrice(), "Dso");
+						}
+					});
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
@@ -165,14 +193,14 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 
 					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
 						protected void onWake() {
-					dsoDb.updateProviderData(dsoDb.getMyKw(localDso) - dsoDb.getConsumerEnReq(senderName),
-							((DsoAgent) myAgent).getDso().getDsoPrice(), "Dso");
+							dsoDb.updateProviderData(dsoDb.getMyKw(localDso) - dsoDb.getConsumerEnReq(senderName),
+									((DsoAgent) myAgent).getDso().getDsoPrice(), "Dso");
 
-					dsoDb.updateConsumerData(0,
-							dsoDb.getConsumerBudget(senderName)
+							dsoDb.updateConsumerData(0, dsoDb.getConsumerBudget(senderName)
 									- ((DsoAgent) myAgent).getDso().getDsoPrice() * dsoDb.getConsumerEnReq(senderName),
-							senderName);
-						}});
+									senderName);
+						}
+					});
 
 				}
 				if (senderName.equals("Battery")) {
@@ -200,23 +228,20 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + (batteryDb.getMyKw(localBattery) + " Kw."));
 
-				
 					batteryDb.updateConsumerData(
 							batteryDb.getConsumerEnReq(senderName) - batteryDb.getMyKw(localBattery),
 							batteryDb.getConsumerBudget(senderName)
-									- ((BatteryAgent) myAgent).getBattery().getBatteryPrice()
-											* batteryDb.getMyKw(localBattery),
+							- ((BatteryAgent) myAgent).getBattery().getBatteryPrice()
+							* batteryDb.getMyKw(localBattery),
 							senderName);
 
 					batteryDb.updateProviderData(0, ((BatteryAgent) myAgent).getBattery().getBatteryPrice(),
 							((BatteryAgent) myAgent).getBattery().getBudget(), "Battery");
-						
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + batteryDb.getConsumerEnReq(senderName) + " Kw.");
 
-				
 					batteryDb.updateProviderData(
 							batteryDb.getMyKw(localBattery) - batteryDb.getConsumerEnReq(senderName),
 							((BatteryAgent) myAgent).getBattery().getBatteryPrice(),
@@ -224,14 +249,12 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 
 					batteryDb.updateConsumerData(0,
 							batteryDb.getConsumerBudget(senderName)
-									- ((BatteryAgent) myAgent).getBattery().getBatteryPrice()
-											* batteryDb.getConsumerEnReq(senderName),
+							- ((BatteryAgent) myAgent).getBattery().getBatteryPrice()
+							* batteryDb.getConsumerEnReq(senderName),
 							senderName);
-				
 
 					if (batteryDb.getMyCapacity("Battery") <= 10) {
 
-					
 						batteryDb.updateConsumerData(
 								50 - ((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"),
 								((BatteryAgent) myAgent).getBattery().getBudget(), "Battery");
@@ -243,12 +266,12 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 								this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));
 							}
 						});
-							
+
 					}
 
 				}
 				new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, "BungalowAgent", "WakeUp", "Sveglia!");
-				// inserire tale meccanismo anche nel Dso
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

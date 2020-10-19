@@ -43,17 +43,15 @@ public class AeolianBehaviour extends OneShotBehaviour {
 				}
 
 				else if (msg != null && (msg.getConversationId().equals("BuyFromYou"))) {
-					
+
 					System.out.println(this.myAgent.getLocalName() + ": " + msg.getSender().getLocalName() + " dice: "
 							+ msg.getContent());
-					
+
 					if (msg.getSender().getLocalName().equals(((AeolianAgent) myAgent).getDbAeolian()
-							.selectBestConsumer(((AeolianAgent) myAgent).getDbAeolian().getMaxEnReq()))) 
-					{
+							.selectBestConsumer(((AeolianAgent) myAgent).getDbAeolian().getMaxEnReq()))) {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 								"AnswerToClient", "Va bene. Li vendo a te.", ACLMessage.ACCEPT_PROPOSAL);
-					} 
-					else {
+					} else {
 						new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(),
 								"AnswerToClient", "Aspetta in coda.", ACLMessage.REJECT_PROPOSAL);
 					}
@@ -61,8 +59,7 @@ public class AeolianBehaviour extends OneShotBehaviour {
 
 				else if (msg != null && msg.getConversationId().equals("AnswerToClient")) {
 					this.myAgent.addBehaviour(new KwsProposalBehaviour(msg));
-				} 
-				else {
+				} else {
 					this.block();
 				}
 			}
