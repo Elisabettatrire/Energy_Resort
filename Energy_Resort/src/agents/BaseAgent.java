@@ -52,6 +52,42 @@ public class BaseAgent extends Agent {
 	}
 
 	public Boolean sendMessageToAgentsByServiceType (Agent myAgent, String serviceType,
+			String conversationId, String messageData)
+	{
+		try {
+			DFAgentDescription[] agents = getAgentsbyServiceType(myAgent, serviceType);
+			for(int i=0; i<agents.length; i++)
+			{
+				ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+				message.setContentObject(messageData);
+				message.addReceiver(agents[i].getName());
+				message.setConversationId(conversationId);
+				myAgent.send(message);
+			}
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public Boolean sendMessageToAgentsByServiceType (Agent myAgent, AID receiver,
+			String conversationId, String messageData)
+	{
+		try {
+			ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+			message.setContentObject(messageData);
+			message.addReceiver(receiver);
+			message.setConversationId(conversationId);
+			myAgent.send(message);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Boolean sendMessageToAgentsByServiceType (Agent myAgent, String serviceType,
 			String conversationId, Serializable messageData)
 	{
 		try {
@@ -86,7 +122,7 @@ public class BaseAgent extends Agent {
 		}
 		return false;
 	}
-	
+
 	public Boolean sendMessageToAgentsByServiceType (Agent myAgent, AID receiver,
 			String conversationId, Serializable messageData, String sentence)
 	{
@@ -106,7 +142,7 @@ public class BaseAgent extends Agent {
 	
 	
 	public Boolean sendMessageToAgentsByServiceType (Agent myAgent, AID receiver,
-			String conversationId, Serializable messageData, int performative)
+			String conversationId, String messageData, int performative)
 	{
 		try {
 			ACLMessage message = new ACLMessage(performative);

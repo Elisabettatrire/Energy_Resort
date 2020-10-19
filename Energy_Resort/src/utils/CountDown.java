@@ -20,11 +20,11 @@ public class CountDown {
 
 	    public void run() {
 	      if (duration > 0) {
-	        System.out.println("Restano " + duration + " minuti. TIC-TOC MADAFACKA!!!!!");
+	        System.out.println("Restano " + duration + " minuti.");
 	        duration--;
 	      }else
 	      {
-	        System.out.println("E' FINITO IL TEMPO, STRONZI!! MUAHAHAHAHAHAHAHAHAHAHAH!!!!");
+	        System.out.println("E' scaduto il tempo.");
 	        System.exit(0);
 	      }
 	    }

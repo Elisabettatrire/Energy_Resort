@@ -54,7 +54,7 @@ public class ResearchProviderBattery extends OneShotBehaviour {
 			});
 		} else {
 
-			System.out.println(this.myAgent.getLocalName() + ": Sono carica (a pallettoni)!!!!!!!!");
+			System.out.println(this.myAgent.getLocalName() + ": Sono di nuovo al massimo della carica.");
 
 			this.myAgent.addBehaviour(new CyclicBehaviour(this.myAgent) {
 

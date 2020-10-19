@@ -50,7 +50,7 @@ public class BatteryBehaviour extends OneShotBehaviour {
 //								50 - ((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"),
 //								battery.getBudget(), "Battery");
 						
-						System.out.println("i kw di battery sono: "+((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Battery"));
+						//System.out.println("i kw di battery sono: "+((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Battery"));
 						
 //						((BatteryAgent) myAgent).getDbBattery().updateProviderData(0, battery.getBatteryPrice(),
 //								battery.getBudget(), "Battery");

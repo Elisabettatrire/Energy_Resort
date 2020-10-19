@@ -27,11 +27,6 @@ public class ResearchProviderBehaviour extends OneShotBehaviour {
 
 	public void action() {
 
-//		System.out.println(this.myAgent.getLocalName() +
-//				": " + msg.getSender().getLocalName() + " dice: " + msg.getContent());
-//		
-//		
-
 		if (((BungalowAgent) myAgent).getBungalowDb()
 				.selectBestProvider(((BungalowAgent) myAgent).getBungalowDb()
 						.selectMinPrice(((BungalowAgent) myAgent).getBungalow()))
@@ -78,7 +73,7 @@ public class ResearchProviderBehaviour extends OneShotBehaviour {
 				.equals("Dso")
 				&& ((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()) > 0) {
 			
-			System.out.println(((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()));
+			//System.out.println(((BungalowAgent) myAgent).getBungalowDb().getMyEnReq(this.myAgent.getLocalName()));
 
 			this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 10000) {
 				protected void onWake() {
@@ -89,7 +84,7 @@ public class ResearchProviderBehaviour extends OneShotBehaviour {
 				}
 			});
 		} else {
-			System.out.println(this.myAgent.getLocalName() + ": SHTAPPOSHT!!!!!!!!");
+			System.out.println(this.myAgent.getLocalName() + ": Ho acquistato tutti i Kw del mio fabbisogno.");
 			this.myAgent.doDelete();
 		}
 	}

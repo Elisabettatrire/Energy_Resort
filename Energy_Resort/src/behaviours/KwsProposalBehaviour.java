@@ -44,23 +44,29 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + (solarDb.getMyKw(localSolar) + " Kw."));
 
+					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
+						protected void onWake() {
 					solarDb.updateConsumerData(solarDb.getConsumerEnReq(senderName) - solarDb.getMyKw(localSolar),
 							solarDb.getConsumerBudget(senderName)
 									- ((SolarAgent) myAgent).getSolar().getSolarPrice() * solarDb.getMyKw(localSolar),
 							senderName);
 
 					solarDb.updateProviderData(0, ((SolarAgent) myAgent).getSolar().getSolarPrice(), "Solar");
+						}});
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + solarDb.getConsumerEnReq(senderName) + " Kw.");
 
+					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
+						protected void onWake() {
 					solarDb.updateProviderData(solarDb.getMyKw(localSolar) - solarDb.getConsumerEnReq(senderName),
 							((SolarAgent) myAgent).getSolar().getSolarPrice(), "Solar");
 
 					solarDb.updateConsumerData(0, solarDb.getConsumerBudget(senderName)
 							- ((SolarAgent) myAgent).getSolar().getSolarPrice() * solarDb.getConsumerEnReq(senderName),
 							senderName);
+						}});
 
 				}
 				if (senderName.equals("Battery")) {
@@ -89,6 +95,8 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + (aeolianDb.getMyKw(localAeolian) + " Kw."));
 
+					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
+						protected void onWake() {
 					aeolianDb.updateConsumerData(
 							aeolianDb.getConsumerEnReq(senderName) - aeolianDb.getMyKw(localAeolian),
 							aeolianDb.getConsumerBudget(senderName)
@@ -97,11 +105,14 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 							senderName);
 
 					aeolianDb.updateProviderData(0, ((AeolianAgent) myAgent).getAeolian().getWindPrice(), "Aeolian");
+						}});
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + aeolianDb.getConsumerEnReq(senderName) + " Kw.");
 
+					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
+						protected void onWake() {
 					aeolianDb.updateProviderData(
 							aeolianDb.getMyKw(localAeolian) - aeolianDb.getConsumerEnReq(senderName),
 							((AeolianAgent) myAgent).getAeolian().getWindPrice(), "Aeolian");
@@ -111,6 +122,7 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 									- ((AeolianAgent) myAgent).getAeolian().getWindPrice()
 											* aeolianDb.getConsumerEnReq(senderName),
 							senderName);
+						}});
 
 				}
 				if (senderName.equals("Battery")) {
@@ -137,17 +149,22 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + (dsoDb.getMyKw(localDso) + " Kw."));
 
+					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
+						protected void onWake() {
 					dsoDb.updateConsumerData(dsoDb.getConsumerEnReq(senderName) - dsoDb.getMyKw(localDso),
 							dsoDb.getConsumerBudget(senderName)
 									- ((DsoAgent) myAgent).getDso().getDsoPrice() * dsoDb.getMyKw(localDso),
 							senderName);
 
 					dsoDb.updateProviderData(0, ((DsoAgent) myAgent).getDso().getDsoPrice(), "Dso");
+						}});
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + dsoDb.getConsumerEnReq(senderName) + " Kw.");
 
+					this.myAgent.addBehaviour(new WakerBehaviour(this.myAgent, 3000) {
+						protected void onWake() {
 					dsoDb.updateProviderData(dsoDb.getMyKw(localDso) - dsoDb.getConsumerEnReq(senderName),
 							((DsoAgent) myAgent).getDso().getDsoPrice(), "Dso");
 
@@ -155,6 +172,7 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 							dsoDb.getConsumerBudget(senderName)
 									- ((DsoAgent) myAgent).getDso().getDsoPrice() * dsoDb.getConsumerEnReq(senderName),
 							senderName);
+						}});
 
 				}
 				if (senderName.equals("Battery")) {
@@ -182,6 +200,7 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + (batteryDb.getMyKw(localBattery) + " Kw."));
 
+				
 					batteryDb.updateConsumerData(
 							batteryDb.getConsumerEnReq(senderName) - batteryDb.getMyKw(localBattery),
 							batteryDb.getConsumerBudget(senderName)
@@ -191,11 +210,13 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 
 					batteryDb.updateProviderData(0, ((BatteryAgent) myAgent).getBattery().getBatteryPrice(),
 							((BatteryAgent) myAgent).getBattery().getBudget(), "Battery");
+						
 
 				} else {
 					new BaseAgent().sendMessageToAgentsByServiceType(this.myAgent, msg.getSender(), "Finished",
 							"Vendo a te " + batteryDb.getConsumerEnReq(senderName) + " Kw.");
 
+				
 					batteryDb.updateProviderData(
 							batteryDb.getMyKw(localBattery) - batteryDb.getConsumerEnReq(senderName),
 							((BatteryAgent) myAgent).getBattery().getBatteryPrice(),
@@ -206,9 +227,11 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 									- ((BatteryAgent) myAgent).getBattery().getBatteryPrice()
 											* batteryDb.getConsumerEnReq(senderName),
 							senderName);
+				
 
 					if (batteryDb.getMyCapacity("Battery") <= 10) {
 
+					
 						batteryDb.updateConsumerData(
 								50 - ((BatteryAgent) myAgent).getDbBattery().getMyCapacity("Battery"),
 								((BatteryAgent) myAgent).getBattery().getBudget(), "Battery");
@@ -220,6 +243,7 @@ public class KwsProposalBehaviour extends OneShotBehaviour {
 								this.myAgent.addBehaviour(new ResearchProviderBattery(this.myAgent));
 							}
 						});
+							
 					}
 
 				}

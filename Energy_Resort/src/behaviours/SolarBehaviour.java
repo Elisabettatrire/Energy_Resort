@@ -21,9 +21,7 @@ import jade.lang.acl.UnreadableException;
 public class SolarBehaviour extends OneShotBehaviour {
 
 	SolarData solar;
-	int max = 3;
-	int min = 1;
-	int random_int = (int) (Math.random() * (max - min + 1) + min);
+	
 
 	public SolarBehaviour(Agent a, SolarData solar) {
 		super(a);
