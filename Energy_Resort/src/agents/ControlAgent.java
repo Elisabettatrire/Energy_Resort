@@ -28,7 +28,7 @@ public class ControlAgent extends BaseAgent {
 			protected void onTick() {
 
 				if (dbBunData.getMyEnReq("Bungalow1") == 0 && dbBunData.getMyEnReq("Bungalow2") == 0
-						&& dbBunData.getMyEnReq("Bungalow3") == 0 && dbBatteryData.getMyCapacity("Battery") != 0) {
+						&& dbBunData.getMyEnReq("Bungalow3") == 0 && dbBatteryData.getConsumerEnReq("Battery") == 0) {
 
 					System.out.println("Fine delle contrattazioni.");
 

@@ -13,10 +13,7 @@ import jade.core.behaviours.WakerBehaviour;
  * 
  * La batteria controlla quale tra Aeolian, Solar e Dso sia il fornitore che
  * propone il prezzo più basso e, se ha ancora dei kw da acquistare, allora
- * contatta il fornitore scelto per acquistare i kw di cui ha bisogno. Quando la
- * batteria si è ricaricata al massimo, aspetta che tutti gli agenti Bungalow
- * abbiano soddisfatto il proprio fabbisogno energetico e setta i suoi kw da
- * venditore a 50.
+ * contatta il fornitore scelto per acquistare i kw di cui ha bisogno. 
  */
 
 public class ResearchProviderBattery extends OneShotBehaviour {
@@ -64,25 +61,25 @@ public class ResearchProviderBattery extends OneShotBehaviour {
 									+ " Kw da te.");
 				}
 			});
-		} else {
-
-			System.out.println(this.myAgent.getLocalName() + ": Sono di nuovo al massimo della carica.");
-
-			this.myAgent.addBehaviour(new CyclicBehaviour(this.myAgent) {
-
-				public void action() {
-
-					if (((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Bungalow1") == 0
-							&& ((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Bungalow2") == 0
-							&& ((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Bungalow3") == 0) {
-						((BatteryAgent) myAgent).getDbBattery().updateProviderData(50,
-								((BatteryAgent) myAgent).getBattery().getBatteryPrice(),
-								((BatteryAgent) myAgent).getBattery().getBudget(), "Battery");
-					}
-
-				}
-			});
-
-		}
+	} //else {
+//
+//			System.out.println(this.myAgent.getLocalName() + ": Sono di nuovo al massimo della carica.");
+//
+//			this.myAgent.addBehaviour(new CyclicBehaviour(this.myAgent) {
+//
+//				public void action() {
+//
+//					if (((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Bungalow1") == 0
+//							&& ((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Bungalow2") == 0
+//							&& ((BatteryAgent) myAgent).getDbBattery().getConsumerEnReq("Bungalow3") == 0) {
+//						((BatteryAgent) myAgent).getDbBattery().updateProviderData(50,
+//								((BatteryAgent) myAgent).getBattery().getBatteryPrice(),
+//								((BatteryAgent) myAgent).getBattery().getBudget(), "Battery");
+//					}
+//
+//				}
+//			});
+//
+//		}
 	}
 }

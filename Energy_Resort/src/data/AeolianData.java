@@ -3,30 +3,28 @@ package data;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class AeolianData implements Serializable{
-	
+public class AeolianData implements Serializable {
+
 	private double windPrice;
 	private int windKw;
-	private int windForecast; //le previsioni del vento
+	private int windForecast; // le previsioni del vento
 	private int dayHour;
 	private int weekDay;
-	
-	
-	
+
 	public AeolianData(double windPrice, int windKw, int windForecast, int dayHour, int weekDay) {
 
 		this.windPrice = windPrice;
 		this.windKw = windKw;
 		this.windForecast = windForecast;
-		this.dayHour= dayHour;
-		this.weekDay= weekDay;
-		
+		this.dayHour = dayHour;
+		this.weekDay = weekDay;
+
 	}
-	
+
 	public AeolianData() {
-		
+
 	}
-	
+
 	public double getWindPrice() {
 		return windPrice;
 	}
@@ -50,7 +48,7 @@ public class AeolianData implements Serializable{
 	public void setWindForecast(int windForecast) {
 		this.windForecast = windForecast;
 	}
-	
+
 	public int getDayHour() {
 		return dayHour;
 	}
